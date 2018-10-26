@@ -36,6 +36,6 @@
         <Button Content="Power Pill" Grid.Column="1" Grid.Row="7"/>
         <Button Content="Current" Grid.Column="1" Grid.Row="5"/>
         <Button Content="¦&#x9;&#xD;&#xA;¦&#x9;&#xD;&#xA;¦&#x9;&#xD;&#xA;¦&#x9;" Grid.Column="1" Grid.Row="3"/>
-        <Button Content="------------&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" Grid.Column="1" Grid.Row="1"/>
+        <Button Content="------------&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" Grid.Column="1" Grid.Row="1" Click="Button_Click_1"/>
     </Grid>
 </Window>
