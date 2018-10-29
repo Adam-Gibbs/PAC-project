@@ -45,7 +45,17 @@ class Square:
             TempListB = list()
 
             if self.Walls[loop] == True:
-                TempListB.append(self.Coords[loop])
+                # Following fix for #0001 ----------------------
+
+                if loop < 2:
+                    TempListB.append(self.Coords[loop])
+                elif loop = 2:
+                    TempListB.append(self.Coords[3])
+                else:
+                    TempListB.append(self.Coords[0])
+
+                # ---------------------------------------------
+
                 if loop != 3:
                     TempListB.append(self.Coords[loop+1])
                 else:
