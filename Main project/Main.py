@@ -6,10 +6,13 @@ from Squares import Square
 clock = pygame.time.Clock()
 ExitBool = False
 
-S1 = Square([20,20],[170,-130],[True,False,True,True])
-S2 = Square([170,20],[320,-130],[True,False,True,True])
-S3 = Square([20,170],[170,20],[True,False,True,True])
-S4 = Square([170,170],[320,20],[True,False,True,True])
+S1 = Square([100,100],[0,0],[False,False,False,False],"E")
+S2 = Square([100,100],[0,0],[False,False,False,False],"E")
+S3 = Square([100,100],[0,0],[False,False,True,False],"E")
+S4 = Square([100,100],[0,0],[False,False,False,True],"E")
+# S2 = Square([170,20],[320,-130],[True,False,True,True])
+# S3 = Square([20,170],[170,20],[True,False,True,True])
+# S4 = Square([170,170],[320,20],[True,False,True,True])
 SList = [S1,S2,S3,S4]
 
 StartDisplay = pygame.display.set_mode((340, 340))
@@ -21,6 +24,9 @@ Black=(0,0,0)
 CList = [Red,Blue,Yellow,Black]
 
 StartDisplay.fill(White)
+
+def LoadMap():
+    pass
 
 for loop in range (0,4):
     temp = SList[loop].GiveCoordinates()
@@ -35,5 +41,5 @@ while not ExitBool:
         if event.type==pygame.QUIT:
             # if it is quit the game
             pygame.quit() 
-            exit(0) 
+            sys.exit
 

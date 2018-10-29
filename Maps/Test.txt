@@ -1,0 +1,3 @@
+3,2
+Adam
+T,F,F,T,E/T,T,F,F,E/T,F,F,T,P/T,T,F,F,E/F,F,F,T,E/F,F,T,F,S/F,F,F,F,S/F,T,F,F,E/F,F,T,T,E/F,T,T,F,G/F,F,T,T,E/F,T,T,F,U
