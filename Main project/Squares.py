@@ -48,17 +48,19 @@ class Square:
                 # Sets X/Y for top left of each wall
                 if loop < 2:
                     TempListB.append(self.Coords[loop])
-                elif loop = 2:
+                elif loop == 2:
                     TempListB.append(self.Coords[3])
                 else:
                     TempListB.append(self.Coords[0])
 
+                
                 if loop != 3:
                     TempListB.append(self.Coords[loop+1])
                 else:
                     TempListB.append(self.Coords[0])
             
             else:
+                # Provides null values for no walls
                 TempListB.append(Nothing)
                 TempListB.append(Nothing)
             

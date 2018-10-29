@@ -6,7 +6,7 @@ from Squares import Square
 clock = pygame.time.Clock()
 ExitBool = False
 
-S1 = Square([100,100],[0,0],[True,True,True,True],"E")
+S1 = Square([100,100],[0,0],[False,False,False,True],"E")
 S2 = Square([100,100],[0,0],[False,False,False,False],"E")
 S3 = Square([100,100],[0,0],[False,False,True,False],"E")
 S4 = Square([100,100],[0,0],[False,False,False,True],"E")
@@ -35,7 +35,7 @@ for loop in range (0,4):
     # print(temp[0][0],temp[0][1],SList[loop].GiveWidth(),SList[loop].GiveLength())
     # pygame.draw.rect(StartDisplay, CList[loop], (temp[0][0],temp[0][1],SList[loop].GiveWidth(),SList[loop].GiveLength()),10)
     print(S1.GiveWalls()[loop])
-    pygame.draw.rect(StartDisplay, CList[loop], S1.GiveWalls()[loop],10)
+    pygame.draw.rect(StartDisplay, CList[0], S1.GiveWalls()[loop],10)
 
 while not ExitBool:
     pygame.display.flip()
