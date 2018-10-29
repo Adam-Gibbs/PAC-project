@@ -53,7 +53,7 @@ class Square:
                 else:
                     TempList.append(self.Coords[0])
 
-                # Sets Width/Height for wall ---------------------------------
+                # Sets Width/Height for wall
                 WidthHeightList = list()
                 if loop != 3:    
                     # First appened value is the width, second is the height 
@@ -64,14 +64,6 @@ class Square:
                     WidthHeightList.append(abs(self.Coords[3][1]-self.Coords[0][1]))
                     
                 TempList.append(WidthHeightList)
-                # Working ----------------------------------------------
-                
-                # Previous (don't know what it is)----------------
-                if loop != 3:
-                    TempList.append(self.Coords[loop+1])
-                else:
-                    TempList.append(self.Coords[0])
-                # ------------------------------------------------
             
             else:
                 # Provides null values for no walls
