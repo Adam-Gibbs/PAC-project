@@ -28,13 +28,14 @@ StartDisplay.fill(White)
 def LoadMap():
     pass
 
-print(S1.GiveWalls()[0])
+
 
 for loop in range (0,4):
     temp = SList[loop].GiveCoordinates()
     # print(temp[0][0],temp[0][1],SList[loop].GiveWidth(),SList[loop].GiveLength())
-    pygame.draw.rect(StartDisplay, CList[loop], (temp[0][0],temp[0][1],SList[loop].GiveWidth(),SList[loop].GiveLength()),10)
-
+    # pygame.draw.rect(StartDisplay, CList[loop], (temp[0][0],temp[0][1],SList[loop].GiveWidth(),SList[loop].GiveLength()),10)
+    print(S1.GiveWalls()[loop])
+    pygame.draw.rect(StartDisplay, CList[loop], S1.GiveWalls()[loop],10)
 
 while not ExitBool:
     pygame.display.flip()
