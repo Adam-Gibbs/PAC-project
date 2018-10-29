@@ -36,7 +36,7 @@ for loop in range (3,4):
     # pygame.draw.rect(StartDisplay, CList[loop], (temp[0][0],temp[0][1],SList[loop].GiveWidth(),SList[loop].GiveLength()),10)
 
     print(temp[loop])
-    pygame.draw.rect(StartDisplay, CList[0], (temp[loop][0][0], temp[loop][0][1], 0, 100), 10)
+    pygame.draw.rect(StartDisplay, CList[0], (temp[loop][0][0], temp[loop][0][1], temp[loop][1][0], temp[loop][1][1]), 10)
 
 while not ExitBool:
     pygame.display.flip()
