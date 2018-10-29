@@ -45,16 +45,13 @@ class Square:
             TempListB = list()
 
             if self.Walls[loop] == True:
-                # Following fix for #0001 ----------------------
-
+                # Sets X/Y for top left of each wall
                 if loop < 2:
                     TempListB.append(self.Coords[loop])
                 elif loop = 2:
                     TempListB.append(self.Coords[3])
                 else:
                     TempListB.append(self.Coords[0])
-
-                # ---------------------------------------------
 
                 if loop != 3:
                     TempListB.append(self.Coords[loop+1])
