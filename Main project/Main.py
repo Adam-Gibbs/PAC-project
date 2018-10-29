@@ -28,6 +28,8 @@ StartDisplay.fill(White)
 def LoadMap():
     pass
 
+print(S1.GiveWalls())
+
 for loop in range (0,4):
     temp = SList[loop].GiveCoordinates()
     print(temp[0][0],temp[0][1],SList[loop].GiveWidth(),SList[loop].GiveLength())

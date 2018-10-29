@@ -5,11 +5,12 @@ class Square:
     CurrentlyContains = Ghost(15,"NotImg")
 
     def __init__(self, LocationTopLeft, LocationBottomRight, LocationWalls, Contents):
-        #LocationTopLeft/BottomRight = [x,y], LocationWalls = [12,3,6,9]
+        # LocationTopLeft/BottomRight = [x,y], LocationWalls = [12,3,6,9]
         self.SetCoords(LocationBottomRight,LocationTopLeft)
         self.Walls = LocationWalls
         self.Contnet = Contents
 
+    # priv
     def SetCoords(self,BottomRight,TopLeft):
         TopRight = list()
         TopRight.append(BottomRight[0])
