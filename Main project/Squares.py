@@ -74,12 +74,6 @@ class Square:
 
         return MasterList
 
-    def DrawSquare(self):
-        pass
-    
-    def DrawWalls(self):
-        pass
-
     def DrawPill(self):
         pass
 
