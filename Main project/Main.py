@@ -29,6 +29,11 @@ for loop in range (0,4):
 
 
 while not ExitBool:
-    pygame.display.update()
-    clock.tick(10)
+    pygame.display.flip()
+    for event in pygame.event.get():
+        # check if the event is the X button 
+        if event.type==pygame.QUIT:
+            # if it is quit the game
+            pygame.quit() 
+            exit(0) 
 
