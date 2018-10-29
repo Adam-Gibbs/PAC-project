@@ -3,16 +3,24 @@ from pygame.locals import *
 from MapStruct import Map
 #from Entities import Ghost
 
-CurrMap = Map([2,2])
+CurrMap = Map([4,3])
 clock = pygame.time.Clock()
 ExitBool = False
 
-CurrMap.InputSquare([170,20],[320,130],[False,False,False,False],"E",[0,0])
-CurrMap.InputSquare([170,20],[320,130],[True,True,True,True],"E",[0,1])
-CurrMap.InputSquare([20,170],[170,20],[False,False,False,False],"E",[1,0])
-CurrMap.InputSquare([170,170],[320,20],[False,False,False,False],"E",[1,1])
+CurrMap.InputSquare([20,20],[260,220],[True,True,True,True],"E",[0,0])
+CurrMap.InputSquare([260,20],[500,220],[True,True,True,True],"E",[1,0])
+CurrMap.InputSquare([500,20],[740,220],[True,True,True,True],"E",[2,0])
+CurrMap.InputSquare([740,20],[980,220],[True,True,True,True],"E",[3,0])
+CurrMap.InputSquare([20,220],[260,420],[True,True,True,True],"E",[0,1])
+CurrMap.InputSquare([260,220],[500,420],[True,True,True,True],"E",[1,1])
+CurrMap.InputSquare([500,220],[740,420],[True,True,True,True],"E",[2,1])
+CurrMap.InputSquare([740,220],[980,420],[True,True,True,True],"E",[3,1])
+CurrMap.InputSquare([20,420],[260,620],[True,True,True,True],"E",[0,2])
+CurrMap.InputSquare([260,420],[500,620],[True,True,True,True],"E",[1,2])
+CurrMap.InputSquare([500,420],[740,620],[True,True,True,True],"E",[2,2])
+CurrMap.InputSquare([740,420],[980,620],[True,True,True,True],"E",[3,2])
 
-StartDisplay = pygame.display.set_mode((340, 340))
+StartDisplay = pygame.display.set_mode((1000, 640))
 White=(255,255,255)
 Blue=(0, 0, 255)
 Red=(255,0,0)
@@ -29,10 +37,7 @@ for Row in range(CurrMap.GiveSize("X")):
     for Column in range(CurrMap.GiveSize("Y")):
         temp = CurrMap.GiveSquare([Row,Column]).GiveWalls()
         for wall in range (0,4):
-            # temp = SList[wall].GiveCoordinates()
-            # print(temp[0][0],temp[0][1],SList[wall].GiveWidth(),SList[wall].GiveLength())
-            # pygame.draw.rect(StartDisplay, CList[wall], (temp[0][0],temp[0][1],SList[wall].GiveWidth(),SList[wall].GiveLength()),10)
-
+            # Remember that rect = [TopLeft([X,Y]), width, height]
             pygame.draw.rect(StartDisplay, CList[0], (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)
 
 while not ExitBool:
