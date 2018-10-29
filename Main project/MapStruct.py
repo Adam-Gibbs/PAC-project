@@ -4,7 +4,7 @@ from Squares import Square
 class Map:
     def __init__(self, _size):
         self.Size = _size
-        self.Array = np.empty(self.Size, dtype=Square) # Creates an array of the inputted size, the datatype of the Square class
+        self.Array = numpy.empty(self.Size, dtype=object) # Creates an array of the inputted size, the datatype of the Square class
 
     def InputSquare(self, TopLeft, BottomRight, Walls, Contents, Location):
         X = Location[0]

@@ -3,7 +3,7 @@ from pygame.locals import *
 from MapStruct import Map
 #from Entities import Ghost
 
-CurrMap = Map([1,1])
+CurrMap = Map([2,2])
 clock = pygame.time.Clock()
 ExitBool = False
 
@@ -25,15 +25,15 @@ StartDisplay.fill(White)
 def LoadMap():
     pass
 
-for Row in range(CurrMap.GiveSize("X"))
-    for Collumn in range(CurrMap.GiveSize("Y"))
-        temp = CurrMap.GiveSquare([Row,Collumn]).GiveWalls()
+for Row in range(CurrMap.GiveSize("X")):
+    for Column in range(CurrMap.GiveSize("Y")):
+        temp = CurrMap.GiveSquare([Row,Column]).GiveWalls()
         for wall in range (0,4):
-            # temp = SList[loop].GiveCoordinates()
-            # print(temp[0][0],temp[0][1],SList[loop].GiveWidth(),SList[loop].GiveLength())
-            # pygame.draw.rect(StartDisplay, CList[loop], (temp[0][0],temp[0][1],SList[loop].GiveWidth(),SList[loop].GiveLength()),10)
+            # temp = SList[wall].GiveCoordinates()
+            # print(temp[0][0],temp[0][1],SList[wall].GiveWidth(),SList[wall].GiveLength())
+            # pygame.draw.rect(StartDisplay, CList[wall], (temp[0][0],temp[0][1],SList[wall].GiveWidth(),SList[wall].GiveLength()),10)
 
-            pygame.draw.rect(StartDisplay, CList[0], (temp[loop][0][0], temp[loop][0][1], temp[loop][1][0], temp[loop][1][1]), 10)
+            pygame.draw.rect(StartDisplay, CList[0], (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)
 
 while not ExitBool:
     pygame.display.flip()
