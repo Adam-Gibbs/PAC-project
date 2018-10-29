@@ -39,34 +39,48 @@ class Square:
 
     def GiveWalls(self):
         Nothing = [0,0]
-        TempListA = list()
+        MasterList = list()
 
         for loop in range(0,4):
-            TempListB = list()
+            TempList = list()
 
             if self.Walls[loop] == True:
                 # Sets X/Y for top left of each wall
                 if loop < 2:
-                    TempListB.append(self.Coords[loop])
+                    TempList.append(self.Coords[loop])
                 elif loop == 2:
-                    TempListB.append(self.Coords[3])
+                    TempList.append(self.Coords[3])
                 else:
-                    TempListB.append(self.Coords[0])
+                    TempList.append(self.Coords[0])
 
-                
-                if loop != 3:
-                    TempListB.append(self.Coords[loop+1])
+                # Sets Width/Height for wall ---------------------------------
+                WidthHeightList = list()
+                if loop != 3:    
+                    # First appened value is the width, second is the height 
+                    WidthHeightList.append(abs(self.Coords[loop][0]-self.Coords[loop+1][0]))
+                    WidthHeightList.append(abs(self.Coords[loop][1]-self.Coords[loop+1][1]))
                 else:
-                    TempListB.append(self.Coords[0])
+                    WidthHeightList.append(abs(self.Coords[3][0]-self.Coords[0][0]))
+                    WidthHeightList.append(abs(self.Coords[3][1]-self.Coords[0][1]))
+                    
+                TempList.append(WidthHeightList)
+                # Working ----------------------------------------------
+                
+                # Previous (don't know what it is)----------------
+                if loop != 3:
+                    TempList.append(self.Coords[loop+1])
+                else:
+                    TempList.append(self.Coords[0])
+                # ------------------------------------------------
             
             else:
                 # Provides null values for no walls
-                TempListB.append(Nothing)
-                TempListB.append(Nothing)
+                TempList.append(Nothing)
+                TempList.append(Nothing)
             
-            TempListA.append(TempListB)
+            MasterList.append(TempList)
 
-        return TempListA
+        return MasterList
 
     def DrawSquare(self):
         pass
