@@ -7,7 +7,7 @@ CurrMap = Map([4,3])
 clock = pygame.time.Clock()
 ExitBool = False
 
-CurrMap.InputSquare([20,20],[260,220],[True,False,False,True],"E",[0,0])
+CurrMap.InputSquare([20,20],[260,220],[True,False,False,True],"E",[0,0])    #0002
 CurrMap.InputSquare([260,20],[500,220],[True,True,False,False],"E",[1,0])
 CurrMap.InputSquare([500,20],[740,220],[True,False,False,True],"P",[2,0])
 CurrMap.InputSquare([740,20],[980,220],[True,True,False,False],"E",[3,0])
