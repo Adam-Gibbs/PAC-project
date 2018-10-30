@@ -2,7 +2,9 @@ import numpy
 from Squares import Square
 
 class Map:
-    def __init__(self, _size):
+    def __init__(self, _size, _name, _creator):
+        self.Creator = _creator
+        self.Name = _name
         self.Size = _size
         self.Array = numpy.empty(self.Size, dtype=object) # Creates an array of the inputted size, the datatype of the Square class
 
