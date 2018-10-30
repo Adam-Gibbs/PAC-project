@@ -1,13 +1,12 @@
 import pygame, sys
 from pygame.locals import *
 from MapStruct import Map
-#from Entities import Ghost
 
-CurrMap = Map([4,3])
+CurrMap = Map([4,3],"TestMap","Adam")
 clock = pygame.time.Clock()
 ExitBool = False
 
-CurrMap.InputSquare([20,20],[260,220],[True,False,False,True],"E",[0,0])    #0002
+CurrMap.InputSquare([20,20],[260,220],[True,False,False,True],"E",[0,0]) 
 CurrMap.InputSquare([260,20],[500,220],[True,True,False,False],"E",[1,0])
 CurrMap.InputSquare([500,20],[740,220],[True,False,False,True],"P",[2,0])
 CurrMap.InputSquare([740,20],[980,220],[True,True,False,False],"E",[3,0])
@@ -30,9 +29,6 @@ CList = [Red,Blue,Yellow,Black]
 
 StartDisplay.fill(White)
 
-def LoadMap():
-    pass
-
 for Row in range(CurrMap.GiveSize("X")):
     for Column in range(CurrMap.GiveSize("Y")):
         temp = CurrMap.GiveSquare([Row,Column]).GiveWalls()
@@ -44,7 +40,7 @@ while not ExitBool:
     pygame.display.flip()
     for event in pygame.event.get():
         # check if the event is the X button 
-        if event.type==pygame.QUIT:
+        if event.type == pygame.QUIT:
             # if it is quit the game
             pygame.quit() 
             sys.exit
