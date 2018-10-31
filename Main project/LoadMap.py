@@ -15,7 +15,10 @@ def LoadMap(FileName):
     CurrMap = Map(list(map(int, ReadData[0].split(","))), os.path.basename(FileName)[:-4], ReadData[1]) # List(map, converts list of strings to ints
                                                                                                         # Could use a list comprehension here instead
     # Now load in squares
-    while loop = True:
+    ReadData = ReadData[2].split("/")
+    TempData = list()
+    for loop in range (len(ReadData))
+        TempData = ReadData.split(",")
         
 
     return CurrMap
