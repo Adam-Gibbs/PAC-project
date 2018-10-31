@@ -3,7 +3,7 @@ from pygame.locals import *
 from MapStruct import Map
 #from Entities import Ghost
 
-CurrMap = Map([4,3])
+CurrMap = Map([4,3],"Test","Adam")
 clock = pygame.time.Clock()
 ExitBool = False
 
@@ -28,7 +28,7 @@ Yellow=(255,255,0)
 Black=(0,0,0)
 CList = [Red,Blue,Yellow,Black]
 
-StartDisplay.fill(White)
+StartDisplay.fill(Black)
 
 def LoadMap():
     pass
@@ -38,7 +38,7 @@ for Row in range(CurrMap.GiveSize("X")):
         temp = CurrMap.GiveSquare([Row,Column]).GiveWalls()
         for wall in range (0,4):
             # Remember that rect = [TopLeft([X,Y]), width, height]
-            pygame.draw.rect(StartDisplay, CList[0], (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)
+            pygame.draw.rect(StartDisplay, CList[1], (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)
 
 while not ExitBool:
     pygame.display.flip()
