@@ -2,11 +2,7 @@ import pygame, sys
 from pygame.locals import *
 from MapStruct import Map
 
-<<<<<<< HEAD
-CurrMap = Map([4,3],"Test","Adam")
-=======
 CurrMap = Map([4,3],"TestMap","Adam")
->>>>>>> 6a9bd483568296d5565155f70a6e2d46fdfb64ef
 clock = pygame.time.Clock()
 ExitBool = False
 
