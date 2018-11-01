@@ -35,6 +35,3 @@ while not ExitBool:
             pygame.quit() 
             sys.exit
 
-    "python.linting.pylintArgs": [
-        "----extension-pkg-whitelist=1xml"
-        ]
