@@ -57,11 +57,11 @@ class Square:
                 WidthHeightList = list()
                 if loop != 3:    
                     # First appened value is the width, second is the height 
-                    WidthHeightList.append((abs(self.Coords[loop][0]-self.Coords[loop+1][0]))/(loop+1))
-                    WidthHeightList.append((abs(self.Coords[loop][1]-self.Coords[loop+1][1]))/(loop+1))
+                    WidthHeightList.append(abs(self.Coords[loop][0]-self.Coords[loop+1][0]))
+                    WidthHeightList.append(abs(self.Coords[loop][1]-self.Coords[loop+1][1]))
                 else:
-                    WidthHeightList.append((abs(self.Coords[3][0]-self.Coords[0][0]))/(loop+1))
-                    WidthHeightList.append((abs(self.Coords[3][1]-self.Coords[0][1]))/(loop+1))
+                    WidthHeightList.append(abs(self.Coords[3][0]-self.Coords[0][0]))
+                    WidthHeightList.append(abs(self.Coords[3][1]-self.Coords[0][1]))
                     
                 TempList.append(WidthHeightList)
             
