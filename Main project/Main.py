@@ -42,8 +42,8 @@ def game_intro():
         TextRect.center = ((MapSize[0]/2),(MapSize[1]/2))
         StartDisplay.blit(TextSurf, TextRect)
 
-        button("GO!",150,450,100,50,DarkGreen,Green,Smaller)
-        button("Quit",550,450,100,50,DarkRed,Red,Quit)
+        button("GO!",White,150,450,100,50,Black,Black,Smaller)
+        button("Quit",White,550,450,100,50,Black,Black,Quit)
 
         pygame.display.update()
         clock.tick(15)
@@ -52,21 +52,21 @@ def text_objects(text, font):
     textSurface = font.render(text, True, Red)
     return textSurface, textSurface.get_rect()
 
-def button(msg,x,y,w,h,ic,ac,action=None):
+def button(msg, Msgcolour, x, y, width, height, Inactivecolour, Activecolour, action=None):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    print(click)
-    if x+w > mouse[0] > x and y+h > mouse[1] > y:
-        pygame.draw.rect(StartDisplay, ac,(x,y,w,h))
+
+    if x+width > mouse[0] > x and y+height > mouse[1] > y:
+        pygame.draw.rect(StartDisplay, Activecolour,(x,y,width,height))
 
         if click[0] == 1 and action != None:
             action()         
     else:
-        pygame.draw.rect(StartDisplay, ic,(x,y,w,h))
+        pygame.draw.rect(StartDisplay, Inactivecolour,(x,y,width,height))
 
     smallText = pygame.font.SysFont("comicsansms",20)
     textSurf, textRect = text_objects(msg, smallText)
-    textRect.center = ( (x+(w/2)), (y+(h/2)) )
+    textRect.center = ( (x+(width/2)), (y+(height/2)) )
     StartDisplay.blit(textSurf, textRect)
 
 StartDisplay.fill(Black)
