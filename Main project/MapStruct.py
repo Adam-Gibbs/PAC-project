@@ -28,7 +28,5 @@ class Map:
         X = Location[0]
         Y = Location[1]
 
-        return self.Array[X][Y]
-
-            
+        return self.Array[X][Y]            
             
