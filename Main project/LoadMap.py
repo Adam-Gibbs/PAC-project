@@ -27,6 +27,6 @@ def LoadMap(FileName, ScreenSize):
         Row = loop // Size[0]
         Column = loop % Size[0]
         
-        CurrMap.InputSquare([20+(Column*SquareSize[0]), 20+(Column*SquareSize[1])], [20+SquareSize[0]+(Column*SquareSize[0]), 20+SquareSize[1]+(Column*SquareSize[1])], [TempData[0],TempData[1],TempData[2],TempData[3]],TempData[4], [Column,Row]) 
+        CurrMap.InputSquare ([20+((Column+1)*SquareSize[0]), 20+(Row*SquareSize[1])], [20+SquareSize[0]+((Row+1)*SquareSize[0]), 20+SquareSize[1]+((Column+1)*SquareSize[1])], [TempData[0],TempData[1],TempData[2],TempData[3]],TempData[4], [Column,Row]) 
 
     return CurrMap
