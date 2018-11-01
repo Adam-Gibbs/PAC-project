@@ -21,8 +21,8 @@ StartDisplay.fill(Black)
 for Row in range(CurrMap.GiveSize("X")):
     for Column in range(CurrMap.GiveSize("Y")):
         temp = CurrMap.GiveSquare([Row,Column]).GiveWalls()
-        print(temp)
         for wall in range (0,4):
+            print ("Row", Row,", Column", Column, " Wall", wall, ": ", temp[wall])
             # Remember that rect = [TopLeft([X,Y]), width, height]
             pygame.draw.rect(StartDisplay, CList[1], (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)
 
