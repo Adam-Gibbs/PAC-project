@@ -21,7 +21,6 @@ def LoadMap(FileName, ScreenSize):
     TempData = list()
 
     SquareSize = [(ScreenSize[0]-40)/Size[0], (ScreenSize[1]-40)/Size[1]]
-    print("Sq Size: ", SquareSize)
 
     for loop in range (len(ReadData)):
         TempData = ReadData[loop].split(",")
