@@ -12,6 +12,7 @@ ExitBool = False
 StartDisplay = pygame.display.set_mode(MapSize, pygame.FULLSCREEN)
 White=(255,255,255)
 Blue=(0, 0, 255)
+DarkBlue=(50,50,200)
 Green=(0,255,0)
 DarkGreen=(50,200,50)
 Red=(255,0,0)
@@ -38,18 +39,16 @@ def EscapeMenu():
                 
         StartDisplay.fill(Black)
         largeText = pygame.font.SysFont("freesansbold.ttf",115)
-        TextSurf, TextRect = text_objects("A bit Racey", largeText)
-        TextRect.center = ((MapSize[0]/2),(MapSize[1]/2))
-        StartDisplay.blit(TextSurf, TextRect)
 
-        button("GO!",White,150,450,100,50,Black,Black,Smaller)
-        button("Quit",White,550,450,100,50,Black,Black,Quit)
+        button("Small",White,450,450,100,50,Black,DarkBlue,Smaller)
+        button("Big",White,650,450,100,50,Black,DarkBlue,Smaller)
+        button("Quit",White,550,450,100,50,Black,DarkBlue,Quit)
 
         pygame.display.update()
         clock.tick(15)
     
-def text_objects(text, font):
-    textSurface = font.render(text, True, Red)
+def text_objects(text, font, colour):
+    textSurface = font.render(text, True, colour)
     return textSurface, textSurface.get_rect()
 
 def button(msg, Msgcolour, x, y, width, height, Inactivecolour, Activecolour, action=None):
@@ -65,7 +64,7 @@ def button(msg, Msgcolour, x, y, width, height, Inactivecolour, Activecolour, ac
         pygame.draw.rect(StartDisplay, Inactivecolour,(x,y,width,height))
 
     smallText = pygame.font.SysFont("freesansbold.ttf",20)
-    textSurf, textRect = text_objects(msg, smallText)
+    textSurf, textRect = text_objects(msg, smallText, Msgcolour)
     textRect.center = ( (x+(width/2)), (y+(height/2)) )
     StartDisplay.blit(textSurf, textRect)
 
@@ -74,6 +73,10 @@ LoadDisplay()
 
 def Smaller():
     StartDisplay = pygame.display.set_mode(MapSize)
+    LoadDisplay()
+
+def Bigger():
+    StartDisplay = pygame.display.set_mode(MapSize, pygame.FULLSCREEN)
     LoadDisplay()
 
 def Quit():
