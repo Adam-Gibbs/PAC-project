@@ -73,10 +73,12 @@ LoadDisplay()
 
 def Smaller():
     StartDisplay = pygame.display.set_mode(MapSize)
+    intro = False
     LoadDisplay()
 
 def Bigger():
     StartDisplay = pygame.display.set_mode(MapSize, pygame.FULLSCREEN)
+    intro = False
     LoadDisplay()
 
 def Quit():
