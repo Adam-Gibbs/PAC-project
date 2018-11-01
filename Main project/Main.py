@@ -27,7 +27,7 @@ def LoadDisplay():
                 # Remember that rect = [TopLeft([X,Y]), width, height]
                 pygame.draw.rect(StartDisplay, Blue, (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)
 
-def game_intro():
+def EscapeMenu():
 
     intro = True
     while intro:
@@ -37,7 +37,7 @@ def game_intro():
                 quit()
                 
         StartDisplay.fill(Black)
-        largeText = pygame.font.SysFont("comicsansms",115)
+        largeText = pygame.font.SysFont("freesansbold.ttf",115)
         TextSurf, TextRect = text_objects("A bit Racey", largeText)
         TextRect.center = ((MapSize[0]/2),(MapSize[1]/2))
         StartDisplay.blit(TextSurf, TextRect)
@@ -64,7 +64,7 @@ def button(msg, Msgcolour, x, y, width, height, Inactivecolour, Activecolour, ac
     else:
         pygame.draw.rect(StartDisplay, Inactivecolour,(x,y,width,height))
 
-    smallText = pygame.font.SysFont("comicsansms",20)
+    smallText = pygame.font.SysFont("freesansbold.ttf",20)
     textSurf, textRect = text_objects(msg, smallText)
     textRect.center = ( (x+(width/2)), (y+(height/2)) )
     StartDisplay.blit(textSurf, textRect)
@@ -84,7 +84,7 @@ while not ExitBool:
     pygame.display.flip()
 
     if pygame.key.get_pressed()[K_ESCAPE]:
-        game_intro()    
+        EscapeMenu()    
 
     for event in pygame.event.get():
         # check if the event is the X button 
