@@ -40,7 +40,8 @@ class Button:
             pygame.draw.rect(self.Display, self.Colour[1], self.LocationInfo)
 
             if click[0] == 1 and self.Action != None:
-                self.Action()         
+                self.Action()
+
         else:
             pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
 
