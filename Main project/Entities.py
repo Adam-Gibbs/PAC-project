@@ -24,14 +24,15 @@ class Button:
         self.Display = _display
         self.LocationInfo = [_x, _y, _width, _height]
         self.Colour = [_inactivecolour, _activecolour]
-
+        self.MsgInfo = [_msg, _msgcolour]
         smallText = pygame.font.SysFont("freesansbold.ttf",20)
-        textSurf, textRect = TextObjects(_msg, smallText, [0,0,0])
-        textRect.center = ( (_x+(_width/2)), (_y+(_height/2)) )
+        textSurf, textRect = TextObjects(self.MsgInfo[0], smallText, self.MsgInfo[1])
+        textRect.center = ((_x+(_width/2)), (_y+(_height/2)))
+        self.TextSurf = textSurf
+        self.TextRect = textRect
         _display.blit(textSurf, textRect)
 
     def Check(self):
-        print("HI")
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
@@ -42,3 +43,5 @@ class Button:
                 self.Action()         
         else:
             pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
+
+        self.Display.blit(self.TextSurf, self.TextRect)

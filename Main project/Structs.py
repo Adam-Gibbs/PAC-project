@@ -1,7 +1,7 @@
 import numpy
 from Squares import Square
 
-class Map:
+class MapStruct:
     def __init__(self, _size, _name, _creator):
         self.Creator = _creator
         self.Name = _name
@@ -28,5 +28,14 @@ class Map:
         X = Location[0]
         Y = Location[1]
 
-        return self.Array[X][Y]            
+        return self.Array[X][Y] 
+
+class ButtonStruct:
+    def __init__(self):
+        self.EscapeButtons = [Button("Quit", White, 550, 450, 100, 50, Black, DarkBlue, StartDisplay, Quit), Button("Big", White, 650, 450, 100, 50, Black, DarkBlue, StartDisplay, Bigger), Button("Small", White, 450, 450, 100, 50, Black, DarkBlue, StartDisplay, Smaller)]
+
+    def GiveButtons(self, environment):
+        if environment = "escape":
+            return self.EscapeButtons
+               
             

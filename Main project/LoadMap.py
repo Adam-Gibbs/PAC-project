@@ -1,4 +1,4 @@
-from MapStruct import Map
+from Structs import MapStruct
 import os
 
 # load map file from here, reading each line, interpreting it to MapSturct
@@ -14,7 +14,7 @@ def LoadMap(FileName, ScreenSize):
     Size = list(map(int, ReadData[0].split(","))) # List(map, converts list of strings to ints. Could use a list comprehension here instead
 
     # Load in MetaData
-    CurrMap = Map(Size, os.path.basename(FileName)[:-4], ReadData[1]) 
+    CurrMap = MapStruct(Size, os.path.basename(FileName)[:-4], ReadData[1]) 
 
     # Now load in squares
     ReadData = ReadData[2].split("/")

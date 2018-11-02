@@ -1,6 +1,6 @@
 import pygame, sys
 from pygame.locals import *
-from MapStruct import *
+from Structs import *
 from LoadMap import *
 from Entities import *
 
@@ -9,6 +9,7 @@ pygame.init()
 CurrMap = LoadMap("Maps\Test.txt", MapSize)
 clock = pygame.time.Clock()
 ExitBool = False
+Menu = None
 
 StartDisplay = pygame.display.set_mode(MapSize, pygame.FULLSCREEN)
 White=(255,255,255)
@@ -20,9 +21,9 @@ Red=(255,0,0)
 DarkRed=(200,50,50)
 Yellow=(255,255,0)
 Black=(0,0,0)
-intro = True
 
-def LoadDisplay():
+def LoadGame():
+    StartDisplay.fill(Black)
     for Row in range(CurrMap.GiveSize("X")):
         for Column in range(CurrMap.GiveSize("Y")):
             temp = CurrMap.GiveSquare([Row,Column]).GiveWalls()
@@ -30,39 +31,21 @@ def LoadDisplay():
                 # Remember that rect = [TopLeft([X,Y]), width, height]
                 pygame.draw.rect(StartDisplay, Blue, (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)
 
-def EscapeMenu():
-
-    intro = True
-    ButtonList = [Button("Quit", White, 550, 450, 100, 50, Black, DarkBlue, StartDisplay, Quit), Button("Big", White, 650, 450, 100, 50, Black, DarkBlue, StartDisplay, Bigger), Button("Small", White, 450, 450, 100, 50, Black, DarkBlue, StartDisplay, Smaller)]
-    while intro:
-        print(intro)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-                
-        StartDisplay.fill(Black)
-        largeText = pygame.font.SysFont("freesansbold.ttf",115)
-
-        for item in ButtonList:
-            item.Check()
-
-        pygame.display.update()
-        clock.tick(15)
+def LoadMenu(Mode):
+    for item in ButtonStruct.GiveButtons(Mode):
+        item.Check()           
 
 StartDisplay.fill(Black)
 LoadDisplay()
 
 def Smaller():
     StartDisplay = pygame.display.set_mode(MapSize)
-    intro = False
-    print(intro)
+    Menu = None
     LoadDisplay()
 
 def Bigger():
     StartDisplay = pygame.display.set_mode(MapSize, pygame.FULLSCREEN)
-    intro = False
-    print(intro)
+    Menu = None
     LoadDisplay()
 
 def Quit():
@@ -70,13 +53,18 @@ def Quit():
     sys.exit
 
 while not ExitBool:
-    pygame.display.flip()
-
     if pygame.key.get_pressed()[K_ESCAPE]:
-        EscapeMenu()    
+        Menu = "Escape"   
 
     for event in pygame.event.get():
         # check if the event is the X button 
         if event.type == pygame.QUIT:
+            ExitBool = True
             # if it is quit the game
             Quit()
+
+    if Menu != None:
+        LoadMenu(Menu)
+
+    pygame.display.update()
+    clock.tick(15)
