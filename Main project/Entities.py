@@ -33,6 +33,7 @@ class Button:
         _display.blit(textSurf, textRect)
 
     def Check(self):
+
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
@@ -41,8 +42,13 @@ class Button:
 
             if click[0] == 1 and self.Action != None:
                 self.Action()
+                return True
 
         else:
             pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
-
+            
         self.Display.blit(self.TextSurf, self.TextRect)
+        print("GO", self.MsgInfo[0])
+        return False
+        
+

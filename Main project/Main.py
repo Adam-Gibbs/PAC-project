@@ -35,18 +35,21 @@ def LoadGame():
 def LoadMenu(Mode):
    if Mode == "Escape":
         for item in EscapeButtons:
-            item.Check()  
+            if item.Check() == True:
+                return  
 
 def Smaller():
     StartDisplay = pygame.display.set_mode(MapSize)
     global Menu
     Menu = None
+    print("Done1")
     LoadGame()
 
 def Bigger():
     StartDisplay = pygame.display.set_mode(MapSize, pygame.FULLSCREEN)
     global Menu
     Menu = None
+    print("Done2")
     LoadGame()
 
 def Quit():
