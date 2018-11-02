@@ -19,6 +19,7 @@ Red=(255,0,0)
 DarkRed=(200,50,50)
 Yellow=(255,255,0)
 Black=(0,0,0)
+intro = True
 
 def LoadDisplay():
     for Row in range(CurrMap.GiveSize("X")):
@@ -32,6 +33,7 @@ def EscapeMenu():
 
     intro = True
     while intro:
+        print(intro)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -56,7 +58,7 @@ def button(msg, Msgcolour, x, y, width, height, Inactivecolour, Activecolour, ac
     click = pygame.mouse.get_pressed()
 
     if x+width > mouse[0] > x and y+height > mouse[1] > y:
-        pygame.draw.rect(StartDisplay, Activecolour,(x,y,width,height))
+        pygame.draw.rect(StartDisplay, Activecolour, (x,y,width,height))
 
         if click[0] == 1 and action != None:
             action()         
@@ -74,11 +76,13 @@ LoadDisplay()
 def Smaller():
     StartDisplay = pygame.display.set_mode(MapSize)
     intro = False
+    print(intro)
     LoadDisplay()
 
 def Bigger():
     StartDisplay = pygame.display.set_mode(MapSize, pygame.FULLSCREEN)
     intro = False
+    print(intro)
     LoadDisplay()
 
 def Quit():
