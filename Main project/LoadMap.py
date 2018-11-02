@@ -1,22 +1,22 @@
-from Structs import *
+from Structs import MapStruct
 import os
 
-# load map file from here, reading each line, interpreting it to MapSturct
+# load map file from here, reading each line, interpreting it to MapSturct.
 
 def LoadMap(FileName, ScreenSize):
     ReadData = list()
 
-    # Load in File to memory
-    with open(FileName) as infile:       # Context manager, automatically closes file
+    # Load in File to memory:
+    with open(FileName) as infile:                  # Context manager, automatically closes file.
         for line in infile:
             ReadData.append(line.strip("\n"))
 
-    Size = list(map(int, ReadData[0].split(","))) # List(map, converts list of strings to ints. Could use a list comprehension here instead
+    Size = list(map(int, ReadData[0].split(",")))   # List(map, converts list of strings to ints. Could use a list comprehension here instead.
 
-    # Load in MetaData
-    CurrMap = Structs.MapStruct(Size, os.path.basename(FileName)[:-4], ReadData[1]) 
+    # Then load in MetaData:
+    CurrMap = MapStruct(Size, os.path.basename(FileName)[:-4], ReadData[1]) 
 
-    # Now load in squares
+    # Now load in squares:
     ReadData = ReadData[2].split("/")
     TempData = list()
 
