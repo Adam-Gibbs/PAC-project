@@ -1,5 +1,7 @@
 import numpy
 from Squares import Square
+from Entities import Button
+from Main import Quit, Smaller, Bigger
 
 class MapStruct:
     def __init__(self, _size, _name, _creator):
@@ -31,10 +33,10 @@ class MapStruct:
         return self.Array[X][Y] 
 
 class ButtonStruct:
-    def __init__(self):
-        self.EscapeButtons = [Button("Quit", White, 550, 450, 100, 50, Black, DarkBlue, StartDisplay, Quit), Button("Big", White, 650, 450, 100, 50, Black, DarkBlue, StartDisplay, Bigger), Button("Small", White, 450, 450, 100, 50, Black, DarkBlue, StartDisplay, Smaller)]
+    def __init__(self, Colour, Display):
+        self.EscapeButtons = [Button("Quit", Colour[0], 550, 450, 100, 50, Colour[8], Colour[2], Display, Quit), Button("Big", Colour[0], 650, 450, 100, 50, Colour[8], Colour[2], Display, Bigger), Button("Small", Colour[0], 450, 450, 100, 50, Colour[8], Colour[2], Display, Smaller)]
 
-    def GiveButtons(self, environment):
+    def GiveButtons(self, Environment):
         if environment == "escape":
             return self.EscapeButtons
                

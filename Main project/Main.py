@@ -4,14 +4,14 @@ from Structs import *
 from LoadMap import *
 from Entities import *
 
-MapSize = [1366, 768]
+MapSize = [936, 178]
 pygame.init()
 CurrMap = LoadMap("Maps\Test.txt", MapSize)
 clock = pygame.time.Clock()
 ExitBool = False
 Menu = None
 
-StartDisplay = pygame.display.set_mode(MapSize, pygame.FULLSCREEN)
+StartDisplay = pygame.display.set_mode(MapSize)
 White=(255,255,255)
 Blue=(0, 0, 255)
 DarkBlue=(50,50,200)
@@ -21,6 +21,7 @@ Red=(255,0,0)
 DarkRed=(200,50,50)
 Yellow=(255,255,0)
 Black=(0,0,0)
+Colours=[White, Blue, DarkBlue, Green, DarkGreen, Red, DarkRed, Yellow, Black]
 
 def LoadGame():
     StartDisplay.fill(Black)
@@ -29,15 +30,16 @@ def LoadGame():
             temp = CurrMap.GiveSquare([Row,Column]).GiveWalls()
             for wall in range (0,4):
                 # Remember that rect = [TopLeft([X,Y]), width, height]
-                pygame.draw.rect(StartDisplay, Blue, (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)
+                pygame.draw.rect(StartDisplay, Blue, (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)         
+
+BttnData = ButtonStruct(Colours, StartDisplay)
+StartDisplay.fill(Black)
+LoadGame()
 
 def LoadMenu(Mode):
     print(Mode)
-    for item in ButtonStruct.GiveButtons(Mode):
-        item.Check()           
-
-StartDisplay.fill(Black)
-LoadGame()
+    for item in BttnData.GiveButtons(Mode):
+        item.Check()  
 
 def Smaller():
     StartDisplay = pygame.display.set_mode(MapSize)
