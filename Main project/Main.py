@@ -33,7 +33,7 @@ def LoadDisplay():
 def EscapeMenu():
 
     intro = True
-    ButtonList = [Button("Quit", White, 550, 450, 100, 50, Black, DarkBlue, StartDisplay, Main.Quit), Button("Big", White, 650, 450, 100, 50, Black, DarkBlue, StartDisplay, Main.Bigger), Button("Small", White, 450, 450, 100, 50, Black, DarkBlue, StartDisplay, Main.Smaller)]
+    ButtonList = [Button("Quit", White, 550, 450, 100, 50, Black, DarkBlue, StartDisplay, Quit), Button("Big", White, 650, 450, 100, 50, Black, DarkBlue, StartDisplay, Bigger), Button("Small", White, 450, 450, 100, 50, Black, DarkBlue, StartDisplay, Smaller)]
     while intro:
         print(intro)
         for event in pygame.event.get():

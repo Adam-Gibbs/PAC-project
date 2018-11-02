@@ -38,7 +38,7 @@ class Button:
         if self.LocationInfo[0] + self.LocationInfo[2] > mouse[0] > self.LocationInfo[0] and self.LocationInfo[1] + self.LocationInfo[3] > mouse[1] > self.LocationInfo[1]:
             pygame.draw.rect(self.Display, self.Colour[1], self.LocationInfo)
 
-            if click[0] == 1 and action != None:
-                action()         
+            if click[0] == 1 and self.Action != None:
+                self.Action()         
         else:
             pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
