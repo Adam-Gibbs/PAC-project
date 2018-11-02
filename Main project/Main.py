@@ -32,11 +32,12 @@ def LoadGame():
                 pygame.draw.rect(StartDisplay, Blue, (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)
 
 def LoadMenu(Mode):
+    print(Mode)
     for item in ButtonStruct.GiveButtons(Mode):
         item.Check()           
 
 StartDisplay.fill(Black)
-LoadDisplay()
+LoadGame()
 
 def Smaller():
     StartDisplay = pygame.display.set_mode(MapSize)
@@ -59,7 +60,7 @@ while not ExitBool:
     for event in pygame.event.get():
         # check if the event is the X button 
         if event.type == pygame.QUIT:
-            ExitBool = True
+            ExitBool == True
             # if it is quit the game
             Quit()
 
