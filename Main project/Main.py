@@ -2,8 +2,9 @@ import pygame, sys
 from pygame.locals import *
 from MapStruct import *
 from LoadMap import *
+from Entities import *
 
-MapSize = [1680, 1050]
+MapSize = [1366, 768]
 pygame.init()
 CurrMap = LoadMap("Maps\Test.txt", MapSize)
 clock = pygame.time.Clock()
@@ -32,6 +33,7 @@ def LoadDisplay():
 def EscapeMenu():
 
     intro = True
+    ButtonList = [Button("Quit", White, 550, 450, 100, 50, Black, DarkBlue, StartDisplay, Main.Quit), Button("Big", White, 650, 450, 100, 50, Black, DarkBlue, StartDisplay, Main.Bigger), Button("Small", White, 450, 450, 100, 50, Black, DarkBlue, StartDisplay, Main.Smaller)]
     while intro:
         print(intro)
         for event in pygame.event.get():
@@ -42,33 +44,11 @@ def EscapeMenu():
         StartDisplay.fill(Black)
         largeText = pygame.font.SysFont("freesansbold.ttf",115)
 
-        button("Small",White,450,450,100,50,Black,DarkBlue,Smaller)
-        button("Big",White,650,450,100,50,Black,DarkBlue,Smaller)
-        button("Quit",White,550,450,100,50,Black,DarkBlue,Quit)
+        for item in ButtonList:
+            item.Check()
 
         pygame.display.update()
         clock.tick(15)
-    
-def text_objects(text, font, colour):
-    textSurface = font.render(text, True, colour)
-    return textSurface, textSurface.get_rect()
-
-def button(msg, Msgcolour, x, y, width, height, Inactivecolour, Activecolour, action=None):
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-
-    if x+width > mouse[0] > x and y+height > mouse[1] > y:
-        pygame.draw.rect(StartDisplay, Activecolour, (x,y,width,height))
-
-        if click[0] == 1 and action != None:
-            action()         
-    else:
-        pygame.draw.rect(StartDisplay, Inactivecolour,(x,y,width,height))
-
-    smallText = pygame.font.SysFont("freesansbold.ttf",20)
-    textSurf, textRect = text_objects(msg, smallText, Msgcolour)
-    textRect.center = ( (x+(width/2)), (y+(height/2)) )
-    StartDisplay.blit(textSurf, textRect)
 
 StartDisplay.fill(Black)
 LoadDisplay()

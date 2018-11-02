@@ -1,3 +1,6 @@
+from GeneralSubs import TextObjects
+import pygame
+
 class Ghost:
         
     def __init__(self, GivenLocation, SetImage):
@@ -16,20 +19,26 @@ class Pill:
     pass
 
 class Button:
-    def __init__(msg, Msgcolour, x, y, width, height, Inactivecolour, Activecolour, action=None):
+    def __init__(self, _msg, _msgcolour, _x, _y, _width, _height, _inactivecolour, _activecolour, _display, _action=None):
+        self.Action = _action
+        self.Display = _display
+        self.LocationInfo = [_x, _y, _width, _height]
+        self.Colour = [_inactivecolour, _activecolour]
+
+        smallText = pygame.font.SysFont("freesansbold.ttf",20)
+        textSurf, textRect = TextObjects(_msg, smallText, [0,0,0])
+        textRect.center = ( (_x+(_width/2)), (_y+(_height/2)) )
+        _display.blit(textSurf, textRect)
+
+    def Check(self):
+        print("HI")
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
-        if x+width > mouse[0] > x and y+height > mouse[1] > y:
-            pygame.draw.rect(StartDisplay, Activecolour, (x,y,width,height))
+        if self.LocationInfo[0] + self.LocationInfo[2] > mouse[0] > self.LocationInfo[0] and self.LocationInfo[1] + self.LocationInfo[3] > mouse[1] > self.LocationInfo[1]:
+            pygame.draw.rect(self.Display, self.Colour[1], self.LocationInfo)
 
             if click[0] == 1 and action != None:
                 action()         
         else:
-            pygame.draw.rect(StartDisplay, Inactivecolour,(x,y,width,height))
-
-        smallText = pygame.font.SysFont("freesansbold.ttf",20)
-        textSurf, textRect = text_objects(msg, smallText, Msgcolour)
-        textRect.center = ( (x+(width/2)), (y+(height/2)) )
-        StartDisplay.blit(textSurf, textRect)
-    
+            pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
