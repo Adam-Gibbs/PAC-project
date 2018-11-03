@@ -1,5 +1,4 @@
 from GeneralSubs import TextObjects
-from pygame.locals import *
 import pygame
 
 class Ghost:
@@ -32,24 +31,28 @@ class Button:
         self.TextSurf = textSurf
         self.TextRect = textRect
         _display.blit(textSurf, textRect)
+        self.Clicked = False
 
     def Check(self):
 
         ToGive = None
         mouse = pygame.mouse.get_pos()
-        ev = pygame.event.get()
+        click = pygame.mouse.get_pressed()
 
         if self.LocationInfo[0] + self.LocationInfo[2] > mouse[0] > self.LocationInfo[0] and self.LocationInfo[1] + self.LocationInfo[3] > mouse[1] > self.LocationInfo[1]:
             pygame.draw.rect(self.Display, self.Colour[1], self.LocationInfo)
 
-            for event in ev:
-                if  event.type == pygame.MOUSEBUTTONUP and self.Action != None:
-                    ToGive = self.Action
+            if click[0] == 1 and self.Action != None and self.Clicked == False:
+                ToGive = self.Action
+                self.Clicked = True
+
+            elif self.Clicked == True:
+                if click[0] != 1:
+                    self.Clicked = False
 
         else:
             pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
                         
         self.Display.blit(self.TextSurf, self.TextRect)
         return ToGive
-        
 
