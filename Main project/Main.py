@@ -41,6 +41,7 @@ def LoadMenu(Mode):
     ActionList = list()
 
     if Mode == "Escape":
+        HideSubMenu()
         for item in EscapeButtons:
             ActionList.append(item.Check())
 
@@ -88,12 +89,11 @@ def ToggleFPS():
 def ToggleResolution():
     global Menu
     if Menu == "Resolution":
-        Mode = "Escape"
+        Menu = "Escape"
         HideSubMenu()
 
     else:
         Menu = "Resolution"
-        LoadMenu(Menu)
 
 ButtonProperties = [(0.5*(DisplaySize[0]))-((0.3*DisplaySize[0])/2), (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0], (DisplaySize[1]-150)/7] # X, Length, Width, GapTillNext
 
@@ -129,17 +129,17 @@ while not ExitBool:
 
     if Menu != None:
         StartDisplay.fill(Black)
-        largeText = pygame.font.SysFont('freesansbold.ttf',60)
+        largeText = pygame.font.Font('freesansbold.ttf',60)
         TextSurf, TextRect = TextObjects("Debug Menu", largeText, Blue)
         TextRect.center = ((DisplaySize[0]/2),(35))
         StartDisplay.blit(TextSurf, TextRect)
         LoadMenu(Menu)
 
     if ActiveFPS == True:
-        FPSText = pygame.font.Font('freesansbold.ttf',1)
-        TextSurf, TextRect = TextObjects(str(round(clock.get_fps(),1)), largeText, Yellow)
+        FPSText = pygame.font.Font('freesansbold.ttf',25)
+        TextSurf, TextRect = TextObjects(str(round(clock.get_fps(),1)), FPSText, Yellow)
         TextRect.center = (40,20)
         StartDisplay.blit(TextSurf, TextRect)
 
     pygame.display.update()
-    clock.tick(15)
+    clock.tick(30)
