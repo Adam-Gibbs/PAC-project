@@ -38,21 +38,29 @@ def LoadGame():
     pygame.display.update()
 
 def LoadMenu(Mode):
+    ActionList = list()
+
     if Mode == "Escape":
         for item in EscapeButtons:
-            if item.Check() == True:
-                return
+            ActionList.append(item.Check())
+
+        for item in ActionList:
+            if item != None:
+                item()
 
     elif Mode == "Resolution":
         for item in EscapeButtons:
-            if item.Check() == True:
-                return
+            ActionList.append(item.Check())
         
         for item in ResolutionButtons:
-            if item.Check() == True:
-                HideSubMenu()
-                return
+            ActionList.append(item.Check())
         
+        for item in ActionList:
+            if item != None:
+                item()
+                HideSubMenu()
+        
+
 
 def ToggleFullscreen():
     global Fullscreen

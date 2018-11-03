@@ -41,13 +41,12 @@ class Button:
             pygame.draw.rect(self.Display, self.Colour[1], self.LocationInfo)
 
             if click[0] == 1 and self.Action != None:
-                self.Action()
-                return True
+                return self.Action
 
         else:
             pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
             
         self.Display.blit(self.TextSurf, self.TextRect)
-        return False
+        return None
         
 
