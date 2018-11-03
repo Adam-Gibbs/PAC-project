@@ -34,6 +34,7 @@ class Button:
 
     def Check(self):
 
+        ToGive = None
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
 
@@ -41,12 +42,12 @@ class Button:
             pygame.draw.rect(self.Display, self.Colour[1], self.LocationInfo)
 
             if click[0] == 1 and self.Action != None:
-                return self.Action
+                ToGive = self.Action
 
         else:
             pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
-            
+                        
         self.Display.blit(self.TextSurf, self.TextRect)
-        return None
+        return ToGive
         
 
