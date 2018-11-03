@@ -19,18 +19,22 @@ class Pill:
     pass
 
 class Button:
-    def __init__(self, _msg, _msgcolour, _x, _y, _width, _height, _inactivecolour, _activecolour, _display, _action=None, _parse=None):
+    def __init__(self, _msg, _msgcolour, _x, _y, _width, _height, _inactivecolour, _activecolour, _display, _action=None):
         self.Action = _action
         self.Display = _display
+
         self.LocationInfo = [_x, _y, _width, _height]
         self.Colour = [_inactivecolour, _activecolour]
         self.MsgInfo = [_msg, _msgcolour]
+
         smallText = pygame.font.SysFont("freesansbold.ttf",20)
         textSurf, textRect = TextObjects(self.MsgInfo[0], smallText, self.MsgInfo[1])
         textRect.center = ((_x+(_width/2)), (_y+(_height/2)))
+
         self.TextSurf = textSurf
         self.TextRect = textRect
         _display.blit(textSurf, textRect)
+
         self.Clicked = False
 
     def Check(self):

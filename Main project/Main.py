@@ -6,10 +6,11 @@ from Entities import *
 from GeneralSubs import *
 
 clock = pygame.time.Clock()
+CurDir = "Maps\Test.txt"
 
 DisplaySize = [1200, 800]
 pygame.init()
-CurrMap = LoadMap("Maps\Test.txt", DisplaySize)
+CurrMap = LoadMap(CurDir, DisplaySize)
 clock = pygame.time.Clock()
 ExitBool = False
 Menu = None
@@ -39,6 +40,7 @@ def LoadGame():
 
 def LoadMenu(Mode):
     ActionList = list()
+    ResActionList = list()
 
     if Mode == "Escape":
         for item in EscapeButtons:
@@ -49,24 +51,35 @@ def LoadMenu(Mode):
                 item()                
 
     elif Mode == "Resolution":
+        global Menu
         for item in EscapeButtons:
             ActionList.append(item.Check())
         
         for item in ResolutionButtons:
-            ActionList.append(item.Check())
+            ResActionList.append(item.Check())
+
+        for item in ResActionList:
+            if item != None:
+                SetResolution(item)
+                Menu = "Escape"     
         
         for item in ActionList:
             if item != None:
-                item()       
+                item()  
+                Menu = "Escape"     
         
 def ToggleFullscreen():
     global Fullscreen
     if Fullscreen == True:
         StartDisplay = pygame.display.set_mode(DisplaySize)
+        Fullscreen = False
+        
     else:
         StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+        Fullscreen = True
 
 def Return():
+    CurrMap = LoadMap(CurDir, DisplaySize)
     global Menu
     Menu = None
     LoadGame()
@@ -79,6 +92,18 @@ def ToggleFPS():
     global ActiveFPS
     ActiveFPS = not ActiveFPS
 
+def SetResolution(Res):
+    global DisplaySize
+    DisplaySize = Res
+
+    if Fullscreen == False:
+        StartDisplay = pygame.display.set_mode(DisplaySize)
+    else:
+        StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+
+    SetButtons()
+    LoadMenu(Menu)
+
 def ToggleResolution():
     global Menu
     if Menu == "Resolution":
@@ -87,24 +112,27 @@ def ToggleResolution():
     else:
         Menu = "Resolution"
 
-ButtonProperties = [(0.5*(DisplaySize[0]))-((0.3*DisplaySize[0])/2), (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0], (DisplaySize[1]-150)/7] # X, Length, Width, GapTillNext
+def SetButtons():
+    ButtonProperties = [(0.5*(DisplaySize[0]))-((0.3*DisplaySize[0])/2), (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0], (DisplaySize[1]-150)/7] # X, Length, Width, GapTillNext
+    global EscapeButtons, ResolutionButtons
 
-EscapeButtons = [Button("Change Map", White, ButtonProperties[0], 100, ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
-                Button("Resolution", White, ButtonProperties[0], 100+ButtonProperties[3], ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleResolution),
-                Button("Toggle Fullscreen", White, ButtonProperties[0], 100+(ButtonProperties[3]*2), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleFullscreen),
-                Button("Toggle FPS", White, ButtonProperties[0], 100+(ButtonProperties[3]*3), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleFPS),
-                Button("UI Scale", White, ButtonProperties[0], 100+(ButtonProperties[3]*4), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
-                Button("Return", White, ButtonProperties[0], 100+(ButtonProperties[3]*5), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, Return),
-                Button("Quit", White, ButtonProperties[0], 100+(ButtonProperties[3]*6), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, Quit)] 
+    EscapeButtons = [Button("Change Map", White, ButtonProperties[0], 100, ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                    Button("Resolution", White, ButtonProperties[0], 100+ButtonProperties[3], ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleResolution),
+                    Button("Toggle Fullscreen", White, ButtonProperties[0], 100+(ButtonProperties[3]*2), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleFullscreen),
+                    Button("Toggle FPS", White, ButtonProperties[0], 100+(ButtonProperties[3]*3), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleFPS),
+                    Button("UI Scale", White, ButtonProperties[0], 100+(ButtonProperties[3]*4), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                    Button("Return", White, ButtonProperties[0], 100+(ButtonProperties[3]*5), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, Return),
+                    Button("Quit", White, ButtonProperties[0], 100+(ButtonProperties[3]*6), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, Quit)] 
 
-ResolutionButtons = [Button("640x480", White, 20, 100, ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
-                    Button("1024x768", White, 20, 100+ButtonProperties[3], ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
-                    Button("1280x1024", White, 20, 100+(ButtonProperties[3]*2), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
-                    Button("1440x900", White, 20, 100+(ButtonProperties[3]*3), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
-                    Button("1680x1050", White, 20, 100+(ButtonProperties[3]*4), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
-                    Button("1920x1200", White, 20, 100+(ButtonProperties[3]*5), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
-                    Button("Auto", White, 20, 100+(ButtonProperties[3]*6), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay)]                 
+    ResolutionButtons = [Button("640x480", White, 20, 100, ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [640, 480]),
+                        Button("1024x768", White, 20, 100+ButtonProperties[3], ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [1024, 768]),
+                        Button("1280x1024", White, 20, 100+(ButtonProperties[3]*2), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [1280, 1024]),
+                        Button("1440x900", White, 20, 100+(ButtonProperties[3]*3), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [1440, 900]),
+                        Button("1680x1050", White, 20, 100+(ButtonProperties[3]*4), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [1680, 1050]),
+                        Button("1920x1200", White, 20, 100+(ButtonProperties[3]*5), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [1920, 1200]),
+                        Button("Auto", White, 20, 100+(ButtonProperties[3]*6), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [pygame.display.Info().current_w, pygame.display.Info().current_h])]                 
 
+SetButtons()
 StartDisplay.fill(Black)
 LoadGame()
 
