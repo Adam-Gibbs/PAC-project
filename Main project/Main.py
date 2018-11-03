@@ -46,7 +46,7 @@ def LoadMenu(Mode):
 
         for item in ActionList:
             if item != None:
-                item()
+                item()                
 
     elif Mode == "Resolution":
         for item in EscapeButtons:
@@ -58,10 +58,8 @@ def LoadMenu(Mode):
         for item in ActionList:
             if item != None:
                 item()
-                HideSubMenu()
+                HideSubMenu()           
         
-
-
 def ToggleFullscreen():
     global Fullscreen
     if Fullscreen == True:
@@ -88,13 +86,14 @@ def ToggleFPS():
     ActiveFPS = not ActiveFPS
 
 def ToggleResolution():
-    global Mode
-    if Mode == "Resolution":
+    global Menu
+    if Menu == "Resolution":
         Mode = "Escape"
         HideSubMenu()
 
     else:
-        Mode = "Resolution"
+        Menu = "Resolution"
+        LoadMenu(Menu)
 
 ButtonProperties = [(0.5*(DisplaySize[0]))-((0.3*DisplaySize[0])/2), (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0], (DisplaySize[1]-150)/7] # X, Length, Width, GapTillNext
 
