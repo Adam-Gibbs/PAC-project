@@ -87,17 +87,32 @@ def ToggleFPS():
     global ActiveFPS
     ActiveFPS = not ActiveFPS
 
+def ToggleResolution():
+    global Mode
+    if Mode == "Resolution":
+        Mode = "Escape"
+        HideSubMenu()
+
+    else:
+        Mode = "Resolution"
+
 ButtonProperties = [(0.5*(DisplaySize[0]))-((0.3*DisplaySize[0])/2), (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0], (DisplaySize[1]-150)/7] # X, Length, Width, GapTillNext
 
 EscapeButtons = [Button("Change Map", White, ButtonProperties[0], 100, ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
-                Button("Resolution", White, ButtonProperties[0], 100+ButtonProperties[3], ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                Button("Resolution", White, ButtonProperties[0], 100+ButtonProperties[3], ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleResolution),
                 Button("Toggle Fullscreen", White, ButtonProperties[0], 100+(ButtonProperties[3]*2), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleFullscreen),
                 Button("Toggle FPS", White, ButtonProperties[0], 100+(ButtonProperties[3]*3), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleFPS),
                 Button("UI Scale", White, ButtonProperties[0], 100+(ButtonProperties[3]*4), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
                 Button("Return", White, ButtonProperties[0], 100+(ButtonProperties[3]*5), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, Return),
                 Button("Quit", White, ButtonProperties[0], 100+(ButtonProperties[3]*6), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, Quit)] 
 
-#ResolutionButtons =                
+ResolutionButtons = [Button("640x480", White, 20, 100, ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                    Button("1024x768", White, 20, 100+ButtonProperties[3], ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                    Button("1280x1024", White, 20, 100+(ButtonProperties[3]*2), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                    Button("1440x900", White, 20, 100+(ButtonProperties[3]*3), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                    Button("1680x1050", White, 20, 100+(ButtonProperties[3]*4), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                    Button("1920x1200", White, 20, 100+(ButtonProperties[3]*5), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                    Button("Auto", White, 20, 100+(ButtonProperties[3]*6), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay)]                 
 
 StartDisplay.fill(Black)
 LoadGame()
@@ -115,7 +130,7 @@ while not ExitBool:
 
     if Menu != None:
         StartDisplay.fill(Black)
-        largeText = pygame.font.SysFont('freesansbold.ttf',35)
+        largeText = pygame.font.SysFont('freesansbold.ttf',60)
         TextSurf, TextRect = TextObjects("Debug Menu", largeText, Blue)
         TextRect.center = ((DisplaySize[0]/2),(35))
         StartDisplay.blit(TextSurf, TextRect)
@@ -128,4 +143,4 @@ while not ExitBool:
         StartDisplay.blit(TextSurf, TextRect)
 
     pygame.display.update()
-    clock.tick(120)
+    clock.tick(15)
