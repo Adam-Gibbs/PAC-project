@@ -4,6 +4,8 @@ from Structs import *
 from LoadMap import *
 from Entities import *
 from GeneralSubs import *
+import tkinter as tk
+from tkinter import filedialog
 
 clock = pygame.time.Clock()
 CurDir = "Maps\Test.txt"
@@ -16,6 +18,7 @@ ExitBool = False
 Menu = None
 Fullscreen = False
 ActiveFPS= False
+BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 
 StartDisplay = pygame.display.set_mode(DisplaySize)
 White=(255,255,255)
@@ -73,14 +76,14 @@ def ToggleFullscreen():
     if Fullscreen == True:
         StartDisplay = pygame.display.set_mode(DisplaySize)
         Fullscreen = False
-        
+
     else:
         StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
         Fullscreen = True
 
 def Return():
+    global Menu, CurrMap
     CurrMap = LoadMap(CurDir, DisplaySize)
-    global Menu
     Menu = None
     LoadGame()
 
@@ -103,6 +106,7 @@ def SetResolution(Res):
 
     SetButtons()
     LoadMenu(Menu)
+    print(Res)
 
 def ToggleResolution():
     global Menu
@@ -112,11 +116,17 @@ def ToggleResolution():
     else:
         Menu = "Resolution"
 
+def MapSelect():
+    global CurDir
+    root = tk.Tk()
+    root.withdraw()
+    CurDir = filedialog.askopenfilename()
+
 def SetButtons():
     ButtonProperties = [(0.5*(DisplaySize[0]))-((0.3*DisplaySize[0])/2), (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0], (DisplaySize[1]-150)/7] # X, Length, Width, GapTillNext
     global EscapeButtons, ResolutionButtons
 
-    EscapeButtons = [Button("Change Map", White, ButtonProperties[0], 100, ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+    EscapeButtons = [Button("Change Map", White, ButtonProperties[0], 100, ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, MapSelect),
                     Button("Resolution", White, ButtonProperties[0], 100+ButtonProperties[3], ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleResolution),
                     Button("Toggle Fullscreen", White, ButtonProperties[0], 100+(ButtonProperties[3]*2), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleFullscreen),
                     Button("Toggle FPS", White, ButtonProperties[0], 100+(ButtonProperties[3]*3), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleFPS),
@@ -130,7 +140,7 @@ def SetButtons():
                         Button("1440x900", White, 20, 100+(ButtonProperties[3]*3), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [1440, 900]),
                         Button("1680x1050", White, 20, 100+(ButtonProperties[3]*4), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [1680, 1050]),
                         Button("1920x1200", White, 20, 100+(ButtonProperties[3]*5), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [1920, 1200]),
-                        Button("Auto", White, 20, 100+(ButtonProperties[3]*6), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [pygame.display.Info().current_w, pygame.display.Info().current_h])]                 
+                        Button("Auto", White, 20, 100+(ButtonProperties[3]*6), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, [BaseW, BaseH])]         
 
 SetButtons()
 StartDisplay.fill(Black)
