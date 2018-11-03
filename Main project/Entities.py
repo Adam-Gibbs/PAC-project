@@ -19,7 +19,7 @@ class Pill:
     pass
 
 class Button:
-    def __init__(self, _msg, _msgcolour, _x, _y, _width, _height, _inactivecolour, _activecolour, _display, _action=None):
+    def __init__(self, _msg, _msgcolour, _x, _y, _width, _height, _inactivecolour, _activecolour, _display, _action=None, _parse=None):
         self.Action = _action
         self.Display = _display
         self.LocationInfo = [_x, _y, _width, _height]

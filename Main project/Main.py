@@ -41,7 +41,6 @@ def LoadMenu(Mode):
     ActionList = list()
 
     if Mode == "Escape":
-        HideSubMenu()
         for item in EscapeButtons:
             ActionList.append(item.Check())
 
@@ -58,8 +57,7 @@ def LoadMenu(Mode):
         
         for item in ActionList:
             if item != None:
-                item()
-                HideSubMenu()           
+                item()       
         
 def ToggleFullscreen():
     global Fullscreen
@@ -67,11 +65,6 @@ def ToggleFullscreen():
         StartDisplay = pygame.display.set_mode(DisplaySize)
     else:
         StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
-
-def HideSubMenu():
-    StartDisplay.fill(Black, rect=(0, 100, 0.35*DisplaySize[0], DisplaySize[1]))
-    global Menu
-    Mode = "Escape"
 
 def Return():
     global Menu
@@ -90,7 +83,6 @@ def ToggleResolution():
     global Menu
     if Menu == "Resolution":
         Menu = "Escape"
-        HideSubMenu()
 
     else:
         Menu = "Resolution"
