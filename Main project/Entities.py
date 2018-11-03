@@ -48,7 +48,6 @@ class Button:
             pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
             
         self.Display.blit(self.TextSurf, self.TextRect)
-        print("GO", self.MsgInfo[0])
         return False
         
 

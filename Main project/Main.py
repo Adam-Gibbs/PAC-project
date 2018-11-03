@@ -3,15 +3,17 @@ from pygame.locals import *
 from Structs import *
 from LoadMap import *
 from Entities import *
+from GeneralSubs import *
 
-MapSize = [1200, 800]
+DisplaySize = [1200, 800]
 pygame.init()
-CurrMap = LoadMap("Maps\Test.txt", MapSize)
+CurrMap = LoadMap("Maps\Test.txt", DisplaySize)
 clock = pygame.time.Clock()
 ExitBool = False
 Menu = None
+Fullscreen = False
 
-StartDisplay = pygame.display.set_mode(MapSize)
+StartDisplay = pygame.display.set_mode(DisplaySize)
 White=(255,255,255)
 Blue=(0, 0, 255)
 DarkBlue=(50,50,200)
@@ -38,27 +40,31 @@ def LoadMenu(Mode):
             if item.Check() == True:
                 return  
 
-def Smaller():
-    StartDisplay = pygame.display.set_mode(MapSize)
-    global Menu
-    Menu = None
-    print("Done1")
-    LoadGame()
+def ToggleFullscreen():
+    global Fullscreen
+    if Fullscreen == True:
+        StartDisplay = pygame.display.set_mode(DisplaySize)
+    else:
+        StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
 
-def Bigger():
-    StartDisplay = pygame.display.set_mode(MapSize, pygame.FULLSCREEN)
+def Return():
     global Menu
     Menu = None
-    print("Done2")
     LoadGame()
 
 def Quit():
     pygame.quit() 
     sys.exit
 
-EscapeButtons = [Button("Quit", White, 550, 450, 100, 50, Red, DarkBlue, StartDisplay, Quit), 
-                Button("Big", White, 650, 450, 100, 50, Red, DarkBlue, StartDisplay, Bigger), 
-                Button("Small", White, 450, 450, 100, 50, Red, DarkBlue, StartDisplay, Smaller)]
+ButtonProperties = [(0.5*(DisplaySize[0]))-((0.3*DisplaySize[0])/2), (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0], (DisplaySize[1]-150)/7] # X, Length, Width, GapTillNext
+
+EscapeButtons = [Button("Change Map", White, ButtonProperties[0], 100, ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                Button("Resolution", White, ButtonProperties[0], 100+ButtonProperties[3], ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                Button("Toggle Fullscreen", White, ButtonProperties[0], 100+(ButtonProperties[3]*2), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, ToggleFullscreen),
+                Button("Change Theme", White, ButtonProperties[0], 100+(ButtonProperties[3]*3), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                Button("UI Scale", White, ButtonProperties[0], 100+(ButtonProperties[3]*4), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay),
+                Button("Return", White, ButtonProperties[0], 100+(ButtonProperties[3]*5), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, Return),
+                Button("Quit", White, ButtonProperties[0], 100+(ButtonProperties[3]*6), ButtonProperties[2], ButtonProperties[1], Black, DarkBlue, StartDisplay, Quit)]                
 
 StartDisplay.fill(Black)
 LoadGame()
@@ -76,6 +82,10 @@ while not ExitBool:
 
     if Menu != None:
         StartDisplay.fill(Black)
+        largeText = pygame.font.Font('freesansbold.ttf',60)
+        TextSurf, TextRect = TextObjects("Debug Menu", largeText, Blue)
+        TextRect.center = ((DisplaySize[0]/2),(35))
+        StartDisplay.blit(TextSurf, TextRect)
         LoadMenu(Menu)
 
     pygame.display.update()
