@@ -15,9 +15,6 @@ class PAC:
     #def ChangeProperty(self,Modifier as property, Value):
         #self.Modifier = Value
 
-class Pill:
-    pass
-
 class Button:
     def __init__(self, _msg, _msgcolour, _x, _y, _width, _height, _inactivecolour, _activecolour, _display, _action=None):
         self.Action = _action

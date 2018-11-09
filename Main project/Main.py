@@ -10,17 +10,17 @@ from tkinter import filedialog
 clock = pygame.time.Clock()
 CurDir = "Maps\Test.txt"
 
-DisplaySize = [1200, 800]
 pygame.init()
-CurrMap = LoadMap(CurDir, DisplaySize)
 clock = pygame.time.Clock()
 ExitBool = False
 Menu = None
-Fullscreen = False
+Fullscreen = True
 ActiveFPS= False
 BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
+DisplaySize = [BaseW, BaseH]
+CurrMap = LoadMap(CurDir, DisplaySize)
 
-StartDisplay = pygame.display.set_mode(DisplaySize)
+StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
 White=(255,255,255)
 Blue=(0, 0, 255)
 DarkBlue=(50,50,200)
@@ -38,7 +38,7 @@ def LoadGame():
             temp = CurrMap.GiveSquare([Row,Column]).GiveWalls()
             for wall in range (0,4):
                 # Remember that rect = [TopLeft([X,Y]), width, height]
-                pygame.draw.rect(StartDisplay, Blue, (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 10)        
+                pygame.draw.rect(StartDisplay, Blue, (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 1)        
     pygame.display.update()
 
 def LoadMenu(Mode):
@@ -72,13 +72,20 @@ def LoadMenu(Mode):
                 Menu = "Escape"     
         
 def ToggleFullscreen():
-    global Fullscreen
+    global Fullscreen, DisplaySize
     if Fullscreen == True:
         StartDisplay = pygame.display.set_mode(DisplaySize)
         Fullscreen = False
 
     else:
-        StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+        try:
+            StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+        except:
+            print("Error, display cannont support ", DisplaySize[0], "x", DisplaySize[1])
+            DisplaySize = [BaseW, BaseH]
+            StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)  
+            SetButtons()
+            LoadMenu(Menu)
         Fullscreen = True
 
 def Return():
@@ -94,6 +101,10 @@ def Quit():
 def ToggleFPS():
     global ActiveFPS
     ActiveFPS = not ActiveFPS
+    StartDisplay.fill(Black,(5,5,75,25))
+
+def HideSubMenu():
+    StartDisplay.fill(Black, (0,80,DisplaySize[0]/3,DisplaySize[1]-80))
 
 def SetResolution(Res):
     global DisplaySize
@@ -102,11 +113,16 @@ def SetResolution(Res):
     if Fullscreen == False:
         StartDisplay = pygame.display.set_mode(DisplaySize)
     else:
-        StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+        try:
+            StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+        except:
+            print("Error, display cannont support ", DisplaySize[0], "x", DisplaySize[1])
+            DisplaySize = [BaseW, BaseH]
+            StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)            
 
     SetButtons()
     LoadMenu(Menu)
-    print(Res)
+    HideSubMenu()
 
 def ToggleResolution():
     global Menu
@@ -115,6 +131,7 @@ def ToggleResolution():
 
     else:
         Menu = "Resolution"
+    HideSubMenu()
 
 def MapSelect():
     global CurDir
@@ -149,6 +166,7 @@ LoadGame()
 while not ExitBool:
     if pygame.key.get_pressed()[K_ESCAPE]:
         Menu = "Escape"   
+        StartDisplay.fill(Black)
 
     for event in pygame.event.get():
         # check if the event is the X button 
@@ -158,18 +176,17 @@ while not ExitBool:
             Quit()
 
     if Menu != None:
-        StartDisplay.fill(Black)
-        largeText = pygame.font.Font('freesansbold.ttf',60)
-        TextSurf, TextRect = TextObjects("Debug Menu", largeText, Blue)
+        TextSurf, TextRect = TextObjects("Debug Menu", pygame.font.Font('freesansbold.ttf',60), Blue)
         TextRect.center = ((DisplaySize[0]/2),(35))
         StartDisplay.blit(TextSurf, TextRect)
         LoadMenu(Menu)
 
     if ActiveFPS == True:
+        StartDisplay.fill(Black,(5,5,75,25))
         FPSText = pygame.font.Font('freesansbold.ttf',25)
         TextSurf, TextRect = TextObjects(str(round(clock.get_fps(),1)), FPSText, Yellow)
         TextRect.center = (40,20)
         StartDisplay.blit(TextSurf, TextRect)
 
     pygame.display.update()
-    clock.tick(30)
+    clock.tick(9001)
