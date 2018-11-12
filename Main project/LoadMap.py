@@ -5,6 +5,7 @@ import os
 
 def LoadMap(FileName, ScreenSize):
     ReadData = list()
+    ScreenSize = [ScreenSize[0]-200,ScreenSize[1]]
 
     # Load in File to memory:
     with open(FileName) as infile:                  # Context manager, automatically closes file.
@@ -27,6 +28,6 @@ def LoadMap(FileName, ScreenSize):
         Row = loop // Size[0]
         Column = loop % Size[0]
         
-        CurrMap.InputSquare ([20+((Column)*SquareSize[0]), 20+(Row*SquareSize[1])], [20+SquareSize[0]+((Column)*SquareSize[0]), 20+SquareSize[1]+((Row)*SquareSize[1])], [TempData[0],TempData[1],TempData[2],TempData[3]],TempData[4], [Column,Row]) 
+        CurrMap.InputSquare ([220+((Column)*SquareSize[0]), 20+(Row*SquareSize[1])], [220+SquareSize[0]+((Column)*SquareSize[0]), 20+SquareSize[1]+((Row)*SquareSize[1])], [TempData[0],TempData[1],TempData[2],TempData[3]],TempData[4], [Column,Row]) 
 
     return CurrMap
