@@ -77,36 +77,8 @@ class Square:
     def DrawPill(self):
         pass
 
-    def CheckRoute(self,Target):
-        pass
-
-    def MoveGhost(self,Target):
-        pass
-
-    def MovePac(self,Target):
-        #Direction = FindDirection(Target)
-        #pygame.draw.rect(Surface, color, Rect, width=0)
-        pass
-
-    def Animate(self,Target,Entity):
-        pass
-
-    def FindDirection(self,Target):
-        if self.Coords[0] == Target.Coords[1]:
-            return "L"
-        elif self.Coords[0] == Target.Coords[3]:
-            return "U"
-        elif self.Coords[1] == Target.Coords[0]:
-            return "R"
-        elif self.Coords[3] == Target.Coords[0]:
-            return "D"
-        else:
-            print("ERROR cannot find direction!")
-            return "ERROR"
-
     def EntityEnter(self, Entity):
         self.CurrentlyContains = Entity
     
     #def FindImage(self):
     #    return (CurrentlyContains.Image)
-
