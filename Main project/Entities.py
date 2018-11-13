@@ -10,7 +10,16 @@ class Ghost:
 class PAC:
     
     def __init__(self, GivenLocation):
-        self.Location = GivenLocation
+        self.Location = GivenLocation # map struct locatio [x,y]
+        self.Direction
+
+    def ChangeDirection(self, _Direction):
+        self.Direction = _Direction
+    
+    def Move(self):
+        if self.Direction == 0:
+                
+    
         
     #def ChangeProperty(self,Modifier as property, Value):
         #self.Modifier = Value

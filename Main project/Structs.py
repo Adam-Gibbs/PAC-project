@@ -29,4 +29,7 @@ class MapStruct:
         X = Location[0]
         Y = Location[1]
 
+    def FindNeighbour(self, Direction):
+        if Direction == 0:
+            
         return self.Array[X][Y] 
