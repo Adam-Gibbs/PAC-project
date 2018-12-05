@@ -1,0 +1,10 @@
+26,29
+Adam
+True,False,False,True,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,False,False,False,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,True,False,False,S/False,True,False,True,E/True,False,False,True,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,False,False,False,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,False,True,False,S/True,True,False,False,S
+
+False,True,False,True,S/True,False,False,True,E/True,False,False,False,E/True,False,False,False,E/True,True,False,False,E/False,True,False,True,S/True,False,False,True,E/True,False,False,False,E/True,False,False,False,E/True,False,False,False,E/True,True,False,False,E/False,True,False,True,S/False,True,False,True,E/False,True,False,True,S/True,False,False,True,E/True,False,False,False,E/True,False,False,False,E/True,False,False,False,E/True,True,False,False,E/False,True,False,True,S/True,False,False,True,E/True,False,False,False,E/True,False,False,False,E/True,True,False,False,E/False,True,False,True,S/
+
+F,T,F,T,U/F,F,F,T,E/F,F,F,F,E/F,F,F,F,E/F,T,F,F,E/F,T,F,T,S/T,F,F,F,E/F,F,F,F,E/F,F,F,F,E/F,F,F,F,E/F,T,F,F,E/F,T,F,T,S/F,T,F,T,E/F,T,F,T,S/F,F,F,T,E/F,F,F,F,E/F,F,F,F,E/F,F,F,F,E/F,T,F,F,E/F,T,F,T,S/F,F,F,T,E/F,F,F,F,E/F,F,F,F,E/F,T,F,F,E/F,T,F,T,U/
+
+F,T,F,T,S/F,F,T,T,E/F,F,T,F,E/F,F,T,F,E/F,F,T,F,E/F,T,T,F,E/F,T,F,T,S/F,F,T,T,E/F,F,T,F,E/F,F,T,F,E/F,F,T,F,E/F,T,T,F,E/F,T,F,T,S/F,T,T,T,E/F,T,F,T,S/F,F,T,T,E/F,F,T,F,E/F,F,T,F,E/F,F,T,F,E/F,T,T,F,E/F,T,F,T,S/F,F,T,T,E/F,F,T,F,E/F,F,T,F,E/F,T,T,F,E/F,T,F,T,S/
+
