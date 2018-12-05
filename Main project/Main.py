@@ -8,13 +8,13 @@ import tkinter as tk
 from tkinter import filedialog
 
 clock = pygame.time.Clock()
-CurDir = "Maps\BaseMap1.txt"
+CurDir = "Maps\Test.txt"
 
 pygame.init()
 clock = pygame.time.Clock()
 ExitBool = False
 Menu = None
-Fullscreen = False
+Fullscreen = True
 ActiveFPS= False
 BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
