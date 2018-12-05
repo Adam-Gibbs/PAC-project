@@ -23,10 +23,10 @@ def LoadMap(FileName, ScreenSize):
 
     SquareSize = [(ScreenSize[0]-40)/Size[0], (ScreenSize[1]-40)/Size[1]]
 
-    for loop in range (len(ReadData)):
-        TempData = ReadData[loop].split(",")
-        Row = loop // Size[0]
-        Column = loop % Size[0]
+    for index,data in enumerate(ReadData):
+        TempData = data.split(",")
+        Row = index // Size[0]
+        Column = index % Size[0]
         
         CurrMap.InputSquare ([220+((Column)*SquareSize[0]), 20+(Row*SquareSize[1])], [220+SquareSize[0]+((Column)*SquareSize[0]), 20+SquareSize[1]+((Row)*SquareSize[1])], [TempData[0],TempData[1],TempData[2],TempData[3]],TempData[4], [Column,Row]) 
 
