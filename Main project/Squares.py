@@ -1,8 +1,5 @@
-from Entities import Ghost
 
 class Square:
-
-    CurrentlyContains = Ghost(15,"NotImg")
 
     def __init__(self, LocationTopLeft, LocationBottomRight, LocationWalls, Contents):
         # LocationTopLeft/BottomRight = [x,y], LocationWalls = [12,3,6,9]
@@ -76,9 +73,3 @@ class Square:
 
     def DrawPill(self):
         pass
-
-    def EntityEnter(self, Entity):
-        self.CurrentlyContains = Entity
-    
-    #def FindImage(self):
-    #    return (CurrentlyContains.Image)

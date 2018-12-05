@@ -1,6 +1,6 @@
 import numpy
 from Squares import Square
-from Entities import Button
+from GeneralSubs import Button
 
 class MapStruct:
     def __init__(self, _size, _name, _creator):
