@@ -70,7 +70,7 @@ def LoadMenu(Mode):
             if item != None:
                 item()  
                 Menu = "Escape"     
-        
+
 def ToggleFullscreen():
     global Fullscreen, DisplaySize
     if Fullscreen == True:
@@ -162,8 +162,16 @@ def SetButtons():
 SetButtons()
 StartDisplay.fill(Black)
 LoadGame()
+Cycles = 0
 
 while not ExitBool:
+    if Cycles == 60:
+        Cycles = 0
+
+
+    else: 
+        Cycles += 1
+
     if pygame.key.get_pressed()[K_ESCAPE]:
         Menu = "Escape"   
         StartDisplay.fill(Black)

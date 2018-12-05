@@ -69,4 +69,3 @@ class Button:
                         
         self.Display.blit(self.TextSurf, self.TextRect)
         return ToGive
-
