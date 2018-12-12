@@ -23,7 +23,7 @@ class MapStruct:
             return self.Size[1]
 
         else:
-            return self.Size
+            return self.Size 
 
     def GiveSquare(self,Location):
         X = Location[0]

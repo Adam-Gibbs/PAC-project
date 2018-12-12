@@ -1,5 +1,6 @@
 lines = list()
 line = "temp"
+First = ""
 
 while line != "":
     line = input("Add lines (RETURN for finished)")
