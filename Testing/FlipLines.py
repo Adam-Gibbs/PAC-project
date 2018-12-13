@@ -13,11 +13,16 @@ for line in lines:
     group = line.split("/")
     ngroup = ""
     for index,items in enumerate(group):
-        items = (items[4] + "," + items[2] + "," + items[0] + "," + items[6] + "," + items[8])
-        if index != 0:
-            ngroup += "/"+items
+        if items != "":
+            items = (items[4] + "," + items[2] + "," + items[0] + "," + items[6] + "," + items[8])
+            if index != 0:
+                ngroup += "/"+items
+            else:
+                ngroup+= items
+
         else:
-            ngroup+= items
+            ngroup += "/"
+
     nlines.append(ngroup)
 lines = nlines
     

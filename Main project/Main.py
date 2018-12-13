@@ -8,7 +8,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 clock = pygame.time.Clock()
-CurDir = "Maps\Test.txt"
+CurDir = "Maps\BaseMap1.txt"
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -197,4 +197,4 @@ while not ExitBool:
         StartDisplay.blit(TextSurf, TextRect)
 
     pygame.display.update()
-    clock.tick(9001)
+    clock.tick(60)
