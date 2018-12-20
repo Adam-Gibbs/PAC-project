@@ -1,6 +1,6 @@
 from GeneralSubs import TextObjects
 from Structs import MapStruct
-from PathFinding import PerformMove,CheckMove
+from PathFinding import PerformMove, CheckMove
 import pygame
 
 class Ghost:

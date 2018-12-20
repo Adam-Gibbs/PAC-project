@@ -5,7 +5,7 @@ class Square:
         # LocationTopLeft/BottomRight = [x,y], LocationWalls = [12,3,6,9]
         self.SetCoords(LocationBottomRight,LocationTopLeft)
         self.Walls = LocationWalls
-        self.Contnet = Contents
+        self.Content = Contents
 
     # priv
     def SetCoords(self,BottomRight,TopLeft):
@@ -28,11 +28,14 @@ class Square:
 
     def GiveCentre(self):
         TempList = list()
-        x = ((self.Coords[0][0] - self.Coords[1][0])/2) + self.Coords[0][0]
-        y = ((self.Coords[0][1] - self.Coords[3][1])/2) + self.Coords[0][1]
-        TempList.append(x)
-        TempList.append(y)
+        x = ((self.Coords[1][0] - self.Coords[0][0])/2) + self.Coords[0][0]
+        y = ((self.Coords[3][1] - self.Coords[0][1])/2) + self.Coords[0][1]
+        TempList.append(int(round(x, 0)))
+        TempList.append(int(round(y, 0)))
         return TempList
+
+    def GiveContents(self):
+        return self.Content
 
     def GiveWalls(self):
         Nothing = [0,0]

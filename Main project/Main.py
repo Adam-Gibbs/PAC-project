@@ -8,7 +8,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 clock = pygame.time.Clock()
-CurDir = "Maps\BaseMap1.txt"
+CurDir = "Maps\Test.txt"
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -38,7 +38,11 @@ def LoadGame():
             temp = CurrMap.GiveSquare([Row,Column]).GiveWalls()
             for wall in range (0,4):
                 # Remember that rect = [TopLeft([X,Y]), width, height]
-                pygame.draw.rect(StartDisplay, Blue, (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 1)        
+                pygame.draw.rect(StartDisplay, Blue, (temp[wall][0][0], temp[wall][0][1], temp[wall][1][0], temp[wall][1][1]), 1)  
+            if CurrMap.GiveSquare([Row,Column]).GiveContents() == "S":
+                pygame.draw.circle(StartDisplay, Yellow, CurrMap.GiveSquare([Row,Column]).GiveCentre(), 3)
+            if CurrMap.GiveSquare([Row,Column]).GiveContents() == "U":
+                pygame.draw.circle(StartDisplay, Red, CurrMap.GiveSquare([Row,Column]).GiveCentre(), 6)
     pygame.display.update()
 
 def LoadMenu(Mode):
