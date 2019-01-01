@@ -1,11 +1,14 @@
 import pygame
 
+
 def TextObjects(text, font, colour):
     textSurface = font.render(text, True, colour)
     return textSurface, textSurface.get_rect()
 
+
 class Button:
-    def __init__(self, _msg, _msgcolour, _x, _y, _width, _height, _inactivecolour, _activecolour, _display, _action=None):
+    def __init__(self, _msg, _msgcolour, _x, _y, _width, _height,
+                 _inactivecolour, _activecolour, _display, _action=None):
         self.Action = _action
         self.Display = _display
 
@@ -13,8 +16,9 @@ class Button:
         self.Colour = [_inactivecolour, _activecolour]
         self.MsgInfo = [_msg, _msgcolour]
 
-        smallText = pygame.font.SysFont("freesansbold.ttf",20)
-        textSurf, textRect = TextObjects(self.MsgInfo[0], smallText, self.MsgInfo[1])
+        smallText = pygame.font.SysFont("freesansbold.ttf", 20)
+        textSurf, textRect = TextObjects(self.MsgInfo[0], smallText,
+                                         self.MsgInfo[1])
         textRect.center = ((_x+(_width/2)), (_y+(_height/2)))
 
         self.TextSurf = textSurf
@@ -32,16 +36,16 @@ class Button:
         if self.LocationInfo[0] + self.LocationInfo[2] > mouse[0] > self.LocationInfo[0] and self.LocationInfo[1] + self.LocationInfo[3] > mouse[1] > self.LocationInfo[1]:
             pygame.draw.rect(self.Display, self.Colour[1], self.LocationInfo)
 
-            if click[0] == 1 and self.Action != None and self.Clicked == False:
+            if click[0] == 1 and self.Action is not None and not self.Clicked:
                 ToGive = self.Action
                 self.Clicked = True
 
-            elif self.Clicked == True:
+            elif self.Clicked is True:
                 if click[0] != 1:
                     self.Clicked = False
 
         else:
             pygame.draw.rect(self.Display, self.Colour[0], self.LocationInfo)
-                        
+
         self.Display.blit(self.TextSurf, self.TextRect)
         return ToGive

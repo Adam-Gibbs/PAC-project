@@ -1,14 +1,20 @@
 from Structs import MapStruct
 
-def PerformMove(From,To):
-	pass
+
+def PerformMove(From, To):
+    pass
+
 
 def CheckMove(Location, Direction):
-	if Map.GiveSquare(Location).GiveWalls()[Direction] == False:    # Checks for walls in current square direction
-		SetSquare = Map.FiFindNeighbour(Direction)                	# Finds square you wish to travel to
-		return SetSquare.GiveCoordinates() 
-	else:                       
-        	return Map.GiveSquare(self.Location).GiveCoordinates()		# Reuturns current square if cannot move
+    # Checks for walls in current square direction
+    if Map.GiveSquare(Location).GiveWalls()[Direction] is False:
+        # Finds square you wish to travel to
+        SetSquare = Map.FiFindNeighbour(Direction)
+        return SetSquare.GiveCoordinates()
+    else:
+        # Reuturns current square if cannot move
+        return Map.GiveSquare(self.Location).GiveCoordinates()
+
 
 def PlanMoves(MemoryLength):
-	pass
+    pass

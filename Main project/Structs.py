@@ -2,12 +2,15 @@ import numpy
 from Squares import Square
 from GeneralSubs import Button
 
+
 class MapStruct:
     def __init__(self, _size, _name, _creator):
         self.Creator = _creator
         self.Name = _name
         self.Size = _size
-        self.Array = numpy.empty(self.Size, dtype=object) # Creates an array(of objects) of the inputted size, the datatype of the Square class
+        # Creates an array(of objects) of the inputted size, the datatype of
+        # the Square class
+        self.Array = numpy.empty(self.Size, dtype=object)
 
     def InputSquare(self, TopLeft, BottomRight, Walls, Contents, Location):
         X = Location[0]
@@ -23,13 +26,13 @@ class MapStruct:
             return self.Size[1]
 
         else:
-            return self.Size 
+            return self.Size
 
-    def GiveSquare(self,Location):
+    def GiveSquare(self, Location):
         X = Location[0]
         Y = Location[1]
-                    
-        return self.Array[X][Y] 
+
+        return self.Array[X][Y]
 
     def FindNeighbour(self, Direction):
         if Direction == 0:
@@ -43,6 +46,6 @@ class MapStruct:
 
         elif Direction == 3:
             return self.array[Direction[0]-1][Direction[1]]
-            
+
         else:
             return self.array[Direction[0]][Direction[1]]
