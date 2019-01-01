@@ -9,7 +9,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 clock = pygame.time.Clock()
-CurDir = "PAC-project/Maps/Test.txt"
+CurDir = "PAC-project/Maps/BaseMap1.txt"
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -24,11 +24,11 @@ CurrMap = LoadMap(CurDir, DisplaySize)
 StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
 White = (255, 255, 255)
 Blue = (0, 0, 255)
-DarkBlue = (50, 50, 200)
+DarkBlue = (0, 0, 55)
 Green = (0, 255, 0)
-DarkGreen = (50, 200, 50)
+DarkGreen = (0, 55, 0)
 Red = (255, 0, 0)
-DarkRed = (200, 50, 50)
+DarkRed = (55, 0, 0)
 Yellow = (255, 255, 0)
 Black = (0, 0, 0)
 
@@ -51,8 +51,9 @@ def LoadGame():
                 pygame.draw.circle(StartDisplay, Red,
                                    CurrMap.GiveSquare([Row, Column]).
                                    GiveCentre(), 6)
-            # elif CurrMap.GiveSquare([Row, Column]).GiveContents() == "G":
-            #    pygame.draw.rect(tartDisplay, Red, )
+            elif CurrMap.GiveSquare([Row, Column]).GiveContents() == "G":
+                pygame.draw.rect(StartDisplay, DarkRed,
+                                 CurrMap.GiveSquare([Row, Column]).GiveRect())
 
     pygame.display.update()
 
