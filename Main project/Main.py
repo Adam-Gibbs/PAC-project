@@ -90,20 +90,18 @@ def LoadMenu(Mode):
 
 def ToggleFullscreen():
     global Fullscreen, DisplaySize
-    if Fullscreen is not True:
-        StartDisplay = pygame.display.set_mode(DisplaySize)
+    if Fullscreen is True:
+        pygame.display.set_mode(DisplaySize)
         Fullscreen = False
 
     else:
         try:
-            StartDisplay = pygame.display.set_mode(DisplaySize,
-                                                   pygame.FULLSCREEN)
+            pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
         except:
             print("Error, display cannont support ", DisplaySize[0],
                   "x", DisplaySize[1])
             DisplaySize = [BaseW, BaseH]
-            StartDisplay = pygame.display.set_mode(DisplaySize,
-                                                   pygame.FULLSCREEN)
+            pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
             SetButtons()
             LoadMenu(Menu)
         Fullscreen = True
@@ -208,36 +206,30 @@ def SetButtons():
                      ]
 
     ResolutionButtons = [Button("640x480", White, 20, 100, ButtonProperties[2],
-                         ButtonProperties[1], Black, DarkBlue, StartDisplay,
-                         [640, 480]),
-
+                                ButtonProperties[1], Black, DarkBlue,
+                                StartDisplay, [640, 480]),
                          Button("1024x768", White, 20, 100+ButtonProperties[3],
-                         ButtonProperties[2], ButtonProperties[1], Black,
-                         DarkBlue, StartDisplay, [1024, 768]),
-
+                                ButtonProperties[2], ButtonProperties[1],
+                                Black, DarkBlue, StartDisplay, [1024, 768]),
                          Button("1280x1024", White, 20,
-                         100+(ButtonProperties[3]*2), ButtonProperties[2],
-                         ButtonProperties[1], Black, DarkBlue, StartDisplay,
-                         [1280, 1024]),
-
+                                100+(ButtonProperties[3]*2),
+                                ButtonProperties[2], ButtonProperties[1],
+                                Black, DarkBlue, StartDisplay, [1280, 1024]),
                          Button("1440x900", White, 20,
-                         100+(ButtonProperties[3]*3), ButtonProperties[2],
-                         ButtonProperties[1], Black, DarkBlue, StartDisplay,
-                         [1440, 900]),
-
+                                100+(ButtonProperties[3]*3),
+                                ButtonProperties[2], ButtonProperties[1],
+                                Black, DarkBlue, StartDisplay, [1440, 900]),
                          Button("1680x1050", White, 20,
-                         100+(ButtonProperties[3]*4), ButtonProperties[2],
-                         ButtonProperties[1], Black, DarkBlue, StartDisplay,
-                         [1680, 1050]),
-
+                                100+(ButtonProperties[3]*4),
+                                ButtonProperties[2], ButtonProperties[1],
+                                Black, DarkBlue, StartDisplay, [1680, 1050]),
                          Button("1920x1200", White, 20,
-                         100+(ButtonProperties[3]*5), ButtonProperties[2],
-                         ButtonProperties[1], Black, DarkBlue, StartDisplay,
-                         [1920, 1200]),
-
+                                100+(ButtonProperties[3]*5),
+                                ButtonProperties[2], ButtonProperties[1],
+                                Black, DarkBlue, StartDisplay, [1920, 1200]),
                          Button("Auto", White, 20, 100+(ButtonProperties[3]*6),
-                         ButtonProperties[2], ButtonProperties[1], Black,
-                         DarkBlue, StartDisplay, [BaseW, BaseH])
+                                ButtonProperties[2], ButtonProperties[1],
+                                Black, DarkBlue, StartDisplay, [BaseW, BaseH])
                          ]
 
 
