@@ -13,12 +13,16 @@ class Ghost:
 
 class PAC:
 
-    def __init__(self, GivenLocation):
+    def __init__(self, GivenLocation, Mapsize):
         self.Location = GivenLocation  # map struct locatio [x,y]
         self.Direction
-
+        
     def ChangeDirection(self, _Direction):
         self.Direction = _Direction
+
+    def SetImage(self, size):
+        OriginalImage = pygame.image.load("PAC-project/Assets/Pacman.png")
+        self.Image = pygame.transform.scale(OriginalImage, size)
 
     def Move(self, Map):
         # Checks for walls in current square direction

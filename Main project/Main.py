@@ -15,13 +15,13 @@ pygame.init()
 clock = pygame.time.Clock()
 ExitBool = False
 Menu = None
-Fullscreen = True
+Fullscreen = False
 ActiveFPS = False
 BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
 
-StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+StartDisplay = pygame.display.set_mode(DisplaySize)  #, pygame.FULLSCREEN)
 White = (255, 255, 255)
 Blue = (0, 0, 255)
 DarkBlue = (0, 0, 55)
@@ -34,6 +34,8 @@ Black = (0, 0, 0)
 
 
 def LoadGame():
+    global Player
+   
     StartDisplay.fill(Black)
     for Row in range(CurrMap.GiveSize("X")):
         for Column in range(CurrMap.GiveSize("Y")):
@@ -47,13 +49,23 @@ def LoadGame():
             if CurrMap.GiveSquare([Row, Column]).GiveContents() == "S":
                 pygame.draw.circle(StartDisplay, Yellow, CurrMap.
                                    GiveSquare([Row, Column]).GiveCentre(), 3)
+
             elif CurrMap.GiveSquare([Row, Column]).GiveContents() == "U":
                 pygame.draw.circle(StartDisplay, Red,
                                    CurrMap.GiveSquare([Row, Column]).
                                    GiveCentre(), 6)
+
             elif CurrMap.GiveSquare([Row, Column]).GiveContents() == "G":
                 pygame.draw.rect(StartDisplay, DarkRed,
                                  CurrMap.GiveSquare([Row, Column]).GiveRect())
+
+            elif CurrMap.GiveSquare([Row, Column]).GiveContents() == "P":
+                Player = PAC([Row, Column], [CurrMap.GiveSquare([Row, Column])
+                                             .GiveRect()[1], CurrMap
+                                             .GiveSquare([Row, Column])
+                             .GiveRect()[2]])
+                pygame.blit(Player, CurrMap.GiveSquare([Row,
+                                                        Column]).GiveRect()[0])
 
     pygame.display.update()
 
