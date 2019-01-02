@@ -1,14 +1,20 @@
-from GeneralSubs import TextObjects
-from Structs import MapStruct
-from PathFinding import PerformMove, CheckMove
+import random
+
 import pygame
+
+from GeneralSubs import TextObjects
+from PathFinding import CheckMove, PerformMove
+from Structs import MapStruct
 
 
 class Ghost:
 
-    def __init__(self, GivenLocation, SetImage):
+    def __init__(self, GivenLocation, SqSize):
         self.Location = GivenLocation
-        self.Image = SetImage
+        Fname = "/Ghost" + random.randint(0, 9) + ".png"
+        OriginalImage = pygame.image.load("PAC-project/Assets" + Fname)
+        self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),
+                                                            int(SqSize[1])))
 
 
 class PAC:
@@ -16,8 +22,9 @@ class PAC:
     def __init__(self, GivenLocation, SqSize):
         self.Location = GivenLocation  # map struct locatio [x,y]
         OriginalImage = pygame.image.load("PAC-project/Assets/Pacman.png")
-        self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]), int(SqSize[1])))
-        
+        self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),
+                                                            int(SqSize[1])))
+
     def ChangeDirection(self, _Direction):
         self.Direction = _Direction
 
@@ -34,6 +41,3 @@ class PAC:
         else:
             # Reuturns current square if cannot move
             return Map.GiveSquare(self.Location).GiveCoordinates()
-
-    # def ChangeProperty(self,Modifier as property, Value):
-        # self.Modifier = Value

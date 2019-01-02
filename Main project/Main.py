@@ -236,10 +236,10 @@ def SetButtons():
                                 100+(ButtonProperties[3]*4),
                                 ButtonProperties[2], ButtonProperties[1],
                                 Black, DarkBlue, StartDisplay, [1680, 1050]),
-                         Button("1920x1200", White, 20,
+                         Button("1920x1080", White, 20,
                                 100+(ButtonProperties[3]*5),
                                 ButtonProperties[2], ButtonProperties[1],
-                                Black, DarkBlue, StartDisplay, [1920, 1200]),
+                                Black, DarkBlue, StartDisplay, [1920, 1080]),
                          Button("Auto", White, 20, 100+(ButtonProperties[3]*6),
                                 ButtonProperties[2], ButtonProperties[1],
                                 Black, DarkBlue, StartDisplay, [BaseW, BaseH])
@@ -261,6 +261,18 @@ while not ExitBool:
     if pygame.key.get_pressed()[K_ESCAPE]:
         Menu = "Escape"
         StartDisplay.fill(Black)
+
+    elif pygame.key.get_pressed()[K_w]:
+        Player.ChangeDirection(0)
+    
+    elif pygame.key.get_pressed()[K_d]:
+        Player.ChangeDirection(1)
+
+    elif pygame.key.get_pressed()[K_s]:
+        Player.ChangeDirection(2)
+
+    elif pygame.key.get_pressed()[K_a]:
+        Player.ChangeDirection(3)
 
     for event in pygame.event.get():
         # check if the event is the X button

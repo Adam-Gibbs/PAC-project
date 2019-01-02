@@ -22,8 +22,9 @@ class Square:
         return self.Coords
 
     def GiveRect(self):
-        return (self.Coords[0], ((self.Coords[1][0] - self.Coords[0][0]),
-                                 (self.Coords[2][1] - self.Coords[0][1])))
+        return ((self.Coords[0][0]+1, self.Coords[0][1]+1),
+                ((self.Coords[1][0] - self.Coords[0][0])-2,
+                (self.Coords[2][1] - self.Coords[0][1])-2))
 
     def GiveWidth(self):
         return (self.Coords[1][0] - self.Coords[0][0])
