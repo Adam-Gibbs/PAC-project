@@ -1,12 +1,14 @@
-import pygame
 import sys
-from pygame.locals import *
-from Structs import *
-from LoadMap import *
-from Entities import *
-from GeneralSubs import *
 import tkinter as tk
 from tkinter import filedialog
+
+import pygame
+from pygame.locals import *
+
+from Entities import *
+from GeneralSubs import *
+from LoadMap import *
+from Structs import *
 
 clock = pygame.time.Clock()
 CurDir = "PAC-project/Maps/BaseMap1.txt"
@@ -60,12 +62,10 @@ def LoadGame():
                                  CurrMap.GiveSquare([Row, Column]).GiveRect())
 
             elif CurrMap.GiveSquare([Row, Column]).GiveContents() == "P":
-                Player = PAC([Row, Column], [CurrMap.GiveSquare([Row, Column])
-                                             .GiveRect()[1], CurrMap
-                                             .GiveSquare([Row, Column])
-                             .GiveRect()[2]])
-                pygame.blit(Player, CurrMap.GiveSquare([Row,
-                                                        Column]).GiveRect()[0])
+                Player = PAC([Row, Column], CurrMap.GiveSquare([Row, Column])
+                             .GiveRect()[1])
+                StartDisplay.blit(Player.GetImage(),
+                                  CurrMap.GiveSquare([Row, Column]).GiveRect()[0])
 
     pygame.display.update()
 
