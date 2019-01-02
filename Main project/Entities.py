@@ -36,10 +36,10 @@ class PAC:
 
     def Move(self, Map):
         # Checks for walls in current square direction
-        if Map.GiveSquare(self.Location).GiveWalls()[self.Direction] is False:
+        if Map.GiveSquare(self.Location).GiveWalls()[self.Direction][0] == [0,
+                                                                            0]:
             # Finds square you wish to travel to
-            SetSquare = Map.FiFindNeighbour(self.Direction)
-            self.Location = SetSquare.GiveCoordinates()
+            self.Location, SetSquare = Map.FindNeighbour(self, self.Direction)
             return self.Location
 
         else:

@@ -260,25 +260,27 @@ while not ExitBool:
     else:
         Cycles += 1
 
-    if pygame.key.get_pressed()[K_ESCAPE]:
-        Menu = "Escape"
-        StartDisplay.fill(Black)
+    for event in pygame.event.get():
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_ESCAPE:
+                Menu = "Escape"
+                StartDisplay.fill(Black)
 
-    elif pygame.key.get_pressed()[K_w]:
-        Player.ChangeDirection(0)
-        Move = True
+            elif event.key == pygame.K_w:
+                Player.ChangeDirection(0)
+                Move = True
 
-    elif pygame.key.get_pressed()[K_d]:
-        Player.ChangeDirection(1)
-        Move = True
+            elif event.key == pygame.K_d:
+                Player.ChangeDirection(1)
+                Move = True
 
-    elif pygame.key.get_pressed()[K_s]:
-        Player.ChangeDirection(2)
-        Move = True
+            elif event.key == pygame.K_s:
+                Player.ChangeDirection(2)
+                Move = True
 
-    elif pygame.key.get_pressed()[K_a]:
-        Player.ChangeDirection(3)
-        Move = True
+            elif event.key == pygame.K_a:
+                Player.ChangeDirection(3)
+                Move = True
 
     if Move is True:
         pygame.draw.rect(StartDisplay, Black, CurrMap.GiveSquare(Player.GetLocation()).GiveRect())

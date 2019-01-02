@@ -34,18 +34,20 @@ class MapStruct:
 
         return self.Array[X][Y]
 
-    def FindNeighbour(self, Direction):
+    def FindNeighbour(self, Player, Direction):
+        Location = Player.GetLocation()
+
         if Direction == 0:
-            return self.array[Direction[0]][Direction[1]+1]
+            return [Location[0], Location[1]+1], self.Array[Location[0]][Location[1]+1]
 
         elif Direction == 1:
-            return self.array[Direction[0]+1][Direction[1]]
+            return [Location[0]+1, Location[1]], self.Array[Location[0]+1][Location[1]]
 
         elif Direction == 2:
-            return self.array[Direction[0]][Direction[1]-1]
+            return [Location[0], Location[1]-1], self.Array[Location[0]][Location[1]-1]
 
         elif Direction == 3:
-            return self.array[Direction[0]-1][Direction[1]]
+            return [Location[0]-1, Location[1]], self.Array[Location[0]-1][Location[1]]
 
         else:
-            return self.array[Direction[0]][Direction[1]]
+            return [Location[0], Location[1]], self.Array[Location[0]][Location[1]]
