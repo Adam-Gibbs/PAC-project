@@ -105,7 +105,6 @@ def ToggleFullscreen():
     global Fullscreen, DisplaySize
     if Fullscreen is True:
         pygame.display.set_mode(DisplaySize)
-        Fullscreen = False
 
     else:
         try:
@@ -117,7 +116,8 @@ def ToggleFullscreen():
             pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
             SetButtons()
             LoadMenu(Menu)
-        Fullscreen = True
+        
+    Fullscreen = not Fullscreen
 
 
 def Return():
@@ -147,17 +147,15 @@ def SetResolution(Res):
     DisplaySize = Res
 
     if not Fullscreen:
-        StartDisplay = pygame.display.set_mode(DisplaySize)
+        pygame.display.set_mode(DisplaySize)
     else:
         try:
-            StartDisplay = pygame.display.set_mode(DisplaySize,
-                                                   pygame.FULLSCREEN)
+            pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
         except:
             print("Error, display cannont support ", DisplaySize[0],
                   "x", DisplaySize[1])
             DisplaySize = [BaseW, BaseH]
-            StartDisplay = pygame.display.set_mode(DisplaySize,
-                                                   pygame.FULLSCREEN)
+            pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
 
     SetButtons()
     LoadMenu(Menu)
@@ -175,10 +173,14 @@ def ToggleResolution():
 
 
 def MapSelect():
-    global CurDir
+    global Fullscreen, CurDir
+
+    pygame.display.set_mode(DisplaySize)
     root = tk.Tk()
     root.withdraw()
     CurDir = filedialog.askopenfilename()
+    Fullscreen = not Fullscreen
+    ToggleFullscreen()
 
 
 def SetButtons():
