@@ -21,12 +21,23 @@ class PAC:
 
     def __init__(self, GivenLocation, SqSize):
         self.Location = GivenLocation  # map struct locatio [x,y]
-        OriginalImage = pygame.image.load("PAC-project/Assets/Pacman.png")
-        self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),
-                                                            int(SqSize[1])))
+        self.Direction = 1
+        self.SetImages(SqSize)
+        self.Image = self.ImageList[1]
+
+    def SetImages(self, SqSize):
+        self.ImageList = list()
+
+        for loop in range(4):
+            OriginalImage = pygame.image.load("PAC-project/Assets/Pacman"
+                                              + str(loop) + ".png")
+            self.ImageList.append(pygame.transform.scale(OriginalImage,
+                                                         (int(SqSize[0]),
+                                                          int(SqSize[1]))))
 
     def ChangeDirection(self, _Direction):
         self.Direction = _Direction
+        self.Image = self.ImageList[self.Direction]
 
     def GetImage(self):
         return self.Image
