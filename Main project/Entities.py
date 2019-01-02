@@ -12,7 +12,7 @@ class Ghost:
     def __init__(self, GivenLocation, SqSize):
         self.Location = GivenLocation
         Fname = "/Ghost" + random.randint(0, 9) + ".png"
-        OriginalImage = pygame.image.load("PAC-project/Assets" + Fname)
+        OriginalImage = pygame.image.load("Main project/Assets" + Fname)
         self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),
                                                             int(SqSize[1])))
 
@@ -29,7 +29,7 @@ class PAC:
         self.ImageList = list()
 
         for loop in range(4):
-            OriginalImage = pygame.image.load("PAC-project/Assets/Pacman"
+            OriginalImage = pygame.image.load("Main project/Assets/Pacman"
                                               + str(loop) + ".png")
             self.ImageList.append(pygame.transform.scale(OriginalImage,
                                                          (int(SqSize[0]),
