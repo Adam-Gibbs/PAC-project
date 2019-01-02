@@ -252,6 +252,8 @@ LoadGame()
 Cycles = 0
 
 while not ExitBool:
+    Move = False
+
     if Cycles == 60:
         Cycles = 0
 
@@ -264,15 +266,23 @@ while not ExitBool:
 
     elif pygame.key.get_pressed()[K_w]:
         Player.ChangeDirection(0)
-    
+        Move = True
+
     elif pygame.key.get_pressed()[K_d]:
         Player.ChangeDirection(1)
+        Move = True
 
     elif pygame.key.get_pressed()[K_s]:
         Player.ChangeDirection(2)
+        Move = True
 
     elif pygame.key.get_pressed()[K_a]:
         Player.ChangeDirection(3)
+        Move = True
+
+    if Move is True:
+        pygame.draw.rect(StartDisplay, Black, CurrMap.GiveSquare(Player.GetLocation()).GiveRect())
+        StartDisplay.blit(Player.GetImage(), CurrMap.GiveSquare(Player.Move(CurrMap)).GiveRect()[0])
 
     for event in pygame.event.get():
         # check if the event is the X button

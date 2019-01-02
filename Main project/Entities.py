@@ -31,12 +31,16 @@ class PAC:
     def GetImage(self):
         return self.Image
 
+    def GetLocation(self):
+        return self.Location
+
     def Move(self, Map):
         # Checks for walls in current square direction
         if Map.GiveSquare(self.Location).GiveWalls()[self.Direction] is False:
             # Finds square you wish to travel to
             SetSquare = Map.FiFindNeighbour(self.Direction)
-            return SetSquare.GiveCoordinates()
+            self.Location = SetSquare.GiveCoordinates()
+            return self.Location
 
         else:
             # Reuturns current square if cannot move
