@@ -38,13 +38,13 @@ class MapStruct:
         Location = Player.GetLocation()
 
         if Direction == 0:
-            return [Location[0], Location[1]+1], self.Array[Location[0]][Location[1]+1]
+            return [Location[0], Location[1]-1], self.Array[Location[0]][Location[1]-1]
 
         elif Direction == 1:
             return [Location[0]+1, Location[1]], self.Array[Location[0]+1][Location[1]]
 
         elif Direction == 2:
-            return [Location[0], Location[1]-1], self.Array[Location[0]][Location[1]-1]
+            return [Location[0], Location[1]+1], self.Array[Location[0]][Location[1]+1]
 
         elif Direction == 3:
             return [Location[0]-1, Location[1]], self.Array[Location[0]-1][Location[1]]

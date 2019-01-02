@@ -40,8 +40,5 @@ class PAC:
                                                                             0]:
             # Finds square you wish to travel to
             self.Location, SetSquare = Map.FindNeighbour(self, self.Direction)
-            return self.Location
 
-        else:
-            # Reuturns current square if cannot move
-            return Map.GiveSquare(self.Location).GiveCoordinates()
+        return self.Location
