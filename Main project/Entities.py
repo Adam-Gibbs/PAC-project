@@ -24,6 +24,7 @@ class PAC:
         self.Direction = 1
         self.SetImages(SqSize)
         self.Image = self.ImageList[1]
+        self.Points = 0
 
     def SetImages(self, SqSize):
         self.ImageList = list()
@@ -39,10 +40,11 @@ class PAC:
         self.Direction = _Direction
         self.Image = self.ImageList[self.Direction]
 
-    def GetImage(self):
+
+    def GiveImage(self):
         return self.Image
 
-    def GetLocation(self):
+    def GiveLocation(self):
         return self.Location
 
     def Move(self, Map):
@@ -52,5 +54,8 @@ class PAC:
         if Map.GiveSquare(self.Location).GiveWalls()[self.Direction][0] == [0, 0] and SetSquare.GiveContents() != "G":
             # Finds square you wish to travel to
             self.Location = Location
+
+            if SetSquare.GiveContents() == "P":
+                self.Points += 1
 
         return self.Location

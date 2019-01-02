@@ -64,7 +64,7 @@ def LoadGame():
             elif CurrMap.GiveSquare([Row, Column]).GiveContents() == "P":
                 Player = PAC([Row, Column], CurrMap.GiveSquare([Row, Column])
                              .GiveRect()[1])
-                StartDisplay.blit(Player.GetImage(),
+                StartDisplay.blit(Player.GiveImage(),
                                   CurrMap.GiveSquare([Row, Column]).GiveRect()[0])
 
     pygame.display.update()
@@ -285,8 +285,8 @@ while not ExitBool:
                 Move = True
 
     if Move is True:
-        pygame.draw.rect(StartDisplay, Black, CurrMap.GiveSquare(Player.GetLocation()).GiveRect())
-        StartDisplay.blit(Player.GetImage(), CurrMap.GiveSquare(Player.Move(CurrMap)).GiveRect()[0])
+        pygame.draw.rect(StartDisplay, Black, CurrMap.GiveSquare(Player.GiveLocation()).GiveRect())
+        StartDisplay.blit(Player.GiveImage(), CurrMap.GiveSquare(Player.Move(CurrMap)).GiveRect()[0])
 
     for event in pygame.event.get():
         # check if the event is the X button
