@@ -23,6 +23,21 @@ class Ghost:
         self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),
                                                             int(SqSize[1])))
 
+    def FindDirection(self):
+        self.Direction = random.randint(0, 3)
+
+    def Move(self, Map):
+        self.FindDirection()
+        Location, SetSquare = Map.FindNeighbour(self, self.Direction)
+
+        # Checks for walls in current square direction
+        if Map.GiveSquare(self.Location).GiveWalls()[self.Direction][0] == [0,
+                                                                            0]:
+            # Finds square you wish to travel to
+            self.Location = Location
+
+        return self.Location
+
     def GiveLocation(self):
         return self.Location
 
