@@ -303,17 +303,6 @@ while not ExitBool:
                           CurrMap.GiveSquare(Player.Move(CurrMap))
                           .GiveRect()[0])
 
-        if len(Ghosts) < CurrMap.GiveMaxGhosts():
-            if GhostTimer == 0:
-                GhostTimer = random.randint(3, 7)
-                Ghosts.append(Ghost(random.choice(GhostLocations), CurrMap
-                              .GiveSquare([0, 0]).GiveRect()[1]))
-                StartDisplay.blit(Ghosts[-1].GiveImage(),
-                                  CurrMap.GiveSquare(Ghosts[-1].GiveLocation())
-                                  .GiveRect()[0])
-
-            GhostTimer -= 1
-        
         for Item in Ghosts:
             pygame.draw.rect(StartDisplay, Black,
                              CurrMap.GiveSquare(Item.GiveLocation())
@@ -337,6 +326,17 @@ while not ExitBool:
                               CurrMap.GiveSquare(Item.Move(CurrMap, Player,
                                                            Ghosts))
                               .GiveRect()[0])
+
+        if len(Ghosts) < CurrMap.GiveMaxGhosts():
+            if GhostTimer == 0:
+                GhostTimer = random.randint(3, 7)
+                Ghosts.append(Ghost(random.choice(GhostLocations), CurrMap
+                              .GiveSquare([0, 0]).GiveRect()[1]))
+                StartDisplay.blit(Ghosts[-1].GiveImage(),
+                                  CurrMap.GiveSquare(Ghosts[-1].GiveLocation())
+                                  .GiveRect()[0])
+
+            GhostTimer -= 1
 
     for event in pygame.event.get():
         # check if the event is the X button

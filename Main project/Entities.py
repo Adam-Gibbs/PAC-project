@@ -33,11 +33,12 @@ class Ghost:
             for Item in Ghosts:
                 GhostLocation.append(Item.GiveLocation())
 
-            if Map.GiveSquare(self.Location).GiveWalls()[Direction][0] == [0,
+            if Map.GiveSquare(self.Location).GiveWalls()[Direction][0] != [0,
                                                                            0]:
                 Rating.append(-1)
+
             elif Pos in GhostLocation:
-                Ratting.append(-1)
+                Rating.append(-1)
             elif self.Previous == Pos:
                 Rating.append(0)
             elif Square.GiveContents() == "G":
