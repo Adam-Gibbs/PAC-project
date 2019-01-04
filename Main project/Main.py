@@ -1,3 +1,4 @@
+import os
 import sys
 import tkinter as tk
 from tkinter import filedialog
@@ -12,10 +13,10 @@ from Structs import *
 
 clock = pygame.time.Clock()
 
-try:
-    CurDir = "Main project/Maps/BaseMap1.txt"
-except:
+if os.name == 'nt':
     CurDir = "Main project\\Maps\\BaseMap1.txt"
+else:
+    CurDir = "Main project/Maps/BaseMap1.txt"
 
 pygame.init()
 clock = pygame.time.Clock()

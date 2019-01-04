@@ -1,5 +1,6 @@
-import random
 import os
+import random
+
 import pygame
 
 from GeneralSubs import TextObjects
