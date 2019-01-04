@@ -26,6 +26,7 @@ class Ghost:
 
     def Move(self, Map, Player, Ghosts):
         Rating = list()
+        TempRating = list()
         GhostLocation = list()
 
         for Item in Ghosts:
@@ -36,20 +37,25 @@ class Ghost:
 
             if Map.GiveSquare(self.Location).GiveWalls()[Direction][0] != [0,
                                                                            0]:
-                Rating.append(-1)
+                TempRating.append(-2)
 
-            elif Pos in GhostLocation:
-                Rating.append(-1)
-            elif self.Previous == Pos:
-                Rating.append(0)
-            elif Player.GiveLocation() == Pos:
-                Rating.append(4)
-            elif Square.GiveContents() == "G":
-                Rating.append(1)
-            elif Square.GiveContents() == "E":
-                Rating.append(2)
-            else:
+            if Pos in GhostLocation:
+                TempRating.append(-1)
+            if self.Previous == Pos:
+                TempRating.append(0)
+            if Square.GiveContents() == "G":
+                TempRating.append(1)
+            if Square.GiveContents() == "E":
+                TempRating.append(2)
+            if Player.GiveLocation() == Pos:
+                TempRating.append(4)
+
+            if max(TempRating) >= 0:
+                Rating.append(max(TempRating))
+            elif len(TempRating) == 0:
                 Rating.append(3)
+            else:
+                Rating.append(-1)
 
         self.Previous = self.Location
         if max(Rating) >= 0:
