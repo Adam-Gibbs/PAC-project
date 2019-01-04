@@ -4,7 +4,6 @@ import random
 import pygame
 
 from GeneralSubs import TextObjects
-from PathFinding import CheckMove, PerformMove
 from Structs import MapStruct
 
 
@@ -12,6 +11,7 @@ class Ghost:
 
     def __init__(self, GivenLocation, SqSize):
         self.Location = GivenLocation
+        self.Previous = GivenLocation
 
         if os.name == 'nt':
             Fname = "\\Ghost" + str(random.randint(0, 9)) + ".png"
@@ -23,18 +23,35 @@ class Ghost:
         self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),
                                                             int(SqSize[1])))
 
-    def FindDirection(self):
-        self.Direction = random.randint(0, 3)
+    def Move(self, Map, Player, Ghosts):
+        Rating = list()
+        GhostLocation = list()
 
-    def Move(self, Map):
-        self.FindDirection()
-        Location, SetSquare = Map.FindNeighbour(self, self.Direction)
+        for Direction in range(4):
+            Pos, Square = Map.FindNeighbour(self, Direction)
 
-        # Checks for walls in current square direction
-        if Map.GiveSquare(self.Location).GiveWalls()[self.Direction][0] == [0,
-                                                                            0]:
-            # Finds square you wish to travel to
-            self.Location = Location
+            for Item in Ghosts:
+                GhostLocation.append(Item.GiveLocation())
+
+            if Map.GiveSquare(self.Location).GiveWalls()[Direction][0] == [0,
+                                                                           0]:
+                Rating.append(-1)
+            elif Pos in GhostLocation:
+                Ratting.append(-1)
+            elif self.Previous == Pos:
+                Rating.append(0)
+            elif Square.GiveContents() == "G":
+                Rating.append(1)
+            elif Square.GiveContents() == "E":
+                Rating.append(2)
+            elif Player.GiveLocation() == Pos:
+                Rating.append(4)
+            else:
+                Rating.append(3)
+
+        if max(Rating) >= 0:
+            self.Location, Sq = Map.FindNeighbour(self,
+                                                    Rating.index(max(Rating)))
 
         return self.Location
 
@@ -43,6 +60,7 @@ class Ghost:
 
     def GiveImage(self):
         return self.Image
+
 
 class PAC:
 

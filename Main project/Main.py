@@ -306,7 +306,8 @@ while not ExitBool:
         if len(Ghosts) < CurrMap.GiveMaxGhosts():
             if GhostTimer == 0:
                 GhostTimer = random.randint(3, 7)
-                Ghosts.append(Ghost(random.choice(GhostLocations), CurrMap.GiveSquare([0, 0]).GiveRect()[1]))
+                Ghosts.append(Ghost(random.choice(GhostLocations), CurrMap
+                              .GiveSquare([0, 0]).GiveRect()[1]))
                 StartDisplay.blit(Ghosts[-1].GiveImage(),
                                   CurrMap.GiveSquare(Ghosts[-1].GiveLocation())
                                   .GiveRect()[0])
@@ -317,6 +318,7 @@ while not ExitBool:
             pygame.draw.rect(StartDisplay, Black,
                              CurrMap.GiveSquare(Item.GiveLocation())
                              .GiveRect())
+
             if CurrMap.GiveSquare(Item.GiveLocation()).GiveContents() == "S":
                 pygame.draw.circle(StartDisplay, Yellow, CurrMap.
                                    GiveSquare(Item.GiveLocation()).GiveCentre(), 3)
@@ -328,10 +330,12 @@ while not ExitBool:
 
             elif CurrMap.GiveSquare(Item.GiveLocation()).GiveContents() == "G":
                 pygame.draw.rect(StartDisplay, DarkRed,
-                                 CurrMap.GiveSquare(Item.GiveLocation()).GiveRect())
+                                 CurrMap.GiveSquare(Item.GiveLocation())
+                                 .GiveRect())
                 GhostLocations.append(Item.GiveLocation())
             StartDisplay.blit(Item.GiveImage(),
-                              CurrMap.GiveSquare(Item.Move(CurrMap))
+                              CurrMap.GiveSquare(Item.Move(CurrMap, Player,
+                                                           Ghosts))
                               .GiveRect()[0])
 
     for event in pygame.event.get():

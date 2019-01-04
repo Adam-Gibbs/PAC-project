@@ -42,8 +42,8 @@ class MapStruct:
 
         return self.Array[X][Y]
 
-    def FindNeighbour(self, Player, Direction):
-        Location = Player.GiveLocation()
+    def FindNeighbour(self, Sprite, Direction):
+        Location = Sprite.GiveLocation()
 
         try:
             if Direction == 0:
