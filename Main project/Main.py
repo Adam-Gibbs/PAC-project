@@ -11,7 +11,11 @@ from LoadMap import *
 from Structs import *
 
 clock = pygame.time.Clock()
-CurDir = "Main project/Maps/BaseMap1.txt"
+
+try:
+    CurDir = "Main project/Maps/BaseMap1.txt"
+except:
+    CurDir = "Main project\\Maps\\BaseMap1.txt"
 
 pygame.init()
 clock = pygame.time.Clock()
