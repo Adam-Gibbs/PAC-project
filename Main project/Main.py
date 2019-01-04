@@ -306,26 +306,26 @@ while not ExitBool:
         StartDisplay.blit(TextSurf, TextRect)
         LoadMenu(Menu)
 
-    StartDisplay.fill(Black, (0, 0, 200, DisplaySize[1]))
-    ScoreFont = pygame.font.Font('freesansbold.ttf', int(DisplaySize[0]/40))
-    TextSurf, TextRect = TextObjects("Score:", ScoreFont, Blue)
-    TextRect.center = (100, DisplaySize[0]/10)
-    StartDisplay.blit(TextSurf, TextRect)
+    if Menu is None:
+        StartDisplay.fill(Black, (0, 0, 200, DisplaySize[1]))
+        ScoreFont = pygame.font.Font('freesansbold.ttf', int(DisplaySize[0]/40))
+        TextSurf, TextRect = TextObjects("Score:", ScoreFont, Blue)
+        TextRect.center = (100, DisplaySize[0]/10)
+        StartDisplay.blit(TextSurf, TextRect)
 
-    TextSurf, TextRect = TextObjects(str(Player.GivePoints()),
-                                     ScoreFont, Blue)
-    TextRect.center = (100, DisplaySize[0]/8)
-    StartDisplay.blit(TextSurf, TextRect)
+        TextSurf, TextRect = TextObjects(str(Player.GivePoints()),
+                                        ScoreFont, Blue)
+        TextRect.center = (100, DisplaySize[0]/8)
+        StartDisplay.blit(TextSurf, TextRect)
 
-    TextSurf, TextRect = TextObjects("Lives:", ScoreFont, Blue)
-    TextRect.center = (100, DisplaySize[0]/4.5)
-    StartDisplay.blit(TextSurf, TextRect)
+        TextSurf, TextRect = TextObjects("Lives:", ScoreFont, Blue)
+        TextRect.center = (100, DisplaySize[0]/4.5)
+        StartDisplay.blit(TextSurf, TextRect)
 
-    TextSurf, TextRect = TextObjects(str(Player.GiveLives()),
-                                     ScoreFont, Blue)
-    TextRect.center = (100, DisplaySize[0]/4)
-    StartDisplay.blit(TextSurf, TextRect)
-
+        TextSurf, TextRect = TextObjects(str(Player.GiveLives()),
+                                        ScoreFont, Blue)
+        TextRect.center = (100, DisplaySize[0]/4)
+        StartDisplay.blit(TextSurf, TextRect)
 
     if ActiveFPS is True:
         FPSText = pygame.font.Font('freesansbold.ttf', 25)

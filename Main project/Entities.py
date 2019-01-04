@@ -55,7 +55,6 @@ class PAC:
 
     def Reset(self):
         self.Direction = 1
-        self.SetImages(SqSize)
         self.Image = self.ImageList[1]
         self.Points = 0
         self.Lives = 0
