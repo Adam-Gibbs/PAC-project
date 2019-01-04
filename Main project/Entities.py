@@ -78,6 +78,7 @@ class PAC:
 
     def __init__(self, GivenLocation, SqSize):
         self.Location = GivenLocation  # map struct location [x,y]
+        self.StartLoc = GivenLocation
         self.Direction = 1
         self.SetImages(SqSize)
         self.Image = self.ImageList[1]
@@ -115,11 +116,18 @@ class PAC:
     def GiveLocation(self):
         return self.Location
 
+    def TakeLife(self):
+        self.Lives -= 1
+        if self.Lives < 0:
+            return True
+        return False        
+
     def Reset(self):
         self.Direction = 1
         self.Image = self.ImageList[1]
         self.Points = 0
         self.Lives = 0
+        self.Location = self.StartLoc
 
     def Move(self, Map):
         Location, SetSquare = Map.FindNeighbour(self, self.Direction)

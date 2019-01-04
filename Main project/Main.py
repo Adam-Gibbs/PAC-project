@@ -184,6 +184,34 @@ def ToggleResolution():
     HideSubMenu()
 
 
+def ClearScreen(obj, Gh = False):
+    pygame.draw.rect(StartDisplay, Black,
+                     CurrMap.GiveSquare(obj.GiveLocation()).GiveRect())
+
+    if Gh is True:
+        if CurrMap.GiveSquare(obj.GiveLocation()).GiveContents() == "S":
+            pygame.draw.circle(StartDisplay, Yellow, CurrMap.
+                               GiveSquare(obj.GiveLocation()).GiveCentre(), 3)
+
+        elif CurrMap.GiveSquare(obj.GiveLocation()).GiveContents() == "U":
+            pygame.draw.circle(StartDisplay, Red,
+                               CurrMap.GiveSquare(obj.GiveLocation()).
+                               GiveCentre(), 6)
+
+        elif CurrMap.GiveSquare(obj.GiveLocation()).GiveContents() == "G":
+            pygame.draw.rect(StartDisplay, DarkRed,
+                             CurrMap.GiveSquare(obj.GiveLocation())
+                             .GiveRect())
+
+
+def CheckTouching():
+    for Item in Ghosts:
+        if Player.GiveLocation() == Item.GiveLocation():
+            return True
+    
+    return False
+
+
 def MapSelect():
     global Fullscreen, CurDir
 
@@ -263,16 +291,9 @@ def SetButtons():
 SetButtons()
 StartDisplay.fill(Black)
 LoadGame()
-Cycles = 0
 
 while not ExitBool:
     Move = False
-
-    if Cycles == 60:
-        Cycles = 0
-
-    else:
-        Cycles += 1
 
     for event in pygame.event.get():
         if event.type == pygame.KEYUP:
@@ -297,31 +318,13 @@ while not ExitBool:
                 Move = True
 
     if Move is True:
-        pygame.draw.rect(StartDisplay, Black,
-                         CurrMap.GiveSquare(Player.GiveLocation()).GiveRect())
+        ClearScreen(Player)
         StartDisplay.blit(Player.GiveImage(),
                           CurrMap.GiveSquare(Player.Move(CurrMap))
                           .GiveRect()[0])
 
         for Item in Ghosts:
-            pygame.draw.rect(StartDisplay, Black,
-                             CurrMap.GiveSquare(Item.GiveLocation())
-                             .GiveRect())
-
-            if CurrMap.GiveSquare(Item.GiveLocation()).GiveContents() == "S":
-                pygame.draw.circle(StartDisplay, Yellow, CurrMap.
-                                   GiveSquare(Item.GiveLocation()).GiveCentre(), 3)
-
-            elif CurrMap.GiveSquare(Item.GiveLocation()).GiveContents() == "U":
-                pygame.draw.circle(StartDisplay, Red,
-                                   CurrMap.GiveSquare(Item.GiveLocation()).
-                                   GiveCentre(), 6)
-
-            elif CurrMap.GiveSquare(Item.GiveLocation()).GiveContents() == "G":
-                pygame.draw.rect(StartDisplay, DarkRed,
-                                 CurrMap.GiveSquare(Item.GiveLocation())
-                                 .GiveRect())
-                GhostLocations.append(Item.GiveLocation())
+            ClearScreen(Item, Flase)
             StartDisplay.blit(Item.GiveImage(),
                               CurrMap.GiveSquare(Item.Move(CurrMap, Player,
                                                            Ghosts))
@@ -337,6 +340,23 @@ while not ExitBool:
                                   .GiveRect()[0])
 
             GhostTimer -= 1
+
+    if CheckTouching() is True:
+        if Player.TakeLife() is True:
+            Menu = "Escape"
+            StartDisplay.fill(Black)
+            Player.Reset()
+
+        ClearScreen(Player)
+        Player.Reset()
+        StartDisplay.blit(Player.GiveImage(),
+                          CurrMap.GiveSquare(Player.Move(CurrMap))
+                          .GiveRect()[0])
+
+        for Item in Ghosts:
+            ClearScreen(Item, Flase)
+        del Ghosts[:]
+        GhostTimer = 0
 
     for event in pygame.event.get():
         # check if the event is the X button
