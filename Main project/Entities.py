@@ -12,12 +12,13 @@ class Ghost:
     def __init__(self, GivenLocation, SqSize):
         self.Location = GivenLocation
         self.Previous = GivenLocation
+        self.ID = random.randint(0, 9)
 
         if os.name == 'nt':
-            Fname = "\\Ghost" + str(random.randint(0, 9)) + ".png"
+            Fname = "\\Ghost" + str(self.ID) + ".png"
             OriginalImage = pygame.image.load("Main project\\Assets" + Fname)
         else:
-            Fname = "/Ghost" + str(random.randint(0, 9)) + ".png"
+            Fname = "/Ghost" + str(self.ID) + ".png"
             OriginalImage = pygame.image.load("Main project/Assets" + Fname)
 
         self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),
@@ -27,11 +28,11 @@ class Ghost:
         Rating = list()
         GhostLocation = list()
 
+        for Item in Ghosts:
+            GhostLocation.append(Item.GiveLocation())
+
         for Direction in range(4):
             Pos, Square = Map.FindNeighbour(self, Direction)
-
-            for Item in Ghosts:
-                GhostLocation.append(Item.GiveLocation())
 
             if Map.GiveSquare(self.Location).GiveWalls()[Direction][0] != [0,
                                                                            0]:
@@ -41,18 +42,22 @@ class Ghost:
                 Rating.append(-1)
             elif self.Previous == Pos:
                 Rating.append(0)
+            elif Player.GiveLocation() == Pos:
+                Rating.append(4)
             elif Square.GiveContents() == "G":
                 Rating.append(1)
             elif Square.GiveContents() == "E":
                 Rating.append(2)
-            elif Player.GiveLocation() == Pos:
-                Rating.append(4)
             else:
                 Rating.append(3)
 
+        self.Previous = self.Location
         if max(Rating) >= 0:
-            self.Location, Sq = Map.FindNeighbour(self,
-                                                    Rating.index(max(Rating)))
+            rannum = random.randint(0, 3)
+            while Rating[rannum] != max(Rating):
+                rannum = random.randint(0, 3)
+
+            self.Location, Sq = Map.FindNeighbour(self, rannum)
 
         return self.Location
 
@@ -120,6 +125,6 @@ class PAC:
 
             if SetSquare.GiveContents() == "S":
                 self.Points += 1
-                SetSquare.ClearContents()
 
+        SetSquare.ClearContents()
         return self.Location
