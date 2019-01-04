@@ -37,7 +37,7 @@ Black = (0, 0, 0)
 
 def LoadGame():
     global Player
-   
+
     StartDisplay.fill(Black)
     for Row in range(CurrMap.GiveSize("X")):
         for Column in range(CurrMap.GiveSize("Y")):
@@ -116,7 +116,7 @@ def ToggleFullscreen():
             pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
             SetButtons()
             LoadMenu(Menu)
-        
+
     Fullscreen = not Fullscreen
 
 
@@ -150,7 +150,7 @@ def SetResolution(Res):
         pygame.display.set_mode(DisplaySize)
     else:
         try:
-            pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+            pygame.display.set_mode(DisplaySize)  # , pygame.FULLSCREEN)
         except:
             print("Error, display cannont support ", DisplaySize[0],
                   "x", DisplaySize[1])
@@ -285,8 +285,11 @@ while not ExitBool:
                 Move = True
 
     if Move is True:
-        pygame.draw.rect(StartDisplay, Black, CurrMap.GiveSquare(Player.GiveLocation()).GiveRect())
-        StartDisplay.blit(Player.GiveImage(), CurrMap.GiveSquare(Player.Move(CurrMap)).GiveRect()[0])
+        pygame.draw.rect(StartDisplay, Black,
+                         CurrMap.GiveSquare(Player.GiveLocation()).GiveRect())
+        StartDisplay.blit(Player.GiveImage(),
+                          CurrMap.GiveSquare(Player.Move(CurrMap))
+                          .GiveRect()[0])
 
     for event in pygame.event.get():
         # check if the event is the X button
@@ -303,13 +306,38 @@ while not ExitBool:
         StartDisplay.blit(TextSurf, TextRect)
         LoadMenu(Menu)
 
+    StartDisplay.fill(Black, (0, 0, 200, DisplaySize[1]))
+    ScoreFont = pygame.font.Font('freesansbold.ttf', int(DisplaySize[0]/40))
+    TextSurf, TextRect = TextObjects("Score:", ScoreFont, Blue)
+    TextRect.center = (100, DisplaySize[0]/10)
+    StartDisplay.blit(TextSurf, TextRect)
+
+    TextSurf, TextRect = TextObjects(str(Player.GivePoints()),
+                                     ScoreFont, Blue)
+    TextRect.center = (100, DisplaySize[0]/8)
+    StartDisplay.blit(TextSurf, TextRect)
+
+    TextSurf, TextRect = TextObjects("Lives:", ScoreFont, Blue)
+    TextRect.center = (100, DisplaySize[0]/4.5)
+    StartDisplay.blit(TextSurf, TextRect)
+
+    TextSurf, TextRect = TextObjects(str(Player.GiveLives()),
+                                     ScoreFont, Blue)
+    TextRect.center = (100, DisplaySize[0]/4)
+    StartDisplay.blit(TextSurf, TextRect)
+
+
     if ActiveFPS is True:
-        StartDisplay.fill(Black, (5, 5, 75, 25))
         FPSText = pygame.font.Font('freesansbold.ttf', 25)
         TextSurf, TextRect = TextObjects(str(round(clock.get_fps(), 1)),
                                          FPSText, Yellow)
         TextRect.center = (40, 20)
         StartDisplay.blit(TextSurf, TextRect)
+
+    if Player.GivePoints() == int(CurrMap.GiveTotPoints()):
+        Menu = "Escape"
+        StartDisplay.fill(Black)
+        Player.Reset()
 
     pygame.display.update()
     clock.tick(60)

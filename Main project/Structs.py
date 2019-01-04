@@ -4,10 +4,11 @@ from GeneralSubs import Button
 
 
 class MapStruct:
-    def __init__(self, _size, _name, _creator):
+    def __init__(self, _size, _name, _creator, __totpoints):
         self.Creator = _creator
         self.Name = _name
         self.Size = _size
+        self.TotPoints = __totpoints
         # Creates an array(of objects) of the inputted size, the datatype of
         # the Square class
         self.Array = numpy.empty(self.Size, dtype=object)
@@ -27,6 +28,9 @@ class MapStruct:
 
         else:
             return self.Size
+
+    def GiveTotPoints(self):
+        return self.TotPoints
 
     def GiveSquare(self, Location):
         X = Location[0]

@@ -25,6 +25,7 @@ class PAC:
         self.SetImages(SqSize)
         self.Image = self.ImageList[1]
         self.Points = 0
+        self.Lives = 0
 
     def SetImages(self, SqSize):
         self.ImageList = list()
@@ -40,12 +41,24 @@ class PAC:
         self.Direction = _Direction
         self.Image = self.ImageList[self.Direction]
 
+    def GivePoints(self):
+        return self.Points
+
+    def GiveLives(self):
+        return self.Lives
 
     def GiveImage(self):
         return self.Image
 
     def GiveLocation(self):
         return self.Location
+
+    def Reset(self):
+        self.Direction = 1
+        self.SetImages(SqSize)
+        self.Image = self.ImageList[1]
+        self.Points = 0
+        self.Lives = 0
 
     def Move(self, Map):
         Location, SetSquare = Map.FindNeighbour(self, self.Direction)
@@ -55,7 +68,8 @@ class PAC:
             # Finds square you wish to travel to
             self.Location = Location
 
-            if SetSquare.GiveContents() == "P":
+            if SetSquare.GiveContents() == "S":
                 self.Points += 1
+                SetSquare.ClearContents()
 
         return self.Location

@@ -43,6 +43,9 @@ class Square:
     def GiveContents(self):
         return self.Content
 
+    def ClearContents(self):
+        self.Content = "E"
+
     def GiveWalls(self):
         Nothing = [0, 0]
         MasterList = list()
