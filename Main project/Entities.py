@@ -26,13 +26,13 @@ class Ghost:
 
     def Move(self, Map, Player, Ghosts):
         Rating = list()
-        TempRating = list()
         GhostLocation = list()
 
         for Item in Ghosts:
             GhostLocation.append(Item.GiveLocation())
 
         for Direction in range(4):
+            TempRating = list()
             Pos, Square = Map.FindNeighbour(self, Direction)
 
             if Map.GiveSquare(self.Location).GiveWalls()[Direction][0] != [0,
