@@ -50,12 +50,12 @@ class Ghost:
             if Player.GiveLocation() == Pos:
                 TempRating.append(4)
 
-            if max(TempRating) >= 0:
-                Rating.append(max(TempRating))
-            elif len(TempRating) == 0:
+            if len(TempRating) == 0:
                 Rating.append(3)
-            else:
+            elif -1 in TempRating or -2 in TempRating:
                 Rating.append(-1)
+            else:
+                Rating.append(max(TempRating))
 
         self.Previous = self.Location
         if max(Rating) >= 0:
