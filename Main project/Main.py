@@ -184,7 +184,7 @@ def ToggleResolution():
     HideSubMenu()
 
 
-def ClearScreen(obj, Gh = False):
+def ClearScreen(obj, Gh=False):
     pygame.draw.rect(StartDisplay, Black,
                      CurrMap.GiveSquare(obj.GiveLocation()).GiveRect())
 
@@ -324,7 +324,7 @@ while not ExitBool:
                           .GiveRect()[0])
 
         for Item in Ghosts:
-            ClearScreen(Item, Flase)
+            ClearScreen(Item, True)
             StartDisplay.blit(Item.GiveImage(),
                               CurrMap.GiveSquare(Item.Move(CurrMap, Player,
                                                            Ghosts))
@@ -342,10 +342,8 @@ while not ExitBool:
             GhostTimer -= 1
 
     if CheckTouching() is True:
-        if Player.TakeLife() is True:
-            Menu = "Escape"
-            StartDisplay.fill(Black)
-            Player.Reset()
+        pygame.display.update()
+        pygame.time.delay(500)
 
         ClearScreen(Player)
         Player.Reset()
@@ -354,9 +352,14 @@ while not ExitBool:
                           .GiveRect()[0])
 
         for Item in Ghosts:
-            ClearScreen(Item, Flase)
+            ClearScreen(Item, True)
         del Ghosts[:]
         GhostTimer = 0
+
+        if Player.TakeLife() is True:
+            Menu = "Escape"
+            StartDisplay.fill(Black)
+            Player.Reset()
 
     for event in pygame.event.get():
         # check if the event is the X button
