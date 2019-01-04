@@ -25,6 +25,8 @@ Menu = None
 Fullscreen = True
 ActiveFPS = False
 GhostTimer = 0
+GhostLocations = list()
+Ghosts = list()
 BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
@@ -73,7 +75,8 @@ def LoadGame():
                 Player = PAC([Row, Column], CurrMap.GiveSquare([Row, Column])
                              .GiveRect()[1])
                 StartDisplay.blit(Player.GiveImage(),
-                                  CurrMap.GiveSquare([Row, Column]).GiveRect()[0])
+                                  CurrMap.GiveSquare([Row, Column])
+                                  .GiveRect()[0])
 
     pygame.display.update()
 
@@ -300,11 +303,11 @@ while not ExitBool:
                           CurrMap.GiveSquare(Player.Move(CurrMap))
                           .GiveRect()[0])
 
-        if len(Ghosts) < CurrMap.MaxGhosts():
+        if len(Ghosts) < CurrMap.GiveMaxGhosts():
             if GhostTimer == 0:
                 GhostTimer = random.randint(3, 7)
                 Ghosts.append(Ghost(random.choice(GhostLocations),
-                              CurrMap.GiveSquare([Row, Column]).GiveRect()[1]))
+                              CurrMap.GiveSquare([0, 0]).GiveRect()[1]))
                 StartDisplay.blit(Ghosts[-1].GiveImage(),
                                   CurrMap.GiveSquare(Ghosts[-1].GiveLocation())
                                   .GiveRect()[0])

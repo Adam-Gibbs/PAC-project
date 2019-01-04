@@ -14,10 +14,10 @@ class Ghost:
         self.Location = GivenLocation
 
         if os.name == 'nt':
-            Fname = "\\Ghost" + random.randint(0, 9) + ".png"
+            Fname = "\\Ghost" + str(random.randint(0, 9)) + ".png"
             OriginalImage = pygame.image.load("Main project\\Assets" + Fname)
         else:
-            Fname = "/Ghost" + random.randint(0, 9) + ".png"
+            Fname = "/Ghost" + str(random.randint(0, 9)) + ".png"
             OriginalImage = pygame.image.load("Main project/Assets" + Fname)
 
         self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),

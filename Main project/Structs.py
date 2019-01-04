@@ -9,7 +9,7 @@ class MapStruct:
         self.Name = _name
         self.Size = _size
         self.TotPoints = _totpoints
-        self.MaxGhosts = _maxghosts
+        self.MaxGhosts = int(_maxghosts)
         # Creates an array(of objects) of the inputted size, the datatype of
         # the Square class
         self.Array = numpy.empty(self.Size, dtype=object)
