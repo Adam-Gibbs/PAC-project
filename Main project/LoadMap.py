@@ -20,10 +20,10 @@ def LoadMap(FileName, ScreenSize):
 
     # Then load in MetaData:
     CurrMap = MapStruct(Size, os.path.basename(FileName)[:-4], ReadData[1],
-                        ReadData[2])
+                        ReadData[2], ReadData[3])
 
     # Now load in squares:
-    ReadData = ReadData[3].split("/")
+    ReadData = ReadData[4].split("/")
     TempData = list()
 
     SquareSize = [(ScreenSize[0]-40)/Size[0], (ScreenSize[1]-40)/Size[1]]

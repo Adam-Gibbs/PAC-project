@@ -24,11 +24,12 @@ ExitBool = False
 Menu = None
 Fullscreen = True
 ActiveFPS = False
+GhostTimer = 0
 BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
 
-StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+StartDisplay = pygame.display.set_mode(DisplaySize)  # , pygame.FULLSCREEN)
 White = (255, 255, 255)
 Blue = (0, 0, 255)
 DarkBlue = (0, 0, 55)
@@ -38,10 +39,11 @@ Red = (255, 0, 0)
 DarkRed = (55, 0, 0)
 Yellow = (255, 255, 0)
 Black = (0, 0, 0)
+int(CurrMap.GiveMaxGhosts())
 
 
 def LoadGame():
-    global Player
+    global Player, GhostLocations
 
     StartDisplay.fill(Black)
     for Row in range(CurrMap.GiveSize("X")):
@@ -65,6 +67,7 @@ def LoadGame():
             elif CurrMap.GiveSquare([Row, Column]).GiveContents() == "G":
                 pygame.draw.rect(StartDisplay, DarkRed,
                                  CurrMap.GiveSquare([Row, Column]).GiveRect())
+                GhostLocations.append([Row, Column])
 
             elif CurrMap.GiveSquare([Row, Column]).GiveContents() == "P":
                 Player = PAC([Row, Column], CurrMap.GiveSquare([Row, Column])
@@ -126,9 +129,10 @@ def ToggleFullscreen():
 
 
 def Return():
-    global Menu, CurrMap
+    global Menu, CurrMap, GhostTimer
     CurrMap = LoadMap(CurDir, DisplaySize)
     Menu = None
+    GhostTimer = 0
     LoadGame()
 
 
@@ -189,13 +193,13 @@ def MapSelect():
 
 
 def SetButtons():
+    global EscapeButtons, ResolutionButtons
     # X, Length, Width, GapTillNext
     ButtonProperties = [(0.5*(DisplaySize[0]))-((0.3*DisplaySize[0])/2),
                         (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0],
                         (DisplaySize[1]-150)/7
                         ]
-    global EscapeButtons, ResolutionButtons
-
+    
     EscapeButtons = [Button("Change Map", White, ButtonProperties[0], 100,
                             ButtonProperties[2], ButtonProperties[1], Black,
                             DarkBlue, StartDisplay, MapSelect),
@@ -296,6 +300,17 @@ while not ExitBool:
                           CurrMap.GiveSquare(Player.Move(CurrMap))
                           .GiveRect()[0])
 
+        if len(Ghosts) < CurrMap.MaxGhosts():
+            if GhostTimer == 0:
+                GhostTimer = random.randint(3, 7)
+                Ghosts.append(Ghost(random.choice(GhostLocations),
+                              CurrMap.GiveSquare([Row, Column]).GiveRect()[1]))
+                StartDisplay.blit(Ghosts[-1].GiveImage(),
+                                  CurrMap.GiveSquare(Ghosts[-1].GiveLocation())
+                                  .GiveRect()[0])
+
+            GhostTimer -= 1
+
     for event in pygame.event.get():
         # check if the event is the X button
         if event.type == pygame.QUIT:
@@ -319,7 +334,7 @@ while not ExitBool:
         StartDisplay.blit(TextSurf, TextRect)
 
         TextSurf, TextRect = TextObjects(str(Player.GivePoints()),
-                                        ScoreFont, Blue)
+                                         ScoreFont, Blue)
         TextRect.center = (100, DisplaySize[0]/8)
         StartDisplay.blit(TextSurf, TextRect)
 
@@ -328,7 +343,7 @@ while not ExitBool:
         StartDisplay.blit(TextSurf, TextRect)
 
         TextSurf, TextRect = TextObjects(str(Player.GiveLives()),
-                                        ScoreFont, Blue)
+                                         ScoreFont, Blue)
         TextRect.center = (100, DisplaySize[0]/4)
         StartDisplay.blit(TextSurf, TextRect)
 

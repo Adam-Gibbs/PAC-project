@@ -20,20 +20,24 @@ class Ghost:
             Fname = "/Ghost" + random.randint(0, 9) + ".png"
             OriginalImage = pygame.image.load("Main project/Assets" + Fname)
 
-
         self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),
                                                             int(SqSize[1])))
 
+    def GiveLocation(self):
+        return self.Location
+
+    def GiveImage(self):
+        return self.Image
 
 class PAC:
 
     def __init__(self, GivenLocation, SqSize):
-        self.Location = GivenLocation  # map struct locatio [x,y]
+        self.Location = GivenLocation  # map struct location [x,y]
         self.Direction = 1
         self.SetImages(SqSize)
         self.Image = self.ImageList[1]
         self.Points = 0
-        self.Lives = 0
+        self.Lives = 3
 
     def SetImages(self, SqSize):
         self.ImageList = list()
