@@ -373,7 +373,7 @@ while not ExitBool:
             Quit()
 
     if Menu is not None:
-        TextSurf, TextRect = TextObjects("Debug Menu",
+        TextSurf, TextRect = TextObjects("Menu",
                                          pygame.font.Font('freesansbold.ttf',
                                                           60), Blue)
         TextRect.center = ((DisplaySize[0]/2), (35))
