@@ -31,7 +31,7 @@ BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
 
-StartDisplay = pygame.display.set_mode(DisplaySize)  # , pygame.FULLSCREEN)
+StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
 White = (255, 255, 255)
 Blue = (0, 0, 255)
 DarkBlue = (0, 0, 55)
@@ -135,6 +135,10 @@ def Return():
     global Menu, CurrMap, GhostTimer
     CurrMap = LoadMap(CurDir, DisplaySize)
     Menu = None
+    for Item in Ghosts:
+        ClearScreen(Item, True)
+        pygame.display.update()
+    del Ghosts[:]
     GhostTimer = 0
     LoadGame()
 
@@ -317,7 +321,7 @@ while not ExitBool:
                 Player.ChangeDirection(3)
                 Move = True
 
-    if Move is True:
+    if Move is True and Menu is None:
         ClearScreen(Player)
         StartDisplay.blit(Player.GiveImage(),
                           CurrMap.GiveSquare(Player.Move(CurrMap))
