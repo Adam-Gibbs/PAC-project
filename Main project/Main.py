@@ -322,11 +322,6 @@ while not ExitBool:
                 Move = True
 
     if Move is True and Menu is None:
-        ClearScreen(Player)
-        StartDisplay.blit(Player.GiveImage(),
-                          CurrMap.GiveSquare(Player.Move(CurrMap))
-                          .GiveRect()[0])
-
         for Item in Ghosts:
             ClearScreen(Item, True)
             StartDisplay.blit(Item.GiveImage(),
@@ -344,6 +339,11 @@ while not ExitBool:
                                   .GiveRect()[0])
 
             GhostTimer -= 1
+
+        ClearScreen(Player)
+        StartDisplay.blit(Player.GiveImage(),
+                          CurrMap.GiveSquare(Player.Move(CurrMap))
+                          .GiveRect()[0])
 
     if CheckTouching() is True:
         pygame.display.update()
