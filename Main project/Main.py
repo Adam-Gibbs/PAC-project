@@ -166,7 +166,7 @@ def SetResolution(Res):
         pygame.display.set_mode(DisplaySize)
     else:
         try:
-            pygame.display.set_mode(DisplaySize)  # , pygame.FULLSCREEN)
+            pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
         except:
             print("Error, display cannont support ", DisplaySize[0],
                   "x", DisplaySize[1])
