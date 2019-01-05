@@ -344,17 +344,17 @@ while not ExitBool:
     if CheckTouching() is True:
         pygame.display.update()
         pygame.time.delay(500)
-
         ClearScreen(Player)
-        Player.Reset()
+        
+        for Item in Ghosts:
+            ClearScreen(Item, True)
+            pygame.display.update()
+        del Ghosts[:]
+        GhostTimer = 0
+
         StartDisplay.blit(Player.GiveImage(),
                           CurrMap.GiveSquare(Player.Move(CurrMap))
                           .GiveRect()[0])
-
-        for Item in Ghosts:
-            ClearScreen(Item, True)
-        del Ghosts[:]
-        GhostTimer = 0
 
         if Player.TakeLife() is True:
             Menu = "Escape"

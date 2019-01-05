@@ -117,16 +117,20 @@ class PAC:
         return self.Location
 
     def TakeLife(self):
+        self.Image = self.ImageList[1]
+        self.Location = self.StartLoc
+        self.Direction = 1
+        self.Points = 0
         self.Lives -= 1
         if self.Lives < 0:
             return True
-        return False        
+        return False
 
     def Reset(self):
         self.Direction = 1
         self.Image = self.ImageList[1]
         self.Points = 0
-        self.Lives = 0
+        self.Lives = 3
         self.Location = self.StartLoc
 
     def Move(self, Map):
