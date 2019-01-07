@@ -120,7 +120,6 @@ class PAC:
         self.Image = self.ImageList[1]
         self.Location = self.StartLoc
         self.Direction = 1
-        self.Points = 0
         self.Lives -= 1
         if self.Lives < 0:
             return True

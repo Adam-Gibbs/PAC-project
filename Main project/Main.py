@@ -25,13 +25,13 @@ Menu = None
 Fullscreen = True
 ActiveFPS = False
 GhostTimer = 0
-GhostLocations = list()
 Ghosts = list()
+GhostLocations = list()
 BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
 
-StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+StartDisplay = pygame.display.set_mode(DisplaySize)  # , pygame.FULLSCREEN)
 White = (255, 255, 255)
 Blue = (0, 0, 255)
 DarkBlue = (0, 0, 55)
@@ -46,6 +46,7 @@ int(CurrMap.GiveMaxGhosts())
 
 def LoadGame():
     global Player, GhostLocations
+    GhostLocations = list()
 
     StartDisplay.fill(Black)
     for Row in range(CurrMap.GiveSize("X")):
