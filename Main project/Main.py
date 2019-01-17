@@ -1,4 +1,5 @@
 import os
+import random
 import sys
 import tkinter as tk
 from tkinter import filedialog
@@ -6,10 +7,9 @@ from tkinter import filedialog
 import pygame
 from pygame.locals import *
 
-from Entities import *
-from GeneralSubs import *
-from LoadMap import *
-from Structs import *
+from Entities import PAC, Ghost
+from GeneralSubs import Button, TextObjects
+from LoadMap import LoadMap
 
 clock = pygame.time.Clock()
 

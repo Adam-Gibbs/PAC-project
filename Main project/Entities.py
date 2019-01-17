@@ -3,9 +3,6 @@ import random
 
 import pygame
 
-from GeneralSubs import TextObjects
-from Structs import MapStruct
-
 
 class Ghost:
 
@@ -16,10 +13,12 @@ class Ghost:
 
         if os.name == 'nt':
             Fname = "\\Ghost" + str(self.ID) + ".png"
-            OriginalImage = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "\\Assets" + Fname)
+            OriginalImage = pygame.image.load
+            (os.path.dirname(os.path.realpath(__file__)) + "\\Assets" + Fname)
         else:
             Fname = "/Ghost" + str(self.ID) + ".png"
-            OriginalImage = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/Assets" + Fname)
+            OriginalImage = pygame.image.load
+            (os.path.dirname(os.path.realpath(__file__)) + "/Assets" + Fname)
 
         self.Image = pygame.transform.scale(OriginalImage, (int(SqSize[0]),
                                                             int(SqSize[1])))
@@ -90,12 +89,13 @@ class PAC:
 
         for loop in range(4):
             if os.name == 'nt':
-                OriginalImage = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "\\Assets\\" +
-                                                  "Pacman" + str(loop) + ".png"
-                                                  )
+                OriginalImage = pygame.image.load
+                (os.path.dirname(os.path.realpath(__file__)) + "\\Assets\\" +
+                    "Pacman" + str(loop) + ".png")
             else:
-                OriginalImage = pygame.image.load(os.path.dirname(os.path.realpath(__file__)) + "/Assets/Pacman"
-                                                  + str(loop) + ".png")
+                OriginalImage = pygame.image.load
+                (os.path.dirname(os.path.realpath(__file__)) + "/Assets/Pacman"
+                    + str(loop) + ".png")
             self.ImageList.append(pygame.transform.scale(OriginalImage,
                                                          (int(SqSize[0]),
                                                           int(SqSize[1]))))
