@@ -32,7 +32,7 @@ BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
 
-StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+StartDisplay = pygame.display.set_mode(DisplaySize)#, pygame.FULLSCREEN)
 White = (255, 255, 255)
 Blue = (0, 0, 255)
 DarkBlue = (0, 0, 55)
@@ -416,4 +416,4 @@ while not ExitBool:
         Player.Reset()
 
     pygame.display.update()
-    clock.tick(60)
+    clock.tick(200)
