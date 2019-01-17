@@ -13,10 +13,11 @@ from Structs import *
 
 clock = pygame.time.Clock()
 
+CurDir = os.path.dirname(os.path.realpath(__file__))
 if os.name == 'nt':
-    CurDir = "Main project\\Maps\\BaseMap1.txt"
+    CurDir += "//Maps\\BaseMap1.txt"
 else:
-    CurDir = "Main project/Maps/BaseMap1.txt"
+    CurDir += "/Maps/BaseMap1.txt"
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -31,7 +32,7 @@ BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
 
-StartDisplay = pygame.display.set_mode(DisplaySize)  # , pygame.FULLSCREEN)
+StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
 White = (255, 255, 255)
 Blue = (0, 0, 255)
 DarkBlue = (0, 0, 55)
