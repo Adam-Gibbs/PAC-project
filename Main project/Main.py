@@ -312,19 +312,15 @@ while not ExitBool:
 
             elif event.key == pygame.K_w:
                 Player.ChangeDirection(0)
-                Move = True
 
             elif event.key == pygame.K_d:
                 Player.ChangeDirection(1)
-                Move = True
 
             elif event.key == pygame.K_s:
                 Player.ChangeDirection(2)
-                Move = True
 
             elif event.key == pygame.K_a:
                 Player.ChangeDirection(3)
-                Move = True
 
     if round(pygame.time.get_ticks()/100) > current and Menu is None:
         current = round(pygame.time.get_ticks())/100+5
@@ -346,8 +342,11 @@ while not ExitBool:
 
             GhostTimer -= 1
 
-    if Move is True and Menu is None:
-        pass
+        if Menu is None:
+            ClearScreen(Player)
+            StartDisplay.blit(Player.GiveImage(),
+                              CurrMap.GiveSquare(Player.Move(CurrMap))
+                              .GiveRect()[0])
         
     if CheckTouching() is True:
         pygame.display.update()
