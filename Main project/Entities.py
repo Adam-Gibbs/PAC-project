@@ -81,6 +81,7 @@ class PAC:
         self.Image = self.ImageList[1]
         self.Points = 0
         self.Lives = 3
+        self.Invincible = False
 
     def SetImages(self, SqSize):
         self.ImageList = list()
@@ -113,6 +114,16 @@ class PAC:
     def GiveLocation(self):
         return self.Location
 
+    def GiveInvincible(self):
+        return self.Invincible
+    
+    def InvincibleTime(self):
+        seconds = (pygame.time.get_ticks()-self.InvinTime) / 1000
+        seconds = 10 - seconds
+        if seconds <= 0:
+            self.Invincible = False
+        return round(seconds)
+
     def TakeLife(self):
         self.Image = self.ImageList[1]
         self.Location = self.StartLoc
@@ -139,6 +150,10 @@ class PAC:
 
             if SetSquare.GiveContents() == "S":
                 self.Points += 1
+
+            elif SetSquare.GiveContents() == "U":
+                self.InvinTime = pygame.time.get_ticks()
+                self.Invincible = True
 
         SetSquare.ClearContents()
         return self.Location

@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import random
 import sys
@@ -23,7 +25,7 @@ pygame.init()
 clock = pygame.time.Clock()
 ExitBool = False
 Menu = None
-Fullscreen = True
+Fullscreen = False
 ActiveFPS = False
 GhostTimer = 0
 Ghosts = list()
@@ -31,6 +33,7 @@ GhostLocations = list()
 BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
+current = 0
 
 StartDisplay = pygame.display.set_mode(DisplaySize)#, pygame.FULLSCREEN)
 White = (255, 255, 255)
@@ -236,7 +239,7 @@ def SetButtons():
                         (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0],
                         (DisplaySize[1]-150)/7
                         ]
-    
+
     EscapeButtons = [Button("Change Map", White, ButtonProperties[0], 100,
                             ButtonProperties[2], ButtonProperties[1], Black,
                             DarkBlue, StartDisplay, MapSelect),
@@ -268,7 +271,7 @@ def SetButtons():
 
     ResolutionButtons = [Button("640x480", White, 20, 100, ButtonProperties[2],
                                 ButtonProperties[1], Black, DarkBlue,
-                                StartDisplay, [640, 480]),
+                                StartDisplay, [1366, 768]),
                          Button("1024x768", White, 20, 100+ButtonProperties[3],
                                 ButtonProperties[2], ButtonProperties[1],
                                 Black, DarkBlue, StartDisplay, [1024, 768]),
@@ -323,12 +326,8 @@ while not ExitBool:
                 Player.ChangeDirection(3)
                 Move = True
 
-    if Move is True and Menu is None:
-        ClearScreen(Player)
-        StartDisplay.blit(Player.GiveImage(),
-                          CurrMap.GiveSquare(Player.Move(CurrMap))
-                          .GiveRect()[0])
-
+    if round(pygame.time.get_ticks()/100) > current and Menu is None:
+        current = round(pygame.time.get_ticks())/100+5
         for Item in Ghosts:
             ClearScreen(Item, True)
             StartDisplay.blit(Item.GiveImage(),
@@ -347,6 +346,9 @@ while not ExitBool:
 
             GhostTimer -= 1
 
+    if Move is True and Menu is None:
+        pass
+        
     if CheckTouching() is True:
         pygame.display.update()
         pygame.time.delay(500)
@@ -382,9 +384,11 @@ while not ExitBool:
         StartDisplay.blit(TextSurf, TextRect)
         LoadMenu(Menu)
 
+
     if Menu is None:
         StartDisplay.fill(Black, (0, 0, 200, DisplaySize[1]))
-        ScoreFont = pygame.font.Font('freesansbold.ttf', int(DisplaySize[0]/40))
+        ScoreFont = pygame.font.Font('freesansbold.ttf',
+                                     int(DisplaySize[0]/40))
         TextSurf, TextRect = TextObjects("Score:", ScoreFont, Blue)
         TextRect.center = (100, DisplaySize[0]/10)
         StartDisplay.blit(TextSurf, TextRect)
@@ -402,6 +406,22 @@ while not ExitBool:
                                          ScoreFont, Blue)
         TextRect.center = (100, DisplaySize[0]/4)
         StartDisplay.blit(TextSurf, TextRect)
+
+        ScoreFont = pygame.font.Font('freesansbold.ttf',
+                                     int(DisplaySize[0]/40))
+        TextSurf, TextRect = TextObjects(str(len(Ghosts)),
+                                         ScoreFont, Blue)
+        TextRect.center = (100, DisplaySize[0]/3)
+        StartDisplay.blit(TextSurf, TextRect)
+
+        if Player.GiveInvincible() is True:
+            time = Player.InvincibleTime()
+            ScoreFont = pygame.font.Font('freesansbold.ttf',
+                                         int(DisplaySize[0]/40))
+            TextSurf, TextRect = TextObjects(str(time),
+                                             ScoreFont, Blue)
+            TextRect.center = (100, DisplaySize[0]/3)
+            StartDisplay.blit(TextSurf, TextRect)
 
     if ActiveFPS is True:
         FPSText = pygame.font.Font('freesansbold.ttf', 25)
