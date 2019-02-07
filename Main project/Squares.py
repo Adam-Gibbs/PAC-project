@@ -32,17 +32,17 @@ class Square:
         else:
             ChangeValue = (self.GiveWidth() / 10) * _Magnitude
 
-        if _Direction == 2:
+        if _Direction == 0:
             return ((self.Coords[0][0]+1, self.Coords[0][1]+1+ChangeValue),
                 ((self.Coords[1][0] - self.Coords[0][0])-2,
                 (self.Coords[2][1] - self.Coords[0][1])-2))
 
-        elif _Direction == 3:
+        elif _Direction == 1:
             return ((self.Coords[0][0]+1+ChangeValue, self.Coords[0][1]+1),
                 ((self.Coords[1][0] - self.Coords[0][0])-2,
                 (self.Coords[2][1] - self.Coords[0][1])-2))
 
-        elif _Direction == 0:
+        elif _Direction == 2:
             return ((self.Coords[0][0]+1, (self.Coords[0][1]+1)-ChangeValue),
                 ((self.Coords[1][0] - self.Coords[0][0])-2,
                 (self.Coords[2][1] - self.Coords[0][1])-2))
