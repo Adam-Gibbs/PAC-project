@@ -5,7 +5,7 @@ import random
 import sys
 import tkinter as tk
 from tkinter import filedialog
-
+import time
 import pygame
 from pygame.locals import *
 
@@ -352,10 +352,12 @@ while not ExitBool:
             Item.Move(CurrMap, Player, Ghosts)
 
         for DistanceIncrease in range(10):
-            if AnimateTime() is True:
-                for Item in Ghosts:
-                    Animate(Item, DistanceIncrease + 1, CurrMap)
-                Animate(Player, DistanceIncrease + 1, CurrMap)
+            #if AnimateTime() is True:
+            for Item in Ghosts:
+                Animate(Item, DistanceIncrease + 1, CurrMap)
+            Animate(Player, DistanceIncrease + 1, CurrMap)
+            pygame.display.update()
+            time.sleep(0.2)
 
         # Ghost Spawn
         if len(Ghosts) < CurrMap.GiveMaxGhosts():

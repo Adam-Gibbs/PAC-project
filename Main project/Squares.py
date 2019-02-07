@@ -28,9 +28,9 @@ class Square:
 
     def GiveModifiedRect(self, _Direction, _Magnitude):
         if _Direction % 2 == 0:
-            ChangeValue = self.GiveLength() / _Magnitude
+            ChangeValue = (self.GiveLength() / 10) * _Magnitude
         else:
-            ChangeValue = self.GiveWidth() / _Magnitude
+            ChangeValue = (self.GiveWidth() / 10) * _Magnitude
 
         if _Direction == 2:
             return ((self.Coords[0][0]+1, self.Coords[0][1]+1+ChangeValue),
