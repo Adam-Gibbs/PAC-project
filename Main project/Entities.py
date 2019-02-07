@@ -75,6 +75,7 @@ class PAC:
 
     def __init__(self, GivenLocation, SqSize):
         self.Location = GivenLocation  # map struct location [x,y]
+        self.PrevLoc = [0,0]
         self.StartLoc = GivenLocation
         self.Direction = 1
         self.SetImages(SqSize)
@@ -101,6 +102,9 @@ class PAC:
     def ChangeDirection(self, _Direction):
         self.Direction = _Direction
         self.Image = self.ImageList[self.Direction]
+
+    def AddPoints(self, _Value):
+        self.Points + _Value
 
     def GivePoints(self):
         return self.Points
@@ -141,6 +145,7 @@ class PAC:
         self.Location = self.StartLoc
 
     def Move(self, Map):
+        self.PrevLoc = self.Location
         Location, SetSquare = Map.FindNeighbour(self, self.Direction)
 
         # Checks for walls in current square direction

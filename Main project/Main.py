@@ -216,10 +216,13 @@ def ClearScreen(obj, Gh=False):
 def CheckTouching():
     for Item in Ghosts:
         if Player.GiveLocation() == Item.GiveLocation():
-            return True
+            return True, Item
     
-    return False
+    return False, None
 
+
+def Animate(Item):
+    pass
 
 def MapSelect():
     global Fullscreen, CurDir
@@ -322,10 +325,13 @@ while not ExitBool:
             elif event.key == pygame.K_a:
                 Player.ChangeDirection(3)
 
-    if round(pygame.time.get_ticks()/100) > current and Menu is None:
-        current = round(pygame.time.get_ticks())/100+5
+    if round(pygame.time.get_ticks()/10) > current and Menu is None:
+        current = round(pygame.time.get_ticks())/10+25
+        ClearScreen(Player)
         for Item in Ghosts:
             ClearScreen(Item, True)
+
+        for Item in Ghosts:
             StartDisplay.blit(Item.GiveImage(),
                               CurrMap.GiveSquare(Item.Move(CurrMap, Player,
                                                            Ghosts))
@@ -343,12 +349,12 @@ while not ExitBool:
             GhostTimer -= 1
 
         if Menu is None:
-            ClearScreen(Player)
             StartDisplay.blit(Player.GiveImage(),
                               CurrMap.GiveSquare(Player.Move(CurrMap))
                               .GiveRect()[0])
         
-    if CheckTouching() is True:
+    Touching, Interceptor = CheckTouching()
+    if Touching is True and Player.GiveInvincible() is False:
         pygame.display.update()
         pygame.time.delay(500)
         ClearScreen(Player)
@@ -368,6 +374,10 @@ while not ExitBool:
             StartDisplay.fill(Black)
             Player.Reset()
 
+    if Touching is True and Player.GiveInvincible() is True:
+        ClearScreen(Interceptor)
+        Player.AddPoints(20)
+
     for event in pygame.event.get():
         # check if the event is the X button
         if event.type == pygame.QUIT:
@@ -383,8 +393,7 @@ while not ExitBool:
         StartDisplay.blit(TextSurf, TextRect)
         LoadMenu(Menu)
 
-
-    if Menu is None:
+    if not Menu:
         StartDisplay.fill(Black, (0, 0, 200, DisplaySize[1]))
         ScoreFont = pygame.font.Font('freesansbold.ttf',
                                      int(DisplaySize[0]/40))
@@ -404,13 +413,6 @@ while not ExitBool:
         TextSurf, TextRect = TextObjects(str(Player.GiveLives()),
                                          ScoreFont, Blue)
         TextRect.center = (100, DisplaySize[0]/4)
-        StartDisplay.blit(TextSurf, TextRect)
-
-        ScoreFont = pygame.font.Font('freesansbold.ttf',
-                                     int(DisplaySize[0]/40))
-        TextSurf, TextRect = TextObjects(str(len(Ghosts)),
-                                         ScoreFont, Blue)
-        TextRect.center = (100, DisplaySize[0]/3)
         StartDisplay.blit(TextSurf, TextRect)
 
         if Player.GiveInvincible() is True:
