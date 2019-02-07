@@ -229,7 +229,7 @@ def Animate(Item, DistanceIncrease, CurrMap):
     if Item.CheckMovement() is True:
         ClearScreen(Item)
         StartDisplay.blit(Item.GiveImage(),
-                          CurrMap.GiveSquare(Item.GiveLocation()).
+                          CurrMap.GiveSquare(Item.GivePrev()).
                           GiveModifiedRect(Item.GiveDirection(),
                           DistanceIncrease))
 

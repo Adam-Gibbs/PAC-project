@@ -70,6 +70,9 @@ class Ghost:
     def GiveLocation(self):
         return self.Location
 
+    def GivePrev(self):
+        return self.Previous
+
     def GiveImage(self):
         return self.Image
 
@@ -138,6 +141,9 @@ class PAC:
 
     def GiveLocation(self):
         return self.Location
+
+    def GivePrev(self):
+        return self.Previous
 
     def ToCoverSquares(self):
         return self.Location, self.Previous
