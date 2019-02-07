@@ -7,6 +7,7 @@ import pygame
 class Ghost:
 
     def __init__(self, GivenLocation, SqSize):
+        self.Direction = 0
         self.Location = GivenLocation
         self.Previous = GivenLocation
         self.ID = random.randint(0, 9)
@@ -60,9 +61,11 @@ class Ghost:
             while Rating[rannum] != max(Rating):
                 rannum = random.randint(0, 3)
 
+            self.Direction = rannum
             self.Location, Sq = Map.FindNeighbour(self, rannum)
 
-        return self.Location
+    def ToCoverSquares(self):
+        return self.Location, self.Previous
 
     def GiveLocation(self):
         return self.Location
@@ -70,13 +73,22 @@ class Ghost:
     def GiveImage(self):
         return self.Image
 
+    def GiveDirection(self):
+        return self.Direction
+
+    def CheckMovement(self):
+        if self.Location == self.Previous:
+            return False
+        else:
+            return True
+
 
 class PAC:
 
     def __init__(self, GivenLocation, SqSize):
         self.Location = GivenLocation  # map struct location [x,y]
-        self.PrevLoc = [0,0]
-        self.StartLoc = GivenLocation
+        self.Previous = GivenLocation
+        self.Start = GivenLocation
         self.Direction = 1
         self.SetImages(SqSize)
         self.Image = self.ImageList[1]
@@ -103,6 +115,9 @@ class PAC:
         self.Direction = _Direction
         self.Image = self.ImageList[self.Direction]
 
+    def GiveDirection(self):
+        return self.Direction
+
     def AddPoints(self, _Value):
         self.Points + _Value
 
@@ -112,11 +127,20 @@ class PAC:
     def GiveLives(self):
         return self.Lives
 
+    def CheckMovement(self):
+        if self.Location == self.Previous:
+            return False
+        else:
+            return True
+
     def GiveImage(self):
         return self.Image
 
     def GiveLocation(self):
         return self.Location
+
+    def ToCoverSquares(self):
+        return self.Location, self.Previous
 
     def GiveInvincible(self):
         return self.Invincible
@@ -130,7 +154,7 @@ class PAC:
 
     def TakeLife(self):
         self.Image = self.ImageList[1]
-        self.Location = self.StartLoc
+        self.Location = self.Start
         self.Direction = 1
         self.Lives -= 1
         if self.Lives < 0:
@@ -142,10 +166,10 @@ class PAC:
         self.Image = self.ImageList[1]
         self.Points = 0
         self.Lives = 3
-        self.Location = self.StartLoc
+        self.Location = self.Start
 
     def Move(self, Map):
-        self.PrevLoc = self.Location
+        self.Previous = self.Location
         Location, SetSquare = Map.FindNeighbour(self, self.Direction)
 
         # Checks for walls in current square direction
@@ -161,4 +185,3 @@ class PAC:
                 self.Invincible = True
 
         SetSquare.ClearContents()
-        return self.Location
