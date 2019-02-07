@@ -228,6 +228,7 @@ def CheckTouching():
 def Animate(Item, DistanceIncrease, CurrMap):
     if Item.CheckMovement() is True:
         ClearScreen(Item)
+        pygame.display.update()
         StartDisplay.blit(Item.GiveImage(),
                           CurrMap.GiveSquare(Item.GivePrev()).
                           GiveModifiedRect(Item.GiveDirection(),
@@ -352,12 +353,11 @@ while not ExitBool:
             Item.Move(CurrMap, Player, Ghosts)
 
         for DistanceIncrease in range(10):
-            #if AnimateTime() is True:
-            for Item in Ghosts:
-                Animate(Item, DistanceIncrease + 1, CurrMap)
-            Animate(Player, DistanceIncrease + 1, CurrMap)
-            pygame.display.update()
-            time.sleep(0.2)
+            if AnimateTime() is True:
+                for Item in Ghosts:
+                    Animate(Item, DistanceIncrease + 1, CurrMap)
+                Animate(Player, DistanceIncrease + 1, CurrMap)
+                pygame.display.update()
 
         # Ghost Spawn
         if len(Ghosts) < CurrMap.GiveMaxGhosts():
