@@ -198,24 +198,36 @@ def ToggleResolution():
 
 
 def ClearScreen(obj):
+    if obj.GiveDirection() == 0:
+        pygame.draw.rect(StartDisplay, Black, (CurrMap.GiveSquare(obj.ToCoverSquares()[1]).GiveRect()[0], (CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[1][0], (CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[0][1] - CurrMap.GiveSquare(obj.ToCoverSquares()[1]).GiveRect()[0][1]))))
+
+    if obj.GiveDirection() == 1:
+        pygame.draw.rect(StartDisplay, Black, (CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[0], ((CurrMap.GiveSquare(obj.ToCoverSquares()[1]).GiveRect()[0][0] - CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[0][0]), CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[1][1])))
+
+    if obj.GiveDirection() == 2:
+        pygame.draw.rect(StartDisplay, Black, (CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[0], (CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[1][0], (CurrMap.GiveSquare(obj.ToCoverSquares()[1]).GiveRect()[0][1] - CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[0][1]))))
+
+    if obj.GiveDirection() == 3:
+        pygame.draw.rect(StartDisplay, Black, (CurrMap.GiveSquare(obj.ToCoverSquares()[1]).GiveRect()[0], ((CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[0][0] - CurrMap.GiveSquare(obj.ToCoverSquares()[1]).GiveRect()[0][0]), CurrMap.GiveSquare(obj.ToCoverSquares()[0]).GiveRect()[1][1])))
+
     for Coord in obj.ToCoverSquares():
         pygame.draw.rect(StartDisplay, Black,
-                        CurrMap.GiveSquare(Coord).GiveRect())
+                         CurrMap.GiveSquare(Coord).GiveRect())
 
         if type(obj) is Ghost:
             if CurrMap.GiveSquare(Coord).GiveContents() == "S":
                 pygame.draw.circle(StartDisplay, Yellow, CurrMap.
-                                GiveSquare(Coord).GiveCentre(), 3)
+                                   GiveSquare(Coord).GiveCentre(), 3)
 
             elif CurrMap.GiveSquare(Coord).GiveContents() == "U":
                 pygame.draw.circle(StartDisplay, Red,
-                                CurrMap.GiveSquare(Coord).
-                                GiveCentre(), 6)
+                                   CurrMap.GiveSquare(Coord).
+                                   GiveCentre(), 6)
 
             elif CurrMap.GiveSquare(Coord).GiveContents() == "G":
                 pygame.draw.rect(StartDisplay, DarkRed,
-                                CurrMap.GiveSquare(Coord)
-                                .GiveRect())
+                                 CurrMap.GiveSquare(Coord)
+                                 .GiveRect())
 
 
 def CheckTouching():
