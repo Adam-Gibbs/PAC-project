@@ -34,8 +34,9 @@ BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
 PreviousTime = 0
-IntervalTime = 1
+IntervalTime = 100
 PastAniTime = 0
+DistanceIncrease = 10
 
 
 StartDisplay = pygame.display.set_mode(DisplaySize)#, pygame.FULLSCREEN)
@@ -144,7 +145,7 @@ def Return():
     CurrMap = LoadMap(CurDir, DisplaySize)
     Menu = None
     for Item in Ghosts:
-        ClearScreen(Item, True)
+        ClearScreen(Item)
         pygame.display.update()
     del Ghosts[:]
     GhostTimer = 0
@@ -329,6 +330,17 @@ LoadGame()
 
 while not ExitBool:
     Move = False
+    
+    if DistanceIncrease < 10 and round(pygame.time.get_ticks()) > (PreviousTime + ((IntervalTime/9)*DistanceIncrease)):
+        ClearScreen(Player)
+        for Item in Ghosts:
+            ClearScreen(Item)
+
+        for Item in Ghosts:
+            Animate(Item, DistanceIncrease + 1, CurrMap)
+        Animate(Player, DistanceIncrease + 1, CurrMap)
+        pygame.display.update()
+        DistanceIncrease += 1
 
     for event in pygame.event.get():
         if event.type == pygame.KEYUP:
@@ -348,22 +360,13 @@ while not ExitBool:
             elif event.key == pygame.K_a:
                 Player.ChangeDirection(3)
 
-    if round(pygame.time.get_ticks()) > PreviousTime + IntervalTime and Menu is None:
+    if round(pygame.time.get_ticks()) > (PreviousTime + IntervalTime) and Menu is None:
         PreviousTime = round(pygame.time.get_ticks())
         Player.Move(CurrMap)
         for Item in Ghosts:
             Item.Move(CurrMap, Player, Ghosts)
 
-        for DistanceIncrease in range(10):
-            ClearScreen(Player)
-            for Item in Ghosts:
-                ClearScreen(Item)
-
-            for Item in Ghosts:
-                Animate(Item, DistanceIncrease + 1, CurrMap)
-            Animate(Player, DistanceIncrease + 1, CurrMap)
-            pygame.display.update()
-            pygame.time.wait(20)
+        DistanceIncrease = 1
 
         # Ghost Spawn
         if len(Ghosts) < CurrMap.GiveMaxGhosts():
