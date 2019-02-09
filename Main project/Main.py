@@ -231,6 +231,10 @@ def Animate(Item, DistanceIncrease, CurrMap):
                           CurrMap.GiveSquare(Item.GivePrev()).
                           GiveModifiedRect(Item.GiveDirection(),
                           DistanceIncrease))
+    else:
+        StartDisplay.blit(Item.GiveImage(),
+                          CurrMap.GiveSquare(Item.GiveLocation()).
+                          GiveRect())
 
 
 def AnimateTime():
@@ -238,7 +242,7 @@ def AnimateTime():
     if round(pygame.time.get_ticks()) > PastAniTime + (IntervalTime/10):
         PastAniTime = round(pygame.time.get_ticks())
         return True
-    
+
     else:
         return False
 
