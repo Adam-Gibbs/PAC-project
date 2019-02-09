@@ -1,6 +1,5 @@
 import numpy
 from Squares import Square
-from GeneralSubs import Button
 
 
 class MapStruct:
@@ -59,5 +58,5 @@ class MapStruct:
                 return [Location[0]-1, Location[1]], self.Array[Location[0]-1][Location[1]]
 
         except:
-            return [Location[0], Location[1]], self.Array[Location[0]][Location[1]]
             print("except")
+            return [Location[0], Location[1]], self.Array[Location[0]][Location[1]]            

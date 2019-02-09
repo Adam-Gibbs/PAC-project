@@ -4,12 +4,12 @@ class Square:
     def __init__(self, LocationTopLeft, LocationBottomRight,
                  LocationWalls, Contents):
         # LocationTopLeft/BottomRight = [x,y], LocationWalls = [12,3,6,9]
-        self.SetCoords(LocationBottomRight, LocationTopLeft)
+        self._SetCoords(LocationBottomRight, LocationTopLeft)
         self.Walls = LocationWalls
         self.Content = Contents
 
     # priv
-    def SetCoords(self, BottomRight, TopLeft):
+    def _SetCoords(self, BottomRight, TopLeft):
         TopRight = list()
         TopRight.append(BottomRight[0])
         TopRight.append(TopLeft[1])
@@ -23,6 +23,32 @@ class Square:
 
     def GiveRect(self):
         return ((self.Coords[0][0]+1, self.Coords[0][1]+1),
+                ((self.Coords[1][0] - self.Coords[0][0])-2,
+                (self.Coords[2][1] - self.Coords[0][1])-2))
+
+    def GiveModifiedRect(self, _Direction, _Magnitude):
+        if _Direction % 2 == 0:
+            ChangeValue = (self.GiveLength() / 10) * _Magnitude
+        else:
+            ChangeValue = (self.GiveWidth() / 10) * _Magnitude
+
+        if _Direction == 0:
+            return ((self.Coords[0][0]+1, self.Coords[0][1]+1+ChangeValue),
+                ((self.Coords[1][0] - self.Coords[0][0])-2,
+                (self.Coords[2][1] - self.Coords[0][1])-2))
+
+        elif _Direction == 1:
+            return ((self.Coords[0][0]+1+ChangeValue, self.Coords[0][1]+1),
+                ((self.Coords[1][0] - self.Coords[0][0])-2,
+                (self.Coords[2][1] - self.Coords[0][1])-2))
+
+        elif _Direction == 2:
+            return ((self.Coords[0][0]+1, (self.Coords[0][1]+1)-ChangeValue),
+                ((self.Coords[1][0] - self.Coords[0][0])-2,
+                (self.Coords[2][1] - self.Coords[0][1])-2))
+
+        else:
+            return (((self.Coords[0][0]+1)-ChangeValue, self.Coords[0][1]+1),
                 ((self.Coords[1][0] - self.Coords[0][0])-2,
                 (self.Coords[2][1] - self.Coords[0][1])-2))
 

@@ -1,37 +1,44 @@
+#!/usr/bin/python3
+
 import os
+import random
 import sys
 import tkinter as tk
 from tkinter import filedialog
-
+import time
 import pygame
 from pygame.locals import *
 
-from Entities import *
-from GeneralSubs import *
-from LoadMap import *
-from Structs import *
+from Entities import PAC, Ghost
+from GeneralSubs import Button, TextObjects
+from LoadMap import LoadMap
 
 clock = pygame.time.Clock()
 
+CurDir = os.path.dirname(os.path.realpath(__file__))
 if os.name == 'nt':
-    CurDir = "Main project\\Maps\\BaseMap1.txt"
+    CurDir += "//Maps\\BaseMap1.txt"
 else:
-    CurDir = "Main project/Maps/BaseMap1.txt"
+    CurDir += "/Maps/BaseMap1.txt"
 
 pygame.init()
 clock = pygame.time.Clock()
 ExitBool = False
 Menu = None
-Fullscreen = True
+Fullscreen = False
 ActiveFPS = False
 GhostTimer = 0
-GhostLocations = list()
 Ghosts = list()
+GhostLocations = list()
 BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
+PreviousTime = 0
+IntervalTime = 1
+PastAniTime = 0
 
-StartDisplay = pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
+
+StartDisplay = pygame.display.set_mode(DisplaySize)#, pygame.FULLSCREEN)
 White = (255, 255, 255)
 Blue = (0, 0, 255)
 DarkBlue = (0, 0, 55)
@@ -46,6 +53,7 @@ int(CurrMap.GiveMaxGhosts())
 
 def LoadGame():
     global Player, GhostLocations
+    GhostLocations = list()
 
     StartDisplay.fill(Black)
     for Row in range(CurrMap.GiveSize("X")):
@@ -166,7 +174,7 @@ def SetResolution(Res):
         pygame.display.set_mode(DisplaySize)
     else:
         try:
-            pygame.display.set_mode(DisplaySize)  # , pygame.FULLSCREEN)
+            pygame.display.set_mode(DisplaySize, pygame.FULLSCREEN)
         except:
             print("Error, display cannont support ", DisplaySize[0],
                   "x", DisplaySize[1])
@@ -188,32 +196,51 @@ def ToggleResolution():
     HideSubMenu()
 
 
-def ClearScreen(obj, Gh=False):
-    pygame.draw.rect(StartDisplay, Black,
-                     CurrMap.GiveSquare(obj.GiveLocation()).GiveRect())
+def ClearScreen(obj):
+    for Coord in obj.ToCoverSquares():
+        pygame.draw.rect(StartDisplay, Black,
+                        CurrMap.GiveSquare(Coord).GiveRect())
 
-    if Gh is True:
-        if CurrMap.GiveSquare(obj.GiveLocation()).GiveContents() == "S":
-            pygame.draw.circle(StartDisplay, Yellow, CurrMap.
-                               GiveSquare(obj.GiveLocation()).GiveCentre(), 3)
+        if type(obj) is Ghost:
+            if CurrMap.GiveSquare(Coord).GiveContents() == "S":
+                pygame.draw.circle(StartDisplay, Yellow, CurrMap.
+                                GiveSquare(Coord).GiveCentre(), 3)
 
-        elif CurrMap.GiveSquare(obj.GiveLocation()).GiveContents() == "U":
-            pygame.draw.circle(StartDisplay, Red,
-                               CurrMap.GiveSquare(obj.GiveLocation()).
-                               GiveCentre(), 6)
+            elif CurrMap.GiveSquare(Coord).GiveContents() == "U":
+                pygame.draw.circle(StartDisplay, Red,
+                                CurrMap.GiveSquare(Coord).
+                                GiveCentre(), 6)
 
-        elif CurrMap.GiveSquare(obj.GiveLocation()).GiveContents() == "G":
-            pygame.draw.rect(StartDisplay, DarkRed,
-                             CurrMap.GiveSquare(obj.GiveLocation())
-                             .GiveRect())
+            elif CurrMap.GiveSquare(Coord).GiveContents() == "G":
+                pygame.draw.rect(StartDisplay, DarkRed,
+                                CurrMap.GiveSquare(Coord)
+                                .GiveRect())
 
 
 def CheckTouching():
     for Item in Ghosts:
         if Player.GiveLocation() == Item.GiveLocation():
-            return True
+            return True, Item
     
-    return False
+    return False, None
+
+
+def Animate(Item, DistanceIncrease, CurrMap):
+    if Item.CheckMovement() is True:
+        StartDisplay.blit(Item.GiveImage(),
+                          CurrMap.GiveSquare(Item.GivePrev()).
+                          GiveModifiedRect(Item.GiveDirection(),
+                          DistanceIncrease))
+
+
+def AnimateTime():
+    global PastAniTime
+    if round(pygame.time.get_ticks()) > PastAniTime + (IntervalTime/10):
+        PastAniTime = round(pygame.time.get_ticks())
+        return True
+    
+    else:
+        return False
 
 
 def MapSelect():
@@ -234,7 +261,7 @@ def SetButtons():
                         (2/3)*((DisplaySize[1]-150)/7), 0.3*DisplaySize[0],
                         (DisplaySize[1]-150)/7
                         ]
-    
+
     EscapeButtons = [Button("Change Map", White, ButtonProperties[0], 100,
                             ButtonProperties[2], ButtonProperties[1], Black,
                             DarkBlue, StartDisplay, MapSelect),
@@ -266,7 +293,7 @@ def SetButtons():
 
     ResolutionButtons = [Button("640x480", White, 20, 100, ButtonProperties[2],
                                 ButtonProperties[1], Black, DarkBlue,
-                                StartDisplay, [640, 480]),
+                                StartDisplay, [1366, 768]),
                          Button("1024x768", White, 20, 100+ButtonProperties[3],
                                 ButtonProperties[2], ButtonProperties[1],
                                 Black, DarkBlue, StartDisplay, [1024, 768]),
@@ -307,28 +334,34 @@ while not ExitBool:
 
             elif event.key == pygame.K_w:
                 Player.ChangeDirection(0)
-                Move = True
 
             elif event.key == pygame.K_d:
                 Player.ChangeDirection(1)
-                Move = True
 
             elif event.key == pygame.K_s:
                 Player.ChangeDirection(2)
-                Move = True
 
             elif event.key == pygame.K_a:
                 Player.ChangeDirection(3)
-                Move = True
 
-    if Move is True and Menu is None:
+    if round(pygame.time.get_ticks()) > PreviousTime + IntervalTime and Menu is None:
+        PreviousTime = round(pygame.time.get_ticks())
+        Player.Move(CurrMap)
         for Item in Ghosts:
-            ClearScreen(Item, True)
-            StartDisplay.blit(Item.GiveImage(),
-                              CurrMap.GiveSquare(Item.Move(CurrMap, Player,
-                                                           Ghosts))
-                              .GiveRect()[0])
+            Item.Move(CurrMap, Player, Ghosts)
 
+        for DistanceIncrease in range(10):
+            ClearScreen(Player)
+            for Item in Ghosts:
+                ClearScreen(Item)
+
+            for Item in Ghosts:
+                Animate(Item, DistanceIncrease + 1, CurrMap)
+            Animate(Player, DistanceIncrease + 1, CurrMap)
+            pygame.display.update()
+            pygame.time.wait(20)
+
+        # Ghost Spawn
         if len(Ghosts) < CurrMap.GiveMaxGhosts():
             if GhostTimer == 0:
                 GhostTimer = random.randint(3, 7)
@@ -337,33 +370,32 @@ while not ExitBool:
                 StartDisplay.blit(Ghosts[-1].GiveImage(),
                                   CurrMap.GiveSquare(Ghosts[-1].GiveLocation())
                                   .GiveRect()[0])
-
             GhostTimer -= 1
 
-        ClearScreen(Player)
-        StartDisplay.blit(Player.GiveImage(),
-                          CurrMap.GiveSquare(Player.Move(CurrMap))
-                          .GiveRect()[0])
-
-    if CheckTouching() is True:
+    Touching, Interceptor = CheckTouching()
+    if Touching is True and Player.GiveInvincible() is False:
         pygame.display.update()
         pygame.time.delay(500)
         ClearScreen(Player)
-        
+
         for Item in Ghosts:
-            ClearScreen(Item, True)
+            ClearScreen(Item)
             pygame.display.update()
         del Ghosts[:]
         GhostTimer = 0
 
         StartDisplay.blit(Player.GiveImage(),
-                          CurrMap.GiveSquare(Player.Move(CurrMap))
+                          CurrMap.GiveSquare(Player.GiveLocation())
                           .GiveRect()[0])
 
         if Player.TakeLife() is True:
             Menu = "Escape"
             StartDisplay.fill(Black)
             Player.Reset()
+
+    if Touching is True and Player.GiveInvincible() is True:
+        ClearScreen(Interceptor)
+        Player.AddPoints(1)
 
     for event in pygame.event.get():
         # check if the event is the X button
@@ -380,9 +412,10 @@ while not ExitBool:
         StartDisplay.blit(TextSurf, TextRect)
         LoadMenu(Menu)
 
-    if Menu is None:
+    if not Menu:
         StartDisplay.fill(Black, (0, 0, 200, DisplaySize[1]))
-        ScoreFont = pygame.font.Font('freesansbold.ttf', int(DisplaySize[0]/40))
+        ScoreFont = pygame.font.Font('freesansbold.ttf',
+                                     int(DisplaySize[0]/40))
         TextSurf, TextRect = TextObjects("Score:", ScoreFont, Blue)
         TextRect.center = (100, DisplaySize[0]/10)
         StartDisplay.blit(TextSurf, TextRect)
@@ -401,6 +434,15 @@ while not ExitBool:
         TextRect.center = (100, DisplaySize[0]/4)
         StartDisplay.blit(TextSurf, TextRect)
 
+        if Player.GiveInvincible() is True:
+            time = Player.InvincibleTime()
+            ScoreFont = pygame.font.Font('freesansbold.ttf',
+                                         int(DisplaySize[0]/40))
+            TextSurf, TextRect = TextObjects(str(time),
+                                             ScoreFont, Blue)
+            TextRect.center = (100, DisplaySize[0]/3)
+            StartDisplay.blit(TextSurf, TextRect)
+
     if ActiveFPS is True:
         FPSText = pygame.font.Font('freesansbold.ttf', 25)
         TextSurf, TextRect = TextObjects(str(round(clock.get_fps(), 1)),
@@ -414,4 +456,4 @@ while not ExitBool:
         Player.Reset()
 
     pygame.display.update()
-    clock.tick(60)
+    clock.tick(200)
