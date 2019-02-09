@@ -34,7 +34,7 @@ BaseW, BaseH = pygame.display.Info().current_w, pygame.display.Info().current_h
 DisplaySize = [BaseW, BaseH]
 CurrMap = LoadMap(CurDir, DisplaySize)
 PreviousTime = 0
-IntervalTime = 1000
+IntervalTime = 1
 PastAniTime = 0
 
 
@@ -199,22 +199,22 @@ def ToggleResolution():
 def ClearScreen(obj):
     for Coord in obj.ToCoverSquares():
         pygame.draw.rect(StartDisplay, Black,
-                         CurrMap.GiveSquare(Coord).GiveRect())
+                        CurrMap.GiveSquare(Coord).GiveRect())
 
         if type(obj) is Ghost:
             if CurrMap.GiveSquare(Coord).GiveContents() == "S":
                 pygame.draw.circle(StartDisplay, Yellow, CurrMap.
-                                   GiveSquare(Coord).GiveCentre(), 3)
+                                GiveSquare(Coord).GiveCentre(), 3)
 
             elif CurrMap.GiveSquare(Coord).GiveContents() == "U":
                 pygame.draw.circle(StartDisplay, Red,
-                                   CurrMap.GiveSquare(Coord).
-                                   GiveCentre(), 6)
+                                CurrMap.GiveSquare(Coord).
+                                GiveCentre(), 6)
 
             elif CurrMap.GiveSquare(Coord).GiveContents() == "G":
                 pygame.draw.rect(StartDisplay, DarkRed,
-                                 CurrMap.GiveSquare(Coord)
-                                 .GiveRect())
+                                CurrMap.GiveSquare(Coord)
+                                .GiveRect())
 
 
 def CheckTouching():
@@ -227,8 +227,6 @@ def CheckTouching():
 
 def Animate(Item, DistanceIncrease, CurrMap):
     if Item.CheckMovement() is True:
-        ClearScreen(Item)
-        pygame.display.update()
         StartDisplay.blit(Item.GiveImage(),
                           CurrMap.GiveSquare(Item.GivePrev()).
                           GiveModifiedRect(Item.GiveDirection(),
@@ -353,11 +351,15 @@ while not ExitBool:
             Item.Move(CurrMap, Player, Ghosts)
 
         for DistanceIncrease in range(10):
-            if AnimateTime() is True:
-                for Item in Ghosts:
-                    Animate(Item, DistanceIncrease + 1, CurrMap)
-                Animate(Player, DistanceIncrease + 1, CurrMap)
-                pygame.display.update()
+            ClearScreen(Player)
+            for Item in Ghosts:
+                ClearScreen(Item)
+
+            for Item in Ghosts:
+                Animate(Item, DistanceIncrease + 1, CurrMap)
+            Animate(Player, DistanceIncrease + 1, CurrMap)
+            pygame.display.update()
+            pygame.time.wait(20)
 
         # Ghost Spawn
         if len(Ghosts) < CurrMap.GiveMaxGhosts():
@@ -377,13 +379,13 @@ while not ExitBool:
         ClearScreen(Player)
 
         for Item in Ghosts:
-            ClearScreen(Item, True)
+            ClearScreen(Item)
             pygame.display.update()
         del Ghosts[:]
         GhostTimer = 0
 
         StartDisplay.blit(Player.GiveImage(),
-                          CurrMap.GiveSquare(Player.Move(CurrMap))
+                          CurrMap.GiveSquare(Player.GiveLocation())
                           .GiveRect()[0])
 
         if Player.TakeLife() is True:
@@ -393,7 +395,7 @@ while not ExitBool:
 
     if Touching is True and Player.GiveInvincible() is True:
         ClearScreen(Interceptor)
-        Player.AddPoints(20)
+        Player.AddPoints(1)
 
     for event in pygame.event.get():
         # check if the event is the X button

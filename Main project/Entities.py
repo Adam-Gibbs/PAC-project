@@ -92,7 +92,7 @@ class PAC:
         self.Location = GivenLocation  # map struct location [x,y]
         self.Previous = GivenLocation
         self.Start = GivenLocation
-        self.Direction = 3
+        self.Direction = 1
         self.SetImages(SqSize)
         self.Image = self.ImageList[1]
         self.Points = 0
