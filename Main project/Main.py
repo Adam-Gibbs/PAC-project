@@ -342,8 +342,8 @@ LoadGame()
 
 while not ExitBool:
     Move = False
-    
-    if DistanceIncrease < 10 and round(pygame.time.get_ticks()) > (PreviousTime + ((IntervalTime/9)*DistanceIncrease)):
+
+    if Menu is None and DistanceIncrease < 10 and round(pygame.time.get_ticks()) > (PreviousTime + ((IntervalTime/9)*DistanceIncrease)):
         ClearScreen(Player)
         for Item in Ghosts:
             ClearScreen(Item)
